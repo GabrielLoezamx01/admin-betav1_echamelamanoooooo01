@@ -1,50 +1,75 @@
-@extends('site.layouts.master')
+@extends('layouts.app')
+
 @section('content')
-<div id="vue">
-    @{{apiResponse}}
-    <div class="uk-container uk-padding-small ">
-        <div class="uk-column-1">
-            <div class="uk-margin uk-card uk-card-default uk-card-body">
-                <legend class="uk-legend">Nueva Publicacion</legend>
-                <textarea class="uk-textarea" rows="5"></textarea>
-                <button class="uk-button uk-button-default uk-margin-top">Publicar</button>
+{{-- FALTA METODO DE BUSQUEDA EN LA TABLA --}}
+    <div class="row" id="vue">
+        @{{apiResponse}}
+        <hr>
+        @{{apiResponse2}}
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="p-2">
+                        <button class="btn btn-success" @click="modal(true)">Nuevo</button>
+                    </div>
+                    <div class="text-center">
+                        <h5>Lista Sub Categoria</h5>
+                    </div>
+                </div>
+                <div class="card-container table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="index in apiResponse">
+                                <td>@{{ index.sub_name }}</td>
+                                <td>
+                                    <button class="btn btn-info"><i class="fas fa-edit"
+                                            @click="show_item(index.id_sub)"></i></button>
+                                    <button class="btn btn-danger" @click="delete_item(index.id_sub)"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                        <button type="button"  @click="close_modal()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="" class="mt-2">Nombre</label>
+                        <input type="name" v-model="name" class="form-control mt-2" placeholder="Nombre">
+                        <label for="" class="mt-2">Categoria</label>
+                        <select v-model="select" class="form-control mt-2" id="sele">
+                            <option v-for="sele in apiResponse2" :value="sele.cat_uuid">@{{sele.cat_name}}</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary text-center" data-bs-dismiss="modal" v-if="save == true"
+                        @click="save_item()">Ok</button>
+                    <button type="button" class="btn btn-primary text-center" data-bs-dismiss="modal" v-if="edit == true"
+                        @click="update_item()">Actualizar</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
-    <div v-for="post in apiResponse">
-        <div class="uk-container uk-padding-small ">
-            <article class="uk-comment uk-comment-primary" role="comment">
-                <header class="uk-comment-header">
-                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
-                        </div>
-                        <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">@{{post.name}} @{{post.last_name}}</a></h4>
-                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                <li><a href="#">@{{post.date}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </header>
-                <div class="uk-comment-body">
-                    <p>@{{post.content}} </p>
-                </div>
-                <footer>
-                    <button class="uk-button uk-button-default uk-margin-top">Comentar</button>
-                    <button class="uk-button uk-button-secondary uk-margin-top">Me interesa</button>
-                </footer>
-            </article>
-        </div>
-    </div>
-    <button>Agregar a favorito</button>
-</div>
-
 @endsection
 @push('child-scripts')
     <script>
-        var api = 'Api_publications';
+        var api = 'Api_subCategory';
+        var api2 = 'Api_category';
         {
             new Vue({
                 el: '#vue',
@@ -56,7 +81,9 @@
                 data: {
                     counter: 0,
                     apiResponse: [],
+                    apiResponse2: [],
                     conectadi: 'VUE JS',
+                    select:{},
                     name: '',
                     save: true,
                     edit: false,
@@ -69,6 +96,9 @@
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
                             this.apiResponse = response.body
+                        });
+                        this.$http.get(api2).then(function(response) {
+                            this.apiResponse2 = response.body
                         });
                     },
                     generate_uuid: function() {
@@ -109,22 +139,25 @@
                         this.modal(true);
                         this.$http.get(api + '/' + uuid)
                             .then(function(json) {
-                                this.name = json.data.cat_name;
-                                this.uuid = json.data.cat_uuid
+                                console.log(json);
+                                this.name = json.data.sub_name;
+                                this.uuid = json.data.id_sub
                             });
                     },
                     update_item: function() {
-                        if (!this.uuid == '' && !this.name == '') {
+                        if (!this.select == '' && !this.name == '') {
                             var data = {
-                                cat_name: this.name,
+                                sub_name: this.name,
+                                id_category: this.select,
                             };
                             this.$http.patch(api + '/' + this.uuid, data)
                                 .then(function(json) {
-                                    if (json.status == 200) {
-                                        this.getSHOW();
-                                        this.close_modal();
-                                        this.success_alert();
-                                    }
+                                    console.log(json);
+                                    // if (json.status == 200) {
+                                    //     this.getSHOW();
+                                    //     this.close_modal();
+                                    //     this.success_alert();
+                                    // }
                                 });
                         }
                     },

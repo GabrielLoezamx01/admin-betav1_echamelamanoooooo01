@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\UsuariosController;
-
+use App\Http\Controllers\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,9 @@ Route::view('page', 'admin.page');
 */
 Route::view('lista_categorias', 'admin.category.lista');
 Route::resource('Api_category', CategoriasController::class);
+Route::view('sub_categorias','admin.category.sub');
+Route::resource('Api_subCategory', SubCategoryController::class);
+
 // Route::get('categorias', function () {
 //     return view('admin.category.index');
 // });
@@ -33,4 +36,3 @@ Route::resource('Api_category', CategoriasController::class);
 */
 Route::resource('Api_users', UsuariosController::class);
 Route::view('lista_usuarios', 'admin.usuarios.lista');
-
