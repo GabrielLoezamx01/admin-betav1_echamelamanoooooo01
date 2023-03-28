@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`comments_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla echamelamano.comments: 0 rows
+-- Volcando datos para la tabla echamelamano.comments: 2 rows
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 INSERT INTO `comments` (`comments_id`, `publications_id`, `id`, `content`, `id_user_comments`, `reactions`, `date`) VALUES
 	(1, 7, 12, 'dmkdñfjmkdlñnmja', '2', 10, '2023-03-27 23:05:09'),
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `publications` (
   PRIMARY KEY (`publications_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla echamelamano.publications: 2 rows
+-- Volcando datos para la tabla echamelamano.publications: 7 rows
 /*!40000 ALTER TABLE `publications` DISABLE KEYS */;
 INSERT INTO `publications` (`publications_id`, `status`, `content`, `reactions`, `id_user`, `date`, `uuid`) VALUES
 	(1, 1, 'mI PRIMERA PUBLICACIONE', 10, '1', '2023-02-09 22:36:54', 'wewe'),
