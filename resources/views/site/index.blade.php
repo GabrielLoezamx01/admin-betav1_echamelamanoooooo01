@@ -1,51 +1,53 @@
 @extends('site.layouts.master')
 @section('content')
-<div id="vue">
-    @{{apiResponse}}
-    <div class="uk-container uk-padding-small ">
-        <div class="uk-column-1">
-            <div class="uk-margin uk-card uk-card-default uk-card-body">
-                <legend class="uk-legend">Nueva Publicacion</legend>
-                <textarea class="uk-textarea" rows="5"></textarea>
-                <button class="uk-button uk-button-default uk-margin-top">Publicar</button>
+    <div id="vue">
+        <div class="uk-container uk-padding-small ">
+            <div class="uk-column-1">
+                <div class="uk-margin uk-card uk-card-default uk-card-body">
+                    <legend class="uk-legend">Nueva Publicacion</legend>
+                    <textarea class="uk-textarea" rows="5" v-model="newPost"></textarea>
+                    <button class="uk-button uk-button-default uk-margin-top" @click="postnew()">Publicar</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
-    <div v-for="post in apiResponse">
-        <div class="uk-container uk-padding-small ">
-            <article class="uk-comment uk-comment-primary" role="comment">
-                <header class="uk-comment-header">
-                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
+        <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
+        <div v-for="post in apiResponse">
+            <div class="uk-container uk-padding-small ">
+                <article class="uk-comment uk-comment-primary" role="comment">
+                    <header class="uk-comment-header">
+                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg"
+                                    width="80" height="80" alt="">
+                            </div>
+                            <div class="uk-width-expand">
+                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
+                                        href="#">@{{ post.name }} @{{ post.last_name }}</a></h4>
+                                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                    <li><a href="#">@{{ post.date }}</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">@{{post.name}} @{{post.last_name}}</a></h4>
-                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                <li><a href="#">@{{post.date}}</a></li>
-                            </ul>
-                        </div>
+                    </header>
+                    <div class="uk-comment-body">
+                        <p>@{{ post.content }} </p>
                     </div>
-                </header>
-                <div class="uk-comment-body">
-                    <p>@{{post.content}} </p>
-                </div>
-                <footer>
-                    <button class="uk-button uk-button-default uk-margin-top">Comentar</button>
-                    <button class="uk-button uk-button-secondary uk-margin-top">Me interesa</button>
-                </footer>
-            </article>
+                    <div v-if="divcomment == true">
+                        Lorem ipsum dolor sit amet.
+                    </div>
+                    <footer>
+                        <button class="uk-button uk-button-default uk-margin-top" @click="coment(post.publications_id)"   >Comentar</button>
+                        <button class="uk-button uk-button-secondary uk-margin-top" >Me interesa</button>
+                    </footer>
+                </article>
+            </div>
         </div>
+        <button>Agregar a favorito</button>
     </div>
-    <button>Agregar a favorito</button>
-</div>
-
 @endsection
 @push('child-scripts')
     <script>
-        var api = 'Api_publications';
-        {
+        var api = 'Api_publications'; {
             new Vue({
                 el: '#vue',
                 http: {
@@ -60,7 +62,9 @@
                     name: '',
                     save: true,
                     edit: false,
-                    uuid: ''
+                    uuid: '',
+                    newPost: '',
+                    divcomment: false
                 },
                 created: function() {
                     this.getSHOW();
@@ -153,17 +157,38 @@
                                 }
                             });
                     },
-                    success_alert: function(){
+                    success_alert: function() {
                         swal({
-                                        title: "Good job!",
-                                        text: "You clicked the button!",
-                                        icon: "success",
-                                        button: "Aww yiss!",
-                                    });
+                            title: "Good job!",
+                            text: "You clicked the button!",
+                            icon: "success",
+                            button: "Aww yiss!",
+                        });
                     },
-                    close_modal:function(){
+                    close_modal: function() {
                         $('#modal').modal('hide');
                         this.name = '';
+                    },
+                    postnew: function() {
+                        if (this.newPost == "") {
+                            alert('No puede estar vacio la publicacion');
+                        } else {
+                            var data = {
+                                'content': this.newPost,
+                                'uuid': this.generate_uuid()
+                            };
+                            this.$http.post(api, data)
+                                .then(function(json) {
+                                    this.newPost = '';
+                                    this.getSHOW();
+                                });
+                        }
+                    },
+                    coment: function (id){
+                        this.$http.get(api + '/' + id)
+                            .then(function(json) {
+                                console.log(json.data);
+                            });
                     }
                 },
                 computed: {}
