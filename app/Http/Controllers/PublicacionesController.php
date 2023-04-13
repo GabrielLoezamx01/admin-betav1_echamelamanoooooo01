@@ -5,7 +5,7 @@ use App\Models\Publications;
 use Throwable;
 use Psy\Util\Str;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 class PublicacionesController extends Controller
 {
     /**
@@ -16,7 +16,8 @@ class PublicacionesController extends Controller
     public function index()
     {
         return Publications::where('status','1')
-        ->join('clients','publications.id_user','=','clients.id')
+        ->join('clients','publications.id_user','=','clients.uuid')
+        ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo')
         // ->join('clients','publications.id_user','=','clients.id')
         ->orderBy('date','DESC')->get();
     }
@@ -30,12 +31,11 @@ class PublicacionesController extends Controller
     public function store(Request $request)
     {
         try {
-            $id_user        = 1;
             $insert         = [
                 'content'   => $request->content,
                 'status'    => 1,
                 'reactions' => 0,
-                'id_user'   => $id_user,
+                'id_user'   => session('uuid'),
                 'date'      => date('Y-m-d H:i:s'),
                 'uuid'      => $request->uuid
             ];
@@ -57,7 +57,7 @@ class PublicacionesController extends Controller
             $comments      = DB::table('comments')->where('publications_id',$id)->get();
             $publicaciones =  Publications::where('publications_id',$id)->first();
             return [
-                'comments' => $comments,
+                'comments'    => $comments,
                 'publication' => $publicaciones,
             ];
         } catch (Throwable $e) {
