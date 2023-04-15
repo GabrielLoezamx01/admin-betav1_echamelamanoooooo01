@@ -43,25 +43,28 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `uuid` varchar(50) NOT NULL DEFAULT '',
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL DEFAULT '',
-  `phone` varchar(13) NOT NULL,
+  `phone` varchar(13) NOT NULL DEFAULT '',
   `andress` varchar(100) NOT NULL DEFAULT '',
-  `description` varchar(150) DEFAULT NULL,
-  `validate` varchar(1) DEFAULT NULL,
-  `id_category` varchar(90) DEFAULT NULL,
-  `photo` varchar(50) DEFAULT NULL,
-  `rang` varchar(1) DEFAULT NULL,
+  `description` varchar(150) DEFAULT '',
+  `validate` varchar(1) DEFAULT '',
+  `id_category` varchar(90) DEFAULT '',
+  `photo` varchar(50) DEFAULT '',
+  `rang` varchar(1) DEFAULT '',
   `active` int(1) DEFAULT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT '',
+  `last_name` varchar(50) DEFAULT '',
   `suscription` int(11) DEFAULT NULL,
+  `password` varchar(200) DEFAULT '',
+  `_token` varchar(200) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `FK__category` (`id_category`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla echamelamano.clients: 1 rows
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` (`uuid`, `id`, `email`, `phone`, `andress`, `description`, `validate`, `id_category`, `photo`, `rang`, `active`, `name`, `last_name`, `suscription`) VALUES
-	('1', 1, 'test@gmailc.om', 'sin numero', 'dwdw', 'dwdwd', '1', '0', 'd', '0', 1, 'Jhon', 'Doe', NULL);
+INSERT INTO `clients` (`uuid`, `id`, `email`, `phone`, `andress`, `description`, `validate`, `id_category`, `photo`, `rang`, `active`, `name`, `last_name`, `suscription`, `password`, `_token`) VALUES
+	('864e85df-003d-4019-98f7-5bf630c896c7', 1, 'gabriel@echamelamani.com', '911026504', '11sqs2w21  21 e2', '', '1', '1', '1681547518_643a60fe544f3.jpg', '0', 1, 'Jesus Gabriel', 'Loeza Conrrado', 1, '$2y$10$k3pCNzpnbemOTq5vB7yPYexZO37SijrBazQcCuhJqXNTqvCUN2zva', ''),
+	('5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', 2, 'test@test.com', '991289127817', 'en kanasin', '', '1', '1', '1681547659_643a618bc91dc.jpg', '0', 1, 'Gilberto', 'Aviles', 1, '$2y$10$5fR.6ModypXFQwphsiT7/.KM4m8AbqEu5sf1BMD8AG8Pi8xo45EhG', '');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Volcando estructura para tabla echamelamano.comments
@@ -74,13 +77,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `reactions` bigint(20) DEFAULT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`comments_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla echamelamano.comments: 2 rows
+-- Volcando datos para la tabla echamelamano.comments: 0 rows
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` (`comments_id`, `publications_id`, `id`, `content`, `id_user_comments`, `reactions`, `date`) VALUES
-	(1, 7, 12, 'dmkdñfjmkdlñnmja', '2', 10, '2023-03-27 23:05:09'),
-	(2, 7, 13, 'Segun comentario', '12', 1, '2023-03-27 23:12:06');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
 -- Volcando estructura para tabla echamelamano.failed_jobs
@@ -159,18 +159,17 @@ CREATE TABLE IF NOT EXISTS `publications` (
   `date` datetime DEFAULT NULL,
   `uuid` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`publications_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla echamelamano.publications: 7 rows
+-- Volcando datos para la tabla echamelamano.publications: 2 rows
 /*!40000 ALTER TABLE `publications` DISABLE KEYS */;
 INSERT INTO `publications` (`publications_id`, `status`, `content`, `reactions`, `id_user`, `date`, `uuid`) VALUES
-	(1, 1, 'mI PRIMERA PUBLICACIONE', 10, '1', '2023-02-09 22:36:54', 'wewe'),
-	(2, 1, 'Hola mundo', 1, '1', '2023-02-08 22:46:37', 'ewewew'),
-	(4, 1, 'Necesito cambio', 0, '1', '2023-03-28 04:50:47', '35050e60-0f04-4c61-bd2b-1fc46238375c'),
-	(3, 1, 'Alguien es plomero', 0, '1', '2023-03-28 04:48:48', 'ab3f3f73-3400-474d-be7c-a3851e7f29ec'),
-	(5, 1, 'sss', 0, '1', '2023-03-28 04:51:50', '9451165c-81e1-476b-af77-789381aad0d3'),
-	(6, 1, 'weddwqd', 0, '1', '2023-03-28 04:51:54', 'e961411c-c739-4763-a49e-b974572b6807'),
-	(7, 1, 'wdad', 0, '1', '2023-03-28 04:51:56', 'ca4506f1-3f46-4af3-95f0-6718f9a3e8e5');
+	(1, 1, 'Hola', 0, '864e85df-003d-4019-98f7-5bf630c896c7', '2023-04-15 08:34:28', '7ac06881-1ba6-4dba-a34e-e60914b79541'),
+	(2, 1, 'Hola como estas', 0, '5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', '2023-04-15 08:34:39', 'fde6ebdb-4cc7-4ed6-a3a1-625e17c5db6b'),
+	(3, 1, '1000', 0, '5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', '2023-04-15 08:42:38', '17fba492-9e93-48dd-931c-04e2a7728f82'),
+	(4, 1, 'Mi primera publicacion.', 0, '5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', '2023-04-15 08:44:30', 'a9293289-9f67-4439-b541-a34dd2d66a7e'),
+	(5, 1, 'Hola mundo', 0, '5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', '2023-04-15 08:45:02', '7b1254e5-dbd6-4a07-80d3-b526ad01cbe6'),
+	(6, 1, 'Algún carpintero cerca de kanasin', 0, '5bf8b9a7-95ce-40b4-86eb-1bc2314c0b14', '2023-04-15 08:47:03', '64fbe6b5-78ee-44dd-85fa-8f0a2ea7313e');
 /*!40000 ALTER TABLE `publications` ENABLE KEYS */;
 
 -- Volcando estructura para tabla echamelamano.sub_category
