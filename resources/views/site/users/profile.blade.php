@@ -1,49 +1,34 @@
 @extends('site.layouts.master')
+@section('title', 'Perfil')
 @section('content')
     <div id="vue">
-        <div class="uk-container uk-padding-small ">
-            <div class="uk-column-1">
-                <div class="uk-margin uk-card uk-card-default uk-card-body">
-                    <legend class="uk-legend">Nueva Publicacion</legend>
-                    <textarea class="uk-textarea" rows="5" v-model="newPost"></textarea>
-                    <button class="uk-button uk-button-default uk-margin-top" @click="postnew()">Publicar</button>
-                </div>
+        @if (session('name') == '' OR session('photo') == '')
+            <div class="uk-alert-danger" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>Importante a completar sus datos</p>
             </div>
+        @endif
+        <div class="uk-container">
+            <h1>Tu informacion</h1>
+
+            <form class="uk-form-stacked">
+
+                <label class="uk-form-label" for="nombre">Nombre:</label>
+                <input class="uk-input" type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+
+                <label class="uk-form-label" for="email">Correo electrónico:</label>
+                <input class="uk-input" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+
+                <label class="uk-form-label" for="telefono">Teléfono:</label>
+                <input class="uk-input" type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
+
+                <label class="uk-form-label" for="mensaje">Mensaje:</label>
+                <textarea class="uk-textarea" id="mensaje" name="mensaje" placeholder="Escriba aquí su mensaje" required></textarea>
+
+                <button class="uk-button uk-button-primary" type="submit">Enviar</button>
+
+            </form>
         </div>
-        <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
-        <div v-for="post in apiResponse">
-            <div class="uk-container uk-padding-small ">
-                <article class="uk-comment uk-comment-primary" role="comment">
-                    <header class="uk-comment-header">
-                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                            <div class="uk-width-auto">
-                                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg"
-                                    width="80" height="80" alt="">
-                            </div>
-                            <div class="uk-width-expand">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
-                                        href="#">
-                                        @{{ post.name }} @{{ post.last_name }}</a></h4>
-                                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                    <li><a href="#">@{{ post.date }}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="uk-comment-body">
-                        <p>@{{ post.content }} </p>
-                    </div>
-                    <div v-if="divcomment == true">
-                        Lorem ipsum dolor sit amet.
-                    </div>
-                    <footer>
-                        <button class="uk-button uk-button-default uk-margin-top" @click="coment(post.publications_id)"   >Comentar</button>
-                        <button class="uk-button uk-button-secondary uk-margin-top" >Me interesa</button>
-                    </footer>
-                </article>
-            </div>
-        </div>
-        <button>Agregar a favorito</button>
     </div>
 @endsection
 @push('child-scripts')
