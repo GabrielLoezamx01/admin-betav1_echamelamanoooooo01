@@ -38,6 +38,8 @@
                     <footer>
                         <button class="uk-button uk-button-default uk-margin-top"
                             @click="coment(post.publications_id)">Comentar</button>
+                        </div>
+                       {{session('uuid')}}
                         <button class="uk-button uk-button-secondary uk-margin-top">Me interesa</button>
                     </footer>
                 </article>
@@ -71,7 +73,7 @@
                     edit: false,
                     uuid: '',
                     newPost: '',
-                    divcomment: false
+                    divcomment: false,
                 },
                 created: function() {
                     this.getSHOW();
