@@ -21,8 +21,7 @@
                                     width="80" height="80" alt="">
                             </div>
                             <div class="uk-width-expand">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
-                                        href="#">
+                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
                                         @{{ post.name }} @{{ post.last_name }}</a></h4>
                                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                     <li><a href="#">@{{ post.date }}</a></li>
@@ -37,13 +36,20 @@
                         Lorem ipsum dolor sit amet.
                     </div>
                     <footer>
-                        <button class="uk-button uk-button-default uk-margin-top" @click="coment(post.publications_id)"   >Comentar</button>
-                        <button class="uk-button uk-button-secondary uk-margin-top" >Me interesa</button>
+                        <button class="uk-button uk-button-default uk-margin-top"
+                            @click="coment(post.publications_id)">Comentar</button>
+                        <button class="uk-button uk-button-secondary uk-margin-top">Me interesa</button>
                     </footer>
                 </article>
             </div>
         </div>
-        <button>Agregar a favorito</button>
+        <button @click="openModal()">Abrir modal</button>
+        <div id="mi-modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Mi modal</h2>
+                <p>Contenido del modal.</p>
+            </div>
+        </div>
     </div>
 @endsection
 @push('child-scripts')
@@ -70,7 +76,13 @@
                 created: function() {
                     this.getSHOW();
                 },
+                mounted() {
+                    setInterval(this.getSHOW, 5000);
+                },
                 methods: {
+                    openModal() {
+                        UIkit.modal('#mi-modal').show();
+                    },
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
                             this.apiResponse = response.body
@@ -185,7 +197,7 @@
                                 });
                         }
                     },
-                    coment: function (id){
+                    coment: function(id) {
                         this.$http.get(api + '/' + id)
                             .then(function(json) {
                                 console.log(json.data);

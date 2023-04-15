@@ -11,21 +11,58 @@
         <div class="uk-container">
             <h1>Tu informacion</h1>
 
-            <form class="uk-form-stacked">
+            <form class="uk-form-horizontal" method="post" action="{{route('data_clients')}}" enctype="multipart/form-data" >
+                @csrf
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="nombre">Nombres:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" type="text" id="nombre" name="nombre" placeholder="Ingrese sus nombres" required>
+                    </div>
+                </div>
 
-                <label class="uk-form-label" for="nombre">Nombre:</label>
-                <input class="uk-input" type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="apellidos">Apellidos:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" type="text" id="apellidos" name="apellidos" placeholder="Ingrese sus apellidos" required>
+                    </div>
+                </div>
 
-                <label class="uk-form-label" for="email">Correo electrónico:</label>
-                <input class="uk-input" type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="telefono">Teléfono:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required maxlength="12" pattern="\d{1,12}">
+                    </div>
+                </div>
 
-                <label class="uk-form-label" for="telefono">Teléfono:</label>
-                <input class="uk-input" type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
+                {{-- <div class="uk-margin">
+                    <label class="uk-form-label" for="correo">Correo electrónico:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" type="email" id="correo" name="correo" placeholder="Ingrese su correo electrónico" required>
+                    </div>
+                </div> --}}
 
-                <label class="uk-form-label" for="mensaje">Mensaje:</label>
-                <textarea class="uk-textarea" id="mensaje" name="mensaje" placeholder="Escriba aquí su mensaje" required></textarea>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="direccion">Dirección:</label>
+                    <div class="uk-form-controls">
+                        <textarea class="uk-textarea" id="direccion" name="direccion" placeholder="Ingrese su dirección completa" required></textarea>
+                    </div>
+                </div>
 
-                <button class="uk-button uk-button-primary" type="submit">Enviar</button>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="foto">Foto de perfil:</label>
+                    <div class="uk-form-controls">
+                        <div class="uk-margin uk-width-medium uk-text-center uk-inline">
+                            <div class="uk-form-custom" uk-form-custom>
+                                <input type="file" id="foto" name="foto">
+                                <button class="uk-button uk-button-default" type="button" tabindex="-1">Seleccionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <button class="uk-button uk-button-primary" type="submit">Enviar</button>
+                </div>
 
             </form>
         </div>
