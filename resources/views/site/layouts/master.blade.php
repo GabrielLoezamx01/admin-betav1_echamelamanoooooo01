@@ -14,6 +14,7 @@
         .bg-primary>div>ul>li>a {
             color: white;
         }
+
     </style>
 </head>
 
@@ -27,7 +28,7 @@
         </div>
         <div class="uk-navbar-right">
             <ul class="uk-navbar-nav">
-                <li class="uk-nav"><a href="#"> <b>{{session('name')}} </b> </a></li>
+                <li class="uk-nav"><a href="#"> <b>{{ session('name') }} </b> </a></li>
                 <li class="uk-nav"><a href="#">Mi Perfil</a></li>
                 <li class="uk-nav"><a href="#">Salir</a></li>
             </ul>
@@ -35,8 +36,8 @@
     </nav>
     @yield('content')
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit-icons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit-icons.min.js"></script>
     <script src="vue/vue.js"></script>
     <script src="vue/resource.js"></script>
     @stack('child-scripts')

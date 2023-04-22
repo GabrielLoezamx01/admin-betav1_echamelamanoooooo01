@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Publications;
 use Throwable;
-use Psy\Util\Str;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-class PublicacionesController extends Controller
+class ComentariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +14,7 @@ class PublicacionesController extends Controller
      */
     public function index()
     {
-        return Publications::where('status','1')
-        ->join('clients','publications.id_user','=','clients.uuid')
-        ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo')
-        // ->join('clients','publications.id_user','=','clients.id')
-        ->orderBy('date','DESC')->get();
+
     }
 
     /**
@@ -31,15 +26,13 @@ class PublicacionesController extends Controller
     public function store(Request $request)
     {
         try {
-            $insert         = [
-                'content'   => $request->content,
-                'status'    => 1,
-                'reactions' => 0,
-                'id_user'   => session('uuid'),
+            DB::table('comments')->insert([
+                'comentario'       => $request->comentario,
+                'publications_id'  => $request->publications_id,
+                'reactions'        => 0,
+                'id_user_comments' => session('uuid'),
                 'date'      => date('Y-m-d H:i:s'),
-                'uuid'      => $request->uuid
-            ];
-            return Publications::create($insert)->get();
+            ]);
         } catch (Throwable $e) {
             report($e);
         }
@@ -54,14 +47,15 @@ class PublicacionesController extends Controller
     public function show($id)
     {
         try {
+            return DB::table('comments')->where('publications_id',$id)
+            ->join('clients','comments.id_user_comments','=','clients.uuid')
+            ->select('clients.name','clients.last_name','clients.photo','comments.*')
+            ->orderByRaw('date ASC ')->get();
 
-            // return [
-            //     'comments'    => $comments,
-            //  //   'publication' => Publications::where('publications_id',$id)->first(),
-            // ];
         } catch (Throwable $e) {
             report($e);
         }
+
     }
 
     /**
