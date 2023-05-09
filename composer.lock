@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "b31534f85fe96392ff94616d6f6faba8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -121,6 +121,58 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "conekta/conekta-php",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/conekta/conekta-php.git",
+                "reference": "2fa07fa75fc528ccbf33060322ad8efe85e6277f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/conekta/conekta-php/zipball/2fa07fa75fc528ccbf33060322ad8efe85e6277f",
+                "reference": "2fa07fa75fc528ccbf33060322ad8efe85e6277f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/Conekta/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Conekta  and contributors",
+                    "homepage": "https://github.com/conekta/conekta-php/contributors"
+                }
+            ],
+            "description": "Conekta PHP Library",
+            "homepage": "https://www.conekta.io/",
+            "keywords": [
+                "api",
+                "conekta",
+                "payment processing"
+            ],
+            "support": {
+                "issues": "https://github.com/conekta/conekta-php/issues",
+                "source": "https://github.com/conekta/conekta-php/tree/master"
+            },
+            "time": "2016-11-16T18:54:14+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
