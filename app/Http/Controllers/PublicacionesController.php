@@ -15,11 +15,12 @@ class PublicacionesController extends Controller
      */
     public function index()
     {
-        return Publications::where('status','1')
+        $elementos = Publications::where('status','1')
         ->join('clients','publications.id_user','=','clients.uuid')
         ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo')
         // ->join('clients','publications.id_user','=','clients.id')
-        ->orderBy('date','DESC')->get();
+        ->orderBy('date','DESC')->paginate(10);
+        return response()->json($elementos);
     }
 
     /**

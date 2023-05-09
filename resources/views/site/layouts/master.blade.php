@@ -11,10 +11,19 @@
         .bg-primary {
             background-color: #249f11;
         }
+
         .bg-primary>div>ul>li>a {
             color: white;
         }
 
+        .centered-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            /* ajusta la altura según tu diseño */
+            background-color: #ffffff;
+        }
     </style>
 </head>
 
@@ -22,15 +31,15 @@
     <nav class="uk-padding-small bg-primary" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
-                <li class="uk-nav"><a href="#">Publicaciones</a></li>
-                <li><a href="#">Soporte</a></li>
+                <li class="uk-nav"><a href="Bienvenido">Publicaciones</a></li>
+                <li><a href="soporte_clients">Soporte</a></li>
             </ul>
         </div>
         <div class="uk-navbar-right">
             <ul class="uk-navbar-nav">
                 <li class="uk-nav"><a href="#"> <b>{{ session('name') }} </b> </a></li>
-                <li class="uk-nav"><a href="#">Mi Perfil</a></li>
-                <li class="uk-nav"><a href="#">Salir</a></li>
+                <li class="uk-nav"><a href="profle_clients">Mi Perfil</a></li>
+                <li class="uk-nav"><a href="close_session">Salir</a></li>
             </ul>
         </div>
     </nav>

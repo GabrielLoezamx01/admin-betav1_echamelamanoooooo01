@@ -12,11 +12,12 @@
                             <article class="uk-comment">
                                 <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
                                     <div class="uk-width-auto">
-                                        <img class="uk-comment-avatar" :src="'storage/fotos/' + contenido.photo" width="80"
-                                            height="80" alt="">
+                                        <img class="uk-comment-avatar" :src="'storage/fotos/' + contenido.photo"
+                                            width="80" height="80" alt="">
                                     </div>
                                     <div class="uk-width-expand">
-                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
+                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
+                                                href="#">
                                                 @{{ contenido.name }} @{{ contenido.last_name }}</a></h4>
                                         <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                             <li><a href="#"> @{{ contenido.date }}</a></li>
@@ -48,13 +49,14 @@
         </div>
         <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
         <div v-for="post in apiResponse">
-            <div class="uk-container uk-padding-small ">
 
+            <div class="uk-container uk-padding-small ">
                 <article class="uk-comment uk-comment-primary" role="comment">
                     <header class="uk-comment-header">
                         <div class="uk-grid-medium uk-flex-middle" uk-grid>
                             <div class="uk-width-auto">
-                                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg"
+
+                                    <img class="uk-comment-avatar" :src="'storage/fotos/' + post.photo"
                                     width="80" height="80" alt="">
                             </div>
                             <div class="uk-width-expand">
@@ -70,18 +72,30 @@
                         <p>@{{ post.content }} </p>
                     </div>
                     <footer>
-                        <button class="uk-button uk-button-default uk-margin-top"
+                        <div class="uk-flex uk-flex-between">
+                            <button class="uk-button uk-button-default uk-margin-top"
                             @click="modal(post.publications_id)">Comentar</button>
+                            <div v-if="post.id_user ==  '{{session('uuid')}}'">
+                                <button class="uk-button uk-button-primary uk-margin-top"
+                                @click="modal(post.publications_id)">Editar</button>
+                            </div>
+
+                        </div>
+
+
             </div>
-            <button class="uk-button uk-button-secondary uk-margin-top">Me interesa</button>
             </footer>
             </article>
         </div>
+        <div class="centered-btn">
+            <button class="uk-button uk-button-default">Ver mas</button>
+          </div>
     </div>
 
     </div>
 @endsection
 @push('child-scripts')
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script> --}}
     <script>
         var api = 'Api_publications';
         var api_comentarios = 'Api_comments';
@@ -97,6 +111,7 @@
                 data: {
                     counter: 0,
                     apiResponse: [],
+                    pagination: 0,
                     comments: [],
                     idpublicacion: 0,
                     conectadi: 'VUE JS',
@@ -123,7 +138,8 @@
                     },
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body
+                            console.log(response);
+                            this.apiResponse = response.body.data
                         });
                     },
                     generate_uuid: function() {
