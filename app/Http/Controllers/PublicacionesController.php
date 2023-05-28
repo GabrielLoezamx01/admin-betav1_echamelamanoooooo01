@@ -13,13 +13,25 @@ class PublicacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $elementos = Publications::where('status','1')
-        ->join('clients','publications.id_user','=','clients.uuid')
-        ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo')
-        // ->join('clients','publications.id_user','=','clients.id')
-        ->orderBy('date','DESC')->paginate(10);
+        if(isset($request->search) && isset($request->id)){
+            if($request->search){
+                if(isset($request->id)){
+                    $elementos = Publications::where('status','1')->where('id_servicio', $request->id)
+                    ->join('clients','publications.id_user','=','clients.uuid')
+                    ->join('services as s','publications.id_servicio','=','s.id')
+                    ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+                    ->orderBy('date','DESC')->paginate(10);
+                }
+            }
+        }else{
+            $elementos = Publications::where('status','1')
+            ->join('clients','publications.id_user','=','clients.uuid')
+            ->join('services as s','publications.id_servicio','=','s.id')
+            ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+            ->orderBy('date','DESC')->paginate(10);
+        }
         return response()->json($elementos);
     }
 
@@ -33,12 +45,13 @@ class PublicacionesController extends Controller
     {
         try {
             $insert         = [
-                'content'   => $request->content,
-                'status'    => 1,
-                'reactions' => 0,
-                'id_user'   => session('uuid'),
-                'date'      => date('Y-m-d H:i:s'),
-                'uuid'      => $request->uuid
+                'content'     => $request->content,
+                'status'      => 1,
+                'reactions'   => 0,
+                'id_user'     => session('uuid'),
+                'date'        => date('Y-m-d H:i:s'),
+                'uuid'        => $request->uuid,
+                'id_servicio' => $request->servicie == 0 ? 1 : $request->servicie
             ];
             return Publications::create($insert)->get();
         } catch (Throwable $e) {

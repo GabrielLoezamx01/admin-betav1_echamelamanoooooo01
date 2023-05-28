@@ -1,106 +1,94 @@
 @extends('site.layouts.master')
 @section('content')
-    <div id="vue">
-        <div id="mi-modal" uk-modal>
+    <div id="vue" class="row">
+        <div class="col-md-3">
+            @include('site.sidebar')
+        </div>
+        <div class="col-md-7">
+            <section>
+                <div class="card border-0">
+                    <div class="card-body shadow">
+                        <div class="p-2 mt-5 m-4">
+                            <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
+                            <div class="mb-3">
+                                <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
+                            </div>
+                            <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
+                            <div class="mb-3">
+                                <select v-model="servicies" class="form-control custom-focus " id="servicies">
+                                    <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                        @{{ select.name }}</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="mt-5">
+                    <h4 class="text-center m-5">Publicaciones recientes</h4>
+                </div>
+                <div class="row col-md-5 p-3">
+                    <label for="">Buscar por servicio</label>
+                    <div class="input-group mb-3">
+                        <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
+                            <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                @{{ select.name }}</option>
+                        </select>
+                        <button class="btn btn-dark" type="button" id="btn-buscar"
+                            @click="searchpublicaciones()">Buscar</button>
+                    </div>
 
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Comentarios</h2>
-                <div v-for="(contenido, index) in comments" :key="index">
-                    <div class="uk-overflow-auto">
-                        <div class="uk-comments">
-
-                            <article class="uk-comment">
-                                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-                                    <div class="uk-width-auto">
-                                        <img class="uk-comment-avatar" :src="'storage/fotos/' + contenido.photo"
-                                            width="80" height="80" alt="">
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
-                                                href="#">
-                                                @{{ contenido.name }} @{{ contenido.last_name }}</a></h4>
-                                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                            <li><a href="#"> @{{ contenido.date }}</a></li>
-                                        </ul>
-                                    </div>
-                                </header>
-                                <div class="uk-comment-body uk-padding">
-                                    <p> @{{ contenido.comentario }}</p>
+                </div>
+                <div v-for="post in apiResponse">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="m-3">
+                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img">
                                 </div>
-
-                            </article>
+                                <div>
+                                    <a href="users/post.id_user">
+                                        <h5 class="card-title mb-0"> @{{ post.name }} @{{ post.last_name }}
+                                    </a>
+                                    <span v-if="post.VALIDACION == 1" class="verification-icon verified"><i
+                                            class="fas fa-check"></i></span>
+                                    <span v-if="post.VALIDACION == 0" class="verification-icon not-verified"><i
+                                            class="fas fa-times"></i></span>
+                                    </h5>
+                                    <div class="post-date">
+                                        <small>@{{ post.date }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-content p-2">
+                                <p class="fw-light">@{{ post.content }} </p>
+                            </div>
+                            <div class="post-actions d-flex justify-content-end flex-wrap">
+                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                                </div>
+                                <button class="btn btn-secondary"><i class="fas fa-comments"></i></button>
+                            </div>
+                            <div class="card-footer">
+                                <p>Servicio: @{{ post.nombre_servicio }} </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <textarea class="uk-textarea" placeholder="Escribe tu comentario aquí" v-model="pcomentario"></textarea>
-                    <button class="uk-button uk-button-secondary uk-margin-top" @click="comentar()">Comentar</button>
-                </div>
-            </div>
+            </section>
         </div>
-        <div class="uk-container uk-padding-small ">
-            <div class="uk-column-1">
-                <div class="uk-margin uk-card uk-card-default uk-card-body">
-                    <legend class="uk-legend">Nueva Publicacion</legend>
-                    <textarea class="uk-textarea" rows="5" v-model="newPost"></textarea>
-                    <button class="uk-button uk-button-default uk-margin-top" @click="postnew()">Publicar</button>
-                </div>
-            </div>
+        <div class="col-md-2">
         </div>
-        <div class=" uk-text-center uk-text-large">Publicaciones recientes</div>
-        <div v-for="post in apiResponse">
-
-            <div class="uk-container uk-padding-small ">
-                <article class="uk-comment uk-comment-primary" role="comment">
-                    <header class="uk-comment-header">
-                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                            <div class="uk-width-auto">
-
-                                    <img class="uk-comment-avatar" :src="'storage/fotos/' + post.photo"
-                                    width="80" height="80" alt="">
-                            </div>
-                            <div class="uk-width-expand">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
-                                        @{{ post.name }} @{{ post.last_name }}</a></h4>
-                                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                    <li><a href="#">@{{ post.date }}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="uk-comment-body">
-                        <p>@{{ post.content }} </p>
-                    </div>
-                    <footer>
-                        <div class="uk-flex uk-flex-between">
-                            <button class="uk-button uk-button-default uk-margin-top"
-                            @click="modal(post.publications_id)">Comentar</button>
-                            <div v-if="post.id_user ==  '{{session('uuid')}}'">
-                                <button class="uk-button uk-button-primary uk-margin-top"
-                                @click="modal(post.publications_id)">Editar</button>
-                            </div>
-
-                        </div>
-
-
-            </div>
-            </footer>
-            </article>
-        </div>
-        <div class="centered-btn">
-            <button class="uk-button uk-button-default">Ver mas</button>
-          </div>
-    </div>
-
     </div>
 @endsection
 @push('child-scripts')
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script> --}}
     <script>
         var api = 'Api_publications';
-        var api_comentarios = 'Api_comments';
-
-        {
+        var serivicios_api = 'api_servicios';
+        var api_comentarios = 'Api_comments'; {
             new Vue({
                 el: '#vue',
                 http: {
@@ -122,23 +110,60 @@
                     pcomentario: '',
                     newPost: '',
                     divcomment: false,
+                    apiServicios: [],
+                    apiServiciossidebar: [],
+                    servicies: 0,
+                    serviciessearch: 0
                 },
                 created: function() {
                     this.getSHOW();
+                    this.api_servicios();
+                    this.api_servicios_sidebar();
                 },
                 mounted() {
-                    setInterval(this.getSHOW, 5000);
-                    setInterval(() => {
-                        this.coment(this.idpublicacion);
-                    }, 1000);
+                    // setInterval(this.getSHOW, 5000);
+                    // setInterval(() => {
+                    //     this.coment(this.idpublicacion);
+                    // }, 1000);
                 },
                 methods: {
-                    openModal() {
-                        UIkit.modal('#mi-modal').show();
-                    },
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
-                            console.log(response);
+                            this.apiResponse = response.body.data
+                        });
+                    },
+                    api_servicios: function() {
+                        this.$http.get(serivicios_api).then(function(data) {
+                            this.apiServicios = data.body;
+                        });
+                    },
+                    api_servicios_sidebar: function() {
+                        this.$http.get(serivicios_api + '?sidebar=true' ).then(function(data) {
+                            this.apiServiciossidebar = data.body;
+                        });
+                    },
+                    postnew: function() {
+                        if (this.newPost == "" || this.servicies == 0) {
+                            alert('No puede estar vacio la publicacion');
+                        } else {
+                            var data = {
+                                'content': this.newPost,
+                                'servicie': this.servicies,
+                                'uuid': this.generate_uuid()
+                            };
+                            this.$http.post(api, data)
+                                .then(function(json) {
+                                    console.log(json);
+                                    this.newPost = '';
+                                    this.servicies = 0;
+                                    this.getSHOW();
+                                });
+                        }
+                    },
+                    searchpublicaciones: function() {
+                        var id = this.serviciessearch;
+                        const url = '?search=true&id=' + id;
+                        this.$http.get(api + url).then(function(response) {
                             this.apiResponse = response.body.data
                         });
                     },
@@ -235,21 +260,6 @@
                     close_modal: function() {
                         $('#modal').modal('hide');
                         this.name = '';
-                    },
-                    postnew: function() {
-                        if (this.newPost == "") {
-                            alert('No puede estar vacio la publicacion');
-                        } else {
-                            var data = {
-                                'content': this.newPost,
-                                'uuid': this.generate_uuid()
-                            };
-                            this.$http.post(api, data)
-                                .then(function(json) {
-                                    this.newPost = '';
-                                    this.getSHOW();
-                                });
-                        }
                     },
                     modal: function(id) {
                         UIkit.modal('#mi-modal').show();

@@ -11,5 +11,5 @@ class publications extends Model
     protected $table = 'publications';
     protected $primaryKey = 'publications_id';
     public $timestamps = false;
-    protected $fillable = ['publications_id', 'status', 'content', 'reactions','id_user','date','uuid'];
+    protected $fillable = ['publications_id', 'status', 'content', 'reactions','id_user','date','uuid','id_servicio'];
 }

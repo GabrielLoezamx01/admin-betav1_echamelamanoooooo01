@@ -16,6 +16,9 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "socket.io": "^4.6.1"
+        "laravel-echo": "^1.15.1",
+        "pusher-js": "^8.0.2",
+        "socket.io": "^4.6.1",
+        "socket.io-client": "^4.6.1"
     }
 }
