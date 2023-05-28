@@ -149,6 +149,31 @@
                 margin-bottom: 0;
             }
         }
+
+        .btn-minimalista {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            border-radius: 0;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+            outline: none;
+        }
+
+        .btn-minimalista:hover {
+            background-color: #249f11;
+            color: #fff;
+            border-color: #249f11;
+        }
     </style>
 </head>
 
@@ -184,7 +209,7 @@
         </nav>
     </header>
     <main class="container-fluid mt-5">
-            @yield('content')
+        @yield('content')
     </main>
     <footer class="footer-custom">
         <div class="container text-center">
