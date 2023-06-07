@@ -15,7 +15,7 @@ class ComentariosController extends Controller
      */
     public function index(Request $request)
     {
-        $publicaciones =  Publications::where('status','1')->where('id_servicio', $request->id)
+        $publicaciones =  Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
         ->join('services as s','publications.id_servicio','=','s.id')
         ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
