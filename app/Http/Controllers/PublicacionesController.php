@@ -15,6 +15,7 @@ class PublicacionesController extends Controller
      */
     public function index(Request $request)
     {
+
         if(isset($request->search) && isset($request->id)){
             if($request->search){
                 if(isset($request->id)){
@@ -68,13 +69,9 @@ class PublicacionesController extends Controller
     public function show($id)
     {
         try {
-
-            // return [
-            //     'comments'    => $comments,
-            //  //   'publication' => Publications::where('publications_id',$id)->first(),
-            // ];
+            return Publications::where('uuid',$id)->first();
         } catch (Throwable $e) {
-            report($e);
+            return $e;
         }
     }
 
@@ -87,7 +84,11 @@ class PublicacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+           return Publications::where('uuid',$id)->update(['content' => $request->cat_name]);
+        } catch (Throwable $e) {
+            return $e;
+        }
     }
 
     /**
@@ -98,6 +99,10 @@ class PublicacionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            return Publications::where('uuid',$id)->update(['status' => 0]);
+         } catch (Throwable $e) {
+             return $e;
+         }
     }
 }

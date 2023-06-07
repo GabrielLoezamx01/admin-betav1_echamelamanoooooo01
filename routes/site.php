@@ -14,6 +14,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::get('Bienvenido',[ClientsController::class , 'site']);
     Route::resource('Api_publications', PublicacionesController::class);
     Route::resource('Api_comments', ComentariosController::class);
+    Route::get('close_session',[ClientsController::class, 'close_sessions']);
+    Route::get('comments', [ComentariosController::class, 'index']);
 });
 
 

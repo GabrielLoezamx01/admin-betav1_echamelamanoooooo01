@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 class ClientsController extends Controller
 {
     public function login(Request $request){
@@ -100,6 +101,10 @@ class ClientsController extends Controller
         ]);
         $database = collect($this->queryClients(['id' => session('id_user')])->first());
         $this->session_clients($database);
+        return redirect('Bienvenido');
+    }
+    public function close_sessions(){
+        Session::flush();
         return redirect('Bienvenido');
     }
 }

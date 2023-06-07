@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Throwable;
+use App\Models\Publications;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,9 +13,21 @@ class ComentariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        $publicaciones =  Publications::where('status','1')->where('id_servicio', $request->id)
+        ->join('clients','publications.id_user','=','clients.uuid')
+        ->join('services as s','publications.id_servicio','=','s.id')
+        ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+        ->orderBy('date','DESC')->first();
+        $database = DB::table('comments')->where('publications_id',$request->id)
+            ->join('clients','comments.id_user_comments','=','clients.uuid')
+            ->select('clients.name','clients.last_name','clients.photo','comments.*')
+            ->orderByRaw('date ASC ')->get();
+            return view('site.comment')->with(compact(
+                'database',
+                'publicaciones'
+            ));
     }
 
     /**
@@ -51,7 +64,6 @@ class ComentariosController extends Controller
             ->join('clients','comments.id_user_comments','=','clients.uuid')
             ->select('clients.name','clients.last_name','clients.photo','comments.*')
             ->orderByRaw('date ASC ')->get();
-
         } catch (Throwable $e) {
             report($e);
         }
