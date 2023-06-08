@@ -31,7 +31,7 @@ h5 {
 
 .navbar-custom {
     padding: 40px;
-    background-color: #249f11;
+    background-color: #000000;
 }
 
 .navbar-custom .navbar-brand,
@@ -161,3 +161,4 @@ h5 {
     color: #fff;
     border-color: #249f11;
 }
+

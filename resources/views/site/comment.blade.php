@@ -3,7 +3,6 @@
     <div class="col-md-12">
         <div class="row justify-content-center">
             <div class="col-md-6 ">
-                {{$publicaciones}}
                 <div class="m-5">
                         <div class="d-flex align-items-center mb-2">
                             <img src="{{ asset('storage/fotos/' . $publicaciones->photo) }}" alt="Foto"
@@ -60,7 +59,9 @@
                             @endforeach
                             <div class="mt-5">
                                     <form action="">
-                                        <textarea class="form-control" name="" id="" cols="20" rows="6"></textarea>
+                                        @csrf
+                                        <input type="hidden" name="idp" value="{{$publicaciones->publications_id}}">
+                                        <textarea class="form-control" name="contenido" id="" cols="20" rows="6"></textarea>
                                         <button class="btn btn-dark mt-3">Agregar Comentario</button>
                                     </form>
                             </div>

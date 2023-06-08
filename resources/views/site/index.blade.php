@@ -72,7 +72,7 @@
                                     <button class="btn btn-primary" @click="show_item(post.uuid)"><i
                                             class="fas fa-edit"></i></button>
                                 </div>
-                                    <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
+                                <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
                                         class="fas fa-comments"></i></button>
                             </div>
                             <div class="card-footer">
@@ -109,6 +109,13 @@
     </div>
 @endsection
 @push('child-scripts')
+    <script>
+        function toggleSubMenu(event) {
+            event.preventDefault();
+            const subMenu = event.target.nextElementSibling;
+            subMenu.classList.toggle('open');
+        }
+    </script>
     <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
@@ -332,7 +339,7 @@
                     },
                     openDivComment: function(id) {
                         const dominio = "http://localhost/admin/public/";
-                        const nuevaRuta = "comments?id="+id;
+                        const nuevaRuta = "comments?id=" + id;
                         window.location.assign(nuevaRuta);
                     }
                 },
