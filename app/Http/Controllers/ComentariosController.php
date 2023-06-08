@@ -40,12 +40,15 @@ class ComentariosController extends Controller
     {
         try {
             DB::table('comments')->insert([
-                'comentario'       => $request->comentario,
-                'publications_id'  => $request->publications_id,
+                'comentario'       => $request->comentario ?? $request->contenido,
+                'publications_id'  => $request->publications_id ?? $request->idp,
                 'reactions'        => 0,
                 'id_user_comments' => session('uuid'),
                 'date'      => date('Y-m-d H:i:s'),
             ]);
+            if(isset($request->idp)){
+                return redirect('comments?id='.$request->idp);
+            }
         } catch (Throwable $e) {
             report($e);
         }

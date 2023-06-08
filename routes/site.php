@@ -16,6 +16,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::resource('Api_comments', ComentariosController::class);
     Route::get('close_session',[ClientsController::class, 'close_sessions']);
     Route::get('comments', [ComentariosController::class, 'index']);
+    Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');
+
 });
 
 

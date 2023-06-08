@@ -4,29 +4,29 @@
         <div class="row justify-content-center">
             <div class="col-md-6 ">
                 <div class="m-5">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="{{ asset('storage/fotos/' . $publicaciones->photo) }}" alt="Foto"
-                                class="rounded-circle me-3" width="40" height="40">
-                            <h6 class="card-subtitle">{{ $publicaciones->name }} {{ $publicaciones->last_name }}</h6>
-                        </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="{{ asset('storage/fotos/' . $publicaciones->photo) }}" alt="Foto"
+                            class="rounded-circle me-3" width="40" height="40">
+                        <h6 class="card-subtitle">{{ $publicaciones->name }} {{ $publicaciones->last_name }}</h6>
+                    </div>
                 </div>
                 <div class="mt-5 m-5">
                     <p>
-                        {{$publicaciones->content}}
+                        {{ $publicaciones->content }}
                     </p>
                     <div class="card-header card">
-                         <p class="fw-light">
-                            Dirrecion: {{$publicaciones->andress}}
-                         </p>
+                        <p class="fw-light">
+                            Dirrecion: {{ $publicaciones->andress }}
+                        </p>
                         <p class="fw-bold">
-                           Servicio: {{$publicaciones->nombre_servicio}}
+                            Servicio: {{ $publicaciones->nombre_servicio }}
                         </p>
 
                     </div>
                 </div>
 
             </div>
-          </div>
+        </div>
 
         <div class="container mt-5">
             <div class="row">
@@ -58,12 +58,12 @@
                                 </div>
                             @endforeach
                             <div class="mt-5">
-                                    <form action="">
-                                        @csrf
-                                        <input type="hidden" name="idp" value="{{$publicaciones->publications_id}}">
-                                        <textarea class="form-control" name="contenido" id="" cols="20" rows="6"></textarea>
-                                        <button class="btn btn-dark mt-3">Agregar Comentario</button>
-                                    </form>
+                                <form method="post" action="{{route('newComment')}}">
+                                    @csrf
+                                    <input type="hidden" name="idp" value="{{ $publicaciones->publications_id }}">
+                                    <textarea class="form-control" name="contenido" id="" cols="20" rows="6"></textarea>
+                                    <button class="btn btn-dark mt-3">Agregar Comentario</button>
+                                </form>
                             </div>
                         </div>
                     </div>
