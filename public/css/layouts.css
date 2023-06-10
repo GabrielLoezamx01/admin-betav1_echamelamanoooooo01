@@ -14,7 +14,7 @@ h5 {
     font-family: "Poppins", sans-serif;
 }
 
-.bg-primary {
+.bg-primaryechame {
     background-color: #249f11;
 }
 
@@ -32,7 +32,7 @@ h5 {
 
 .navbar-custom {
     padding: 40px;
-    background-color: #000000;
+    background-color: #249f11;
 }
 
 .navbar-custom .navbar-brand,

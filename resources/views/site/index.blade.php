@@ -42,7 +42,7 @@
 
                 </div>
                 <div v-for="post in apiResponse">
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="m-3">
@@ -52,13 +52,13 @@
                                     <a href="users/post.id_user">
                                         <h5 class="card-title mb-0"> @{{ post.name }} @{{ post.last_name }}
                                     </a>
-                                    <span v-if="post.VALIDACION == 1" class="verification-icon verified"><i
+                                    {{-- <span v-if="post.VALIDACION == 1" class="verification-icon verified"><i
                                             class="fas fa-check"></i>
 
                                     </span>
                                     <span v-if="post.VALIDACION == 0" class="verification-icon not-verified"><i
                                             class="fas fa-times"></i></span>
-                                    </h5>
+                                    </h5> --}}
                                     <div class="post-date">
                                         <small>@{{ post.date }}</small>
                                     </div>
@@ -67,7 +67,7 @@
                             <div class="post-content p-2">
                                 <p class="fw-light">@{{ post.content }} </p>
                             </div>
-                            <div class="post-actions d-flex justify-content-end flex-wrap">
+                            <div class="post-actions d-flex justify-content-end flex-wrap p-5">
                                 <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
                                     <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
                                             class="fas fa-trash"></i></button>

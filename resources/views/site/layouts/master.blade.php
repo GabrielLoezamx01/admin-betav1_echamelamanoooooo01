@@ -14,13 +14,10 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/layouts.css">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         .sidebar {
-            background-color: #FFC242;
+            background-color: white;
             color: black;
             padding: 15px;
             position: relative;
@@ -49,6 +46,17 @@
             display: block;
         }
 
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Elimina las rayas subrayadas de los enlaces */
+        a:hover,
+        a:active {
+            color: #249f11;
+            /* text-decoration: none; */
+        }
     </style>
 </head>
 
