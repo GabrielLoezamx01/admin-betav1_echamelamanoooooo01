@@ -1,66 +1,57 @@
 @extends('site.layouts.master')
 @section('title', 'Perfil')
 @section('content')
-    <div id="vue">
-        <div class="container">
-            <div class="row">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="p-5">
-                        @if (session('name') == '' or session('photo') == '')
-                            <p class="fw-bold fs-4">Importante a completar sus datos</p>
-                        @endif
-                        <form class="form-control" method="post" action="{{ route('data_clients') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="">Nombres:</label>
-                                <input class="form-control custom-focus" type="text" id="nombre" name="nombre"
-                                placeholder="Ingrese sus nombres" required value="{{old('nombre')}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Apellidos:</label>
-                                <input class="form-control custom-focus" type="text" id="apellidos" name="apellidos"
-                                placeholder="Ingrese sus apellidos" required value="{{old('apellidos')}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Teléfono:</label>
-                                <input class="form-control custom-focus" type="tel" id="telefono" name="telefono"
-                                placeholder="Ingrese su número de teléfono" required maxlength="12"
-                                pattern="\d{1,12}" value="{{old('telefono')}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Codigo Postal:</label>
-                                <input class="form-control custom-focus" type="text" id="apellidos" name="postal"
-                                placeholder="Ingrese sus apellidos" required value="{{old('postal')}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Estado:</label>
-                                <input class="form-control custom-focus" type="text" id="apellidos" name="estado"
-                                placeholder="Ingrese sus apellidos" required value="Yucatán">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Ciudad:</label>
-                                <input class="form-control custom-focus" type="text" id="apellidos" name="ciudad"
-                                placeholder="Ingrese sus apellidos" required value="{{old('ciudad')}}" >
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Dirección:</label>
-                                <textarea class="form-control custom-focus" id="direccion" name="direccion" placeholder="Ingrese su dirección completa" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Foto de perfil:</label>
-                                <input type="file" id="foto" name="foto" class="form-control custom-focus" accept="image/*">
-                            </div>
-                            <div class="m-3">
-                                  <button class="btn btn-dark" type="submit">Enviar</button>
-                            </div>
-                        </form>
-
+    <div id="vue" class="p-5">
+        <div class="row mt-5">
+            @foreach ($user as $item)
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto de perfil"
+                            class="img-fluid rounded-circle profile-picture w-50">
+                        <div class="mt-4">
+                            <h4>{{ $item->name }} {{ $item->last_name }}</h4>
+                            <p>Correo electrónico: {{ $item->email }}</p>
+                        </div>
+                        <a href="#" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Actualizar Foto</a>
                     </div>
                 </div>
-            </div>
+                <div class="col-md-8 mt-5">
+                    <h3>Información del perfil</h3>
+                    <p>Postal: {{ $item->postal }}</p>
+                    <p>Estado: {{ $item->estado }} </p>
+                    <p>Ciudad: {{ $item->ciudad }}</p>
+                    <p>Telefono: {{ $item->phone }}</p>
+                    <p>suscription: @if ($item->suscription == 1)
+                            <span class="fw-bold">Normal</span>
+                        @endif
+                    </p>
+                    <div class="text-center">
+                        <button class="btn btn-warning">Actualizar informacion</button>
+                    </div>
+                </div>
+            @endforeach
         </div>
-
+        <div class="row">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Nueva Foto</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-control" method="post" action="{{ route('data_clients') }}"
+                        enctype="multipart/form-data">
+                            <input type="hidden" name="uuid" value="{{$item->uuid}}">
+                            @csrf
+                            <input type="file" name="foto" class="form-control custom-focus" accept="image/*">
+                            <button type="submit" class="btn btn-secondary mt-2" >Actualizar</button>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
 @endsection
 @push('child-scripts')

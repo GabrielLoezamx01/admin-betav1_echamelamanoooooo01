@@ -37,7 +37,6 @@
                             <hr>
                             @foreach ($database as $item)
                                 <div class="mb-4">
-                                    {{ $item->comments_id }}
                                     <div class="d-flex align-items-center mb-2">
                                         <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
                                             class="rounded-circle me-3" width="40" height="40">

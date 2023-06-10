@@ -44,6 +44,7 @@
         .sub-menu.open {
             display: block;
         }
+
     </style>
 </head>
 
@@ -51,7 +52,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom ">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="/Bienvenido">{{ env('name_site') }}</a>
+                <a class="navbar-brand fw-bold" href="Bienvenido">{{ env('name_site') }}</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,13 +63,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="Bienvenido">Publicaciones</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ajustes</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav mr-auto ">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ session('name') }}</a>
+                            <a class="nav-link" href="profile">{{ session('name') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="close_session">Salir</a>

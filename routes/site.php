@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicacionesController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ComentariosController;
+use App\Http\Controllers\ProfileClienController;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
@@ -17,7 +18,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::get('close_session',[ClientsController::class, 'close_sessions']);
     Route::get('comments', [ComentariosController::class, 'index']);
     Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');
-
+    // setting profile clients rols
+    Route::get('profile', [ProfileClienController::class, 'index']);
 });
 
 
