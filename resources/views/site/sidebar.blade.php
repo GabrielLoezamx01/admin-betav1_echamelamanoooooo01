@@ -21,7 +21,7 @@
                 </ul>
             </li>
             <li class="m-3 fw-bold fs-5 mt-4">
-                <a href="">
+                <a href="Sucursales">
                     <i class="fas fa-store"></i>
                 Surcursales
 
@@ -31,7 +31,6 @@
                 <a href="">
                     <i class="fas fa-bell"></i>
                     Notificaciones
-
                 </a>
             </li>
         </ul>

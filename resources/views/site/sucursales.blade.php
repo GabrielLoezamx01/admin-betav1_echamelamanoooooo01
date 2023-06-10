@@ -5,105 +5,30 @@
             @include('site.sidebar')
         </div>
         <div class="col-md-7">
-            <section>
-                <div class="card border-0">
-                    <div class="card-body">
-                        <div class="p-2 mt-5 m-4">
-                            <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
-                            <div class="mb-3">
-                                <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
-                            </div>
-                            <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
-                            <div class="mb-3">
-                                <select v-model="servicies" class="form-control custom-focus " id="servicies">
-                                    <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                        @{{ select.name }}</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
+
+            <div class="card m-3">
+                <img src="ruta-de-la-imagen" class="card-img-top" alt="Foto de la Sucursal">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre de la Sucursal</h5>
+                    <p class="card-text">
+                        <i class="fas fa-map-marker-alt"></i> Ubicación de la Sucursal<br>
+                        <i class="fas fa-tags"></i> Etiqueta de la Sucursal<br>
+                        Descripción de la Sucursal
+                    </p>
+                </div>
+                <div class="card-footer bg-white">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                         <i class="fas fa-heart text-danger"></i> Favorito
+                        </div>
+                        <div>
+                            <button class="btn ">
+                                <i class="fas fa-share-alt"></i> Compartir
+                            </button>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section>
-                <div class="mt-5">
-                    <h4 class="text-center m-5">Publicaciones recientes</h4>
-                </div>
-                <div class="row col-md-5 p-3">
-                    <label for="">Buscar por servicio</label>
-                    <div class="input-group mb-3">
-                        <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
-                            <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                @{{ select.name }}</option>
-                        </select>
-                        <button class="btn btn-dark" type="button" id="btn-buscar"
-                            @click="searchpublicaciones()">Buscar</button>
-                    </div>
-
-                </div>
-                <div v-for="post in apiResponse">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="m-3">
-                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img">
-                                </div>
-                                <div>
-                                    <a href="users/post.id_user">
-                                        <h5 class="card-title mb-0"> @{{ post.name }} @{{ post.last_name }}
-                                    </a>
-                                    <span v-if="post.VALIDACION == 1" class="verification-icon verified"><i
-                                            class="fas fa-check"></i>
-
-                                    </span>
-                                    <span v-if="post.VALIDACION == 0" class="verification-icon not-verified"><i
-                                            class="fas fa-times"></i></span>
-                                    </h5>
-                                    <div class="post-date">
-                                        <small>@{{ post.date }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-content p-2">
-                                <p class="fw-light">@{{ post.content }} </p>
-                            </div>
-                            <div class="post-actions d-flex justify-content-end flex-wrap">
-                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                    <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
-                                            class="fas fa-trash"></i></button>
-                                    <button class="btn btn-primary" @click="show_item(post.uuid)"><i
-                                            class="fas fa-edit"></i></button>
-                                </div>
-                                <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
-                                        class="fas fa-comments"></i></button>
-                            </div>
-                            <div class="card-footer">
-                                <p>Servicio: @{{ post.nombre_servicio }} </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
         <div class="col-md-2">
             @include('site.usertop')
