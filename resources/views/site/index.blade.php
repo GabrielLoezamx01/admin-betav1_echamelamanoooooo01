@@ -1,13 +1,13 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue" class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 animate__animated animate__fadeInLeft">
             @include('site.sidebar')
         </div>
         <div class="col-md-7">
             <section>
                 <div class="card border-0">
-                    <div class="card-body shadow">
+                    <div class="card-body">
                         <div class="p-2 mt-5 m-4">
                             <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
                             <div class="mb-3">

@@ -14,6 +14,10 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/layouts.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <style>
         .sidebar {
             background-color: #FFC242;
@@ -79,7 +83,7 @@
     <main class="">
         @yield('content')
     </main>
-    <footer class="footer-custom">
+    <footer class="footer-custom animate__animated animate__slideInUp">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |
