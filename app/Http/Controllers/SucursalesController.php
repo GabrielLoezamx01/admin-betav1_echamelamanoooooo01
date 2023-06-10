@@ -15,8 +15,17 @@ class SucursalesController extends Controller
      */
     public function index()
     {
-        return DB::table('branch')->get();
-
+        $return     = [];
+        $sucursales = DB::table('branch')->where('delete',0)->get();
+        foreach ($sucursales as $key => $item){
+            $likes      = DB::table('love_branch')->where('id_branchR',$item->id_branch)->get();
+            $return [] = [
+                'sucursal' => $item,
+                'likes' => $likes,
+                'count' => $likes->count()
+            ];
+        }
+        return $return;
     }
 
     /**

@@ -5,27 +5,32 @@
             @include('site.sidebar')
         </div>
         <div class="col-md-7">
-
-            <div class="card m-3">
-                <img src="ruta-de-la-imagen" class="card-img-top" alt="Foto de la Sucursal">
+            <div class="card m-3" v-for="sucursal in apiResponse">
+                <img :src="'storage/sucursal/' + sucursal.sucursal.image" class="card-img-top" alt="Foto de la Sucursal">
                 <div class="card-body">
-                    <h5 class="card-title">Nombre de la Sucursal</h5>
+                    <h5 class="card-title">@{{ sucursal.sucursal.name_branch }}</h5>
                     <p class="card-text">
-                        <i class="fas fa-map-marker-alt"></i> Ubicación de la Sucursal<br>
-                        <i class="fas fa-tags"></i> Etiqueta de la Sucursal<br>
-                        Descripción de la Sucursal
+
+                        <i class="fas fa-map-marker-alt "></i> @{{ sucursal.sucursal.street }}
+                        @{{ sucursal.sucursal.address }} @{{ sucursal.sucursal.city }} @{{ sucursal.sucursal.state }} , @{{ sucursal.sucursal.postal_code }}
+                        <br>
+                        <i class="fas fa-tags"></i> @{{ sucursal.sucursal.span }}<br>
+                        @{{ sucursal.sucursal.description }}
                     </p>
                 </div>
                 <div class="card-footer bg-white">
                     <div class="d-flex justify-content-between">
-                        <div>
-                         <i class="fas fa-heart text-danger"></i> Favorito
+                        <div v-for="likes in sucursal.likes">
+                            <div v-if="likes.id_user == '{{ session('uuid') }}'">
+                                <i class="fas fa-heart text-danger" @click="meEncanta(sucursal.id_branch)"></i> Favorito
+                            </div>
+                            <div>
+                                <button class="btn ">
+                                    <i class="fas fa-share-alt"></i> Compartir
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn ">
-                                <i class="fas fa-share-alt"></i> Compartir
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -44,9 +49,10 @@
         }
     </script>
     <script>
-        var api = 'Api_publications';
+        var api = 'api_sucursales';
         var serivicios_api = 'api_servicios';
-        var api_comentarios = 'Api_comments'; {
+        var api_comentarios = 'Api_comments';
+        var api_notificaciones = 'api_notificaciones'; {
             new Vue({
                 el: '#vue',
                 http: {
@@ -73,7 +79,12 @@
                     servicies: 0,
                     serviciessearch: 0,
                     modalVisible: false,
-                    someModal: ""
+                    someModal: "",
+                    arrayNotify: [],
+                    countNotify: 0,
+                    settingsNotify: [],
+                    meencanta: 0
+
                 },
                 created: function() {
                     this.getSHOW();
@@ -89,7 +100,11 @@
                 methods: {
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body.data
+                            this.apiResponse = response.body;
+                        });
+                        this.$http.get(api_notificaciones).then(function(datos) {
+                            this.arrayNotify = datos.body;
+                            this.countNotify = this.arrayNotify.length;
                         });
                     },
                     api_servicios: function() {
@@ -269,6 +284,14 @@
                         const dominio = "http://localhost/admin/public/";
                         const nuevaRuta = "comments?id=" + id;
                         window.location.assign(nuevaRuta);
+                    },
+                    getJsonValue(jsonString, key) {
+                        this.settingsNotify = JSON.parse(jsonString);
+                    },
+                    updateNotify: function(id) {
+                        var data = {};
+                        this.$http.patch(api_notificaciones + '/' + id, data)
+                            .then(function(json) {});
                     }
                 },
                 computed: {}

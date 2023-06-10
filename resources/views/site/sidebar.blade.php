@@ -21,14 +21,12 @@
             </li>
             <li class="m-3 fw-bold fs-5 mt-4">
                 <a href="Sucursales">
-                    <i class="fas fa-store"></i>
-                    Surcursales
+                    <i class="fas fa-store"></i> Surcursales
                 </a>
             </li>
             <li class="m-3 fw-bold fs-5 mt-4">
                 <div v-if="countNotify > 0" class="text-danger">
-                    <i class="fas fa-bell"></i>
-                    Notificaciones
+                    <i class="fas fa-bell"></i> Notificaciones
                     <div class="fs-6 fw-light">
                         <div v-for="notify in arrayNotify" class="m-3">
                             <div class="notification p-3">
