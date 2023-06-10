@@ -21,7 +21,7 @@ include('login.php');
 include('site.php');
 
 Route::apiResource('api_servicios', ApiServiciesControlller::class);
-
+Route::view('/', 'site.login');
 Route::view('page', 'admin.page');
 /*
 * Categoria views
