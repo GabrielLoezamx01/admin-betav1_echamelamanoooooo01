@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\ProfileClienController;
 use App\Http\Controllers\SucursalesController;
+use App\Http\Controllers\notificacionesController;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
@@ -23,7 +24,7 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::get('profile', [ProfileClienController::class, 'index']);
     Route::view('Sucursales','site.sucursales');
     Route::resource('api_sucursales', SucursalesController::class);
-
+    Route::resource('api_notificaciones', notificacionesController::class);
 });
 
 

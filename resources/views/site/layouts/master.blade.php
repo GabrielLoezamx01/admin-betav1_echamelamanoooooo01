@@ -57,6 +57,29 @@
             color: #249f11;
             /* text-decoration: none; */
         }
+        .notification {
+            background-color: #f6f7f9;
+            padding: 10px;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+        }
+        .notification .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .notification .content {
+            display: flex;
+            align-items: center;
+        }
+        .notification .message {
+            font-weight: 500;
+        }
+        .notification .timestamp {
+            font-size: 12px;
+            color: #999;
+        }
     </style>
 </head>
 

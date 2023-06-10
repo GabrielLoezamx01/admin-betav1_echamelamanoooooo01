@@ -121,7 +121,8 @@
     <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
-        var api_comentarios = 'Api_comments'; {
+        var api_comentarios = 'Api_comments';
+        var api_notificaciones = 'api_notificaciones'; {
             new Vue({
                 el: '#vue',
                 http: {
@@ -148,7 +149,11 @@
                     servicies: 0,
                     serviciessearch: 0,
                     modalVisible: false,
-                    someModal: ""
+                    someModal: "",
+                    arrayNotify: [],
+                    countNotify: 0,
+                    settingsNotify: []
+
                 },
                 created: function() {
                     this.getSHOW();
@@ -165,6 +170,10 @@
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
                             this.apiResponse = response.body.data
+                        });
+                        this.$http.get(api_notificaciones).then(function(datos) {
+                            this.arrayNotify = datos.body;
+                            this.countNotify = this.arrayNotify.length;
                         });
                     },
                     api_servicios: function() {
@@ -344,6 +353,14 @@
                         const dominio = "http://localhost/admin/public/";
                         const nuevaRuta = "comments?id=" + id;
                         window.location.assign(nuevaRuta);
+                    },
+                    getJsonValue(jsonString, key) {
+                        this.settingsNotify = JSON.parse(jsonString);
+                    },
+                    updateNotify: function(id) {
+                        var data = {};
+                        this.$http.patch(api_notificaciones + '/' + id, data)
+                            .then(function(json) {});
                     }
                 },
                 computed: {}

@@ -39,12 +39,28 @@ class ComentariosController extends Controller
     public function store(Request $request)
     {
         try {
+            $fecha = date('Y-m-d H:i:s');
+            $idp   = $request->publications_id ?? $request->idp;
+            $uuid  = session('uuid');
+            $comentario = $request->comentario ?? $request->contenido ?? 'Comentario';
             DB::table('comments')->insert([
-                'comentario'       => $request->comentario ?? $request->contenido,
-                'publications_id'  => $request->publications_id ?? $request->idp,
+                'comentario'       => $comentario,
+                'publications_id'  => $idp,
                 'reactions'        => 0,
-                'id_user_comments' => session('uuid'),
-                'date'      => date('Y-m-d H:i:s'),
+                'id_user_comments' => $uuid,
+                'date'             => $fecha
+            ]);
+            $json = [
+                "type" => 1,
+                "id_post" => $idp
+            ];
+            DB::table('notifications')->insert([
+                'titulo'      => 'Nuevo Comentario',
+                'mensaje'     =>  $comentario,
+                'fecha_envio' =>  $fecha,
+                'leida'       => 0,
+                'id_client'   => $request->uuidc,
+                'json'        => json_encode($json)
             ]);
             if(isset($request->idp)){
                 return redirect('comments?id='.$request->idp);

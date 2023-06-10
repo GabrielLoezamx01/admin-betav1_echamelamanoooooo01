@@ -36,6 +36,7 @@
                             <h5 class="card-title">Comentarios</h5>
                             <hr>
                             @foreach ($database as $item)
+
                                 <div class="mb-4">
                                     <div class="d-flex align-items-center mb-2">
                                         <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
@@ -60,6 +61,7 @@
                                 <form method="post" action="{{route('newComment')}}">
                                     @csrf
                                     <input type="hidden" name="idp" value="{{ $publicaciones->publications_id }}">
+                                    <input type="hidden" name="uuidc" value="{{$publicaciones->id_user}}">
                                     <textarea class="form-control" name="contenido" id="" cols="20" rows="6"></textarea>
                                     <button class="btn btn-dark mt-3">Agregar Comentario</button>
                                 </form>
