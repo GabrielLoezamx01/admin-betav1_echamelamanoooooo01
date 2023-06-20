@@ -5,24 +5,11 @@
             @include('site.sidebar')
         </div>
         <div class="col-md-7">
-            @foreach ($return as $key => $valor)
-            {{-- {{$valor->sucursal}} --}}
-                <section class="card m-3">
-                    <img src="'storage/sucursal/'" class="card-img-top" alt="Foto de la Sucursal">
-                    <div class="card-body">
-                        {{-- <h5 class="card-title">{{$valor['sucursal']['name_branch']}}</h5> --}}
-                        <p class="card-text">
-
-                            {{-- <i class="fas fa-map-marker-alt "></i> @{{ sucursal.sucursal.street }}
-                            @{{ sucursal.sucursal.address }} @{{ sucursal.sucursal.city }} @{{ sucursal.sucursal.state }} , @{{
-                            sucursal.sucursal.postal_code }}
-                            <br>
-                            <i class="fas fa-tags"></i> @{{ sucursal.sucursal.span }}<br>
-                            @{{ sucursal.sucursal.description }} --}}
-                        </p>
-                    </div>
-                </section>
-            @endforeach
+            @if (count($branch) == 0)
+                <div class="mt-5">
+                    <h5>Registra tu sucursal</h5>
+                </div>
+            @endif
         </div>
         <div class="col-md-2">
             @include('site.usertop')
@@ -37,8 +24,8 @@
             subMenu.classList.toggle('open');
         }
     </script>
-    <script>
-        var api = 'api_sucursales';
+       <script>
+        var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
         var api_comentarios = 'Api_comments';
         var api_notificaciones = 'api_notificaciones'; {
@@ -71,8 +58,7 @@
                     someModal: "",
                     arrayNotify: [],
                     countNotify: 0,
-                    settingsNotify: [],
-                    meencanta: 0
+                    settingsNotify: []
 
                 },
                 created: function() {
@@ -89,7 +75,7 @@
                 methods: {
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body;
+                            this.apiResponse = response.body.data
                         });
                         this.$http.get(api_notificaciones).then(function(datos) {
                             this.arrayNotify = datos.body;

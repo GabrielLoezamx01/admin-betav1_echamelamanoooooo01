@@ -27,13 +27,13 @@
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
                             <div class="form-outline mb-4">
-                                <input type="email" id="form2Example18" class="form-control custom-focus form-control-lg" />
-                                <label class="form-label" for="form2Example18" name="email">Correo</label>
+                                <input type="email" name="email" class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example18" >Correo</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input type="password" id="form2Example28" class="form-control custom-focus form-control-lg" />
-                                <label class="form-label" for="form2Example28" name="password">Password</label>
+                                <input type="password" name="password" class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example28" >Password</label>
                             </div>
 
                             <div class="pt-1 mb-4">
@@ -43,7 +43,7 @@
                             <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
                                     contraseña?
                                 </a></p>
-                            <p>¿No tienes una cuenta? <a href="#!" class="link-info">Registrar aquí</a></p>
+                            <p>¿No tienes una cuenta? <a href="crear_client" class="link-info">Registrar aquí</a></p>
 
                         </form>
 

@@ -96,6 +96,9 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="Vendedor">Vendedor</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="Bienvenido">Publicaciones</a>
                         </li>
                     </ul>

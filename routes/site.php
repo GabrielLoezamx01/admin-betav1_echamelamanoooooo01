@@ -6,11 +6,16 @@ use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\ProfileClienController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\notificacionesController;
+use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
 Route::post('login_client',[ClientsController::class, 'login'])->name('login_client');
 Route::post('crear_cliente',[ClientsController::class, 'crear'])->name('crear_cliente');
+
+Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('data_clients',[ClientsController::class, 'data_clients'])->name('data_clients');
@@ -27,6 +32,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     // Route::view('Sucursales','site.sucursales');
     // Route::resource('api_sucursales', SucursalesController::class);
     Route::resource('api_notificaciones', notificacionesController::class);
+
+    Route::get('Vendedor', [VendedorController::class, 'index']);
 });
 
 
