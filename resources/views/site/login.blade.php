@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Iniciar sesión</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.4/css/uikit.min.css" />
-</head>
-<body>
 
-    <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
-        <div class="uk-width-1-1">
-            <div class="uk-container">
-                <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
-                    <div class="uk-width-1-1@m">
-                        <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                            <h3 class="uk-card-title uk-text-center">¡Bienvenido de nuevo!</h3>
-                            <form method="post" action="{{route('login_client')}}">
-                                @csrf
-                                <div class="uk-margin">
-                                    <div class="uk-inline uk-width-1-1">
-                                        <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                        <input class="uk-input uk-form-large" type="text" name="email">
-                                    </div>
-                                </div>
-                                <div class="uk-margin">
-                                    <div class="uk-inline uk-width-1-1">
-                                        <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                        <input class="uk-input uk-form-large" type="password" name="password">
-                                    </div>
-                                </div>
-                                <div class="uk-margin">
-                                    <button class=" uk-button uk-button-secondary uk-button-large uk-width-1-1">Login</button>
-                                </div>
-                                <div class="uk-text-small uk-text-center">
-                                    ¿No registrado?  <a href="crear_client">Crea una cuenta</a>
-                                </div>
-                            </form>
-                        </div>
+<head>
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layouts.css">
+
+</head>
+
+<body>
+    <section class="vh-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 text-black">
+
+                    <div class="px-5 ms-xl-4">
+                        <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
+                        <span class="h1 fw-bold mb-0">Logo</span>
                     </div>
+
+                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+
+                        <form style="width: 50rem;" method="post" action="{{ route('login_client') }}">
+                            @csrf
+                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
+
+                            <div class="form-outline mb-4">
+                                <input type="email" id="form2Example18" class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example18" name="email">Correo</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form2Example28" class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example28" name="password">Password</label>
+                            </div>
+
+                            <div class="pt-1 mb-4">
+                                <button class="btn btn-dark btn-lg btn-block">OK</button>
+                            </div>
+
+                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
+                                    contraseña?
+                                </a></p>
+                            <p>¿No tienes una cuenta? <a href="#!" class="link-info">Registrar aquí</a></p>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-6 px-0 d-none d-sm-block">
+                    <img src="img/icon.jpg" alt="Login image" class="w-100 vh-100"
+                        style="object-fit: cover; object-position: left;">
                 </div>
             </div>
         </div>
-    </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.4/js/uikit.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.4/js/uikit-icons.min.js"></script>
+    </section>
 </body>
+
 </html>

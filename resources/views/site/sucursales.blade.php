@@ -5,35 +5,25 @@
             @include('site.sidebar')
         </div>
         <div class="col-md-7">
-            <div class="card m-3" v-for="sucursal in apiResponse">
-                <img :src="'storage/sucursal/' + sucursal.sucursal.image" class="card-img-top" alt="Foto de la Sucursal">
-                <div class="card-body">
-                    <h5 class="card-title">@{{ sucursal.sucursal.name_branch }}</h5>
-                    <p class="card-text">
+            @foreach ($return as $key => $valor)
+            {{$valor}}
+                <section class="card m-3">
+                    {{-- <img :src="'storage/sucursal/' + sucursal.sucursal.image" class="card-img-top" alt="Foto de la Sucursal"> --}}
+                    <div class="card-body">
+                        {{-- <h5 class="card-title">{{$valor['sucursal']['name_branch']}}</h5> --}}
+                        <p class="card-text">
 
-                        <i class="fas fa-map-marker-alt "></i> @{{ sucursal.sucursal.street }}
-                        @{{ sucursal.sucursal.address }} @{{ sucursal.sucursal.city }} @{{ sucursal.sucursal.state }} , @{{ sucursal.sucursal.postal_code }}
-                        <br>
-                        <i class="fas fa-tags"></i> @{{ sucursal.sucursal.span }}<br>
-                        @{{ sucursal.sucursal.description }}
-                    </p>
-                </div>
-                <div class="card-footer bg-white">
-                    <div class="d-flex justify-content-between">
-                        <div v-for="likes in sucursal.likes">
-                            <div v-if="likes.id_user == '{{ session('uuid') }}'">
-                                <i class="fas fa-heart text-danger" @click="meEncanta(sucursal.id_branch)"></i> Favorito
-                            </div>
-                            <div>
-                                <button class="btn ">
-                                    <i class="fas fa-share-alt"></i> Compartir
-                                </button>
-                            </div>
-                        </div>
-
+                            {{-- <i class="fas fa-map-marker-alt "></i> @{{ sucursal.sucursal.street }}
+                            @{{ sucursal.sucursal.address }} @{{ sucursal.sucursal.city }} @{{ sucursal.sucursal.state }} , @{{
+                            sucursal.sucursal.postal_code }}
+                            <br>
+                            <i class="fas fa-tags"></i> @{{ sucursal.sucursal.span }}<br>
+                            @{{ sucursal.sucursal.description }} --}}
+                        </p>
                     </div>
-                </div>
-            </div>
+                </section>
+            @endforeach
+
         </div>
         <div class="col-md-2">
             @include('site.usertop')

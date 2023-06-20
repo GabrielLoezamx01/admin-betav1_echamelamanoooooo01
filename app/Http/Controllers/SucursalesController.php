@@ -25,7 +25,7 @@ class SucursalesController extends Controller
                 'count' => $likes->count()
             ];
         }
-        return $return;
+        return view('site.sucursales')->with(compact('return'));
     }
 
     /**

@@ -22,8 +22,10 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');
     // setting profile clients rols
     Route::get('profile', [ProfileClienController::class, 'index']);
-    Route::view('Sucursales','site.sucursales');
-    Route::resource('api_sucursales', SucursalesController::class);
+    Route::get('Sucursales', [SucursalesController::class, 'index']);
+
+    // Route::view('Sucursales','site.sucursales');
+    // Route::resource('api_sucursales', SucursalesController::class);
     Route::resource('api_notificaciones', notificacionesController::class);
 });
 
