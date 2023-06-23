@@ -35,7 +35,9 @@
                                 <input type="password" name="password" class="form-control custom-focus form-control-lg" />
                                 <label class="form-label" for="form2Example28" >Password</label>
                             </div>
-
+                            <div class="mt-5 mb-4">
+                                <a href="auth/google">Login con google</a>
+                            </div>
                             <div class="pt-1 mb-4">
                                 <button class="btn btn-dark btn-lg btn-block">OK</button>
                             </div>

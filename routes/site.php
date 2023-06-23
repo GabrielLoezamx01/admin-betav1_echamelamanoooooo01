@@ -7,15 +7,21 @@ use App\Http\Controllers\ProfileClienController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\notificacionesController;
 use App\Http\Controllers\VendedorController;
-use App\Http\Controllers\Auth\GoogleController;
+
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
 Route::post('login_client',[ClientsController::class, 'login'])->name('login_client');
 Route::post('crear_cliente',[ClientsController::class, 'crear'])->name('crear_cliente');
 
-Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
+Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+Route::get('/auth/google/register', [RegisteredUserController::class, 'redirectToGoogle'])->name('auth.google.register');
+Route::get('/auth/google/callback/register', [RegisteredUserController::class, 'handleGoogleCallback']);
 
 Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('data_clients',[ClientsController::class, 'data_clients'])->name('data_clients');

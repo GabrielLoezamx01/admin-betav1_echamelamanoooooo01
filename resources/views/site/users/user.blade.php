@@ -4,6 +4,7 @@
     <div id="vue" class="p-5">
         <div class="row mt-5">
             @foreach ($user as $item)
+            {{$item}}
                 <div class="col-md-4">
                     <div class="text-center">
                         <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto de perfil"
