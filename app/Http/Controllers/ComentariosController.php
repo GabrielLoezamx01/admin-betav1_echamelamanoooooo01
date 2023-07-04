@@ -15,18 +15,28 @@ class ComentariosController extends Controller
      */
     public function index(Request $request)
     {
-        $publicaciones =  Publications::where('status','1')->where('publications_id', $request->id)
+        $validate = 'HEY';
+        $publicaciones = collect(Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
         ->join('services as s','publications.id_servicio','=','s.id')
         ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
-        ->orderBy('date','DESC')->first();
+        ->orderBy('date','DESC')->first());
+        $validate = [
+            'session'     => session('uuid'),
+            'basededatos' =>  $publicaciones->get('uuid')
+        ];
+        dd($validate);
+        if(session('uuid') == $publicaciones->get('uuid')){
+            $validate = 'nooo';
+        }
         $database = DB::table('comments')->where('publications_id',$request->id)
             ->join('clients','comments.id_user_comments','=','clients.uuid')
             ->select('clients.name','clients.last_name','clients.photo','comments.*')
             ->orderByRaw('date ASC ')->get();
             return view('site.comment')->with(compact(
                 'database',
-                'publicaciones'
+                'publicaciones',
+                'validate'
             ));
     }
 

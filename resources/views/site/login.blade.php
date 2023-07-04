@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layouts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 
@@ -27,30 +28,40 @@
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
                             <div class="form-outline mb-4">
-                                <input type="email" name="email" class="form-control custom-focus form-control-lg" />
-                                <label class="form-label" for="form2Example18" >Correo</label>
+                                <input type="email" name="email"
+                                    class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example18">Correo</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input type="password" name="password" class="form-control custom-focus form-control-lg" />
-                                <label class="form-label" for="form2Example28" >Password</label>
+                                <input type="password" name="password"
+                                    class="form-control custom-focus form-control-lg" />
+                                <label class="form-label" for="form2Example28">Contraseña</label>
                             </div>
-                            <div class="mt-5 mb-4">
-                                <a href="auth/google">Login con google</a>
-                            </div>
+
                             <div class="pt-1 mb-4">
                                 <button class="btn btn-dark btn-lg btn-block">OK</button>
                             </div>
 
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
-                                    contraseña?
-                                </a></p>
-                            <p>¿No tienes una cuenta? <a href="crear_client" class="link-info">Registrar aquí</a></p>
 
                         </form>
 
                     </div>
+                    <div class="mt-5 mb-4">
+                        <a href="auth/google">
+                            <div class="bg-white text-center p-2">
+                                <button class="btn btn-white text-danger">
+                                    Iniciar sesión con
+                                    <i class="fab fa-google me-2"></i>oogle
+                                </button>
+                            </div>
+                        </a>
+                    </div>
 
+                    <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
+                        contraseña?
+                    </a></p>
+                <p>¿No tienes una cuenta? <a href="crear_client" class="link-info">Registrar aquí</a></p>
                 </div>
                 <div class="col-sm-6 px-0 d-none d-sm-block">
                     <img src="img/icon.jpg" alt="Login image" class="w-100 vh-100"

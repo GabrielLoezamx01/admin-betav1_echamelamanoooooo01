@@ -32,19 +32,37 @@ class ClientsController extends Controller
         $validated  = $request->validate([
             'email'    => 'required',
             'password' => 'required',
+            'type_client' => 'required'
         ]);
-        if (!DB::table('clients')->where('email', $request->email)->exists()) {
-            DB::table('clients')->insert([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            $database   = $this->database_user($request->email);
-            $this->session_clients($database);
-            return redirect('Bienvenido');
-        } else {
-            // Falta vistas de errorss
-            return 'Error email registrado';
+        $type = [
+            'type_two' => 'cliente_001',
+            'type_one' => 'vendedor_002',
+        ];
+        $type_client = $type[$request->type_client] ?? 000;
+        if ($type_client == 'vendedor_002') {
+            if (!DB::table('seller')->where('email', $request->email)->exists()) {
+                session(['type_user'  => 'V']);
+                DB::table('seller')->insert([
+                    'email'    => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+            } else {
+                return 'Error email registrado';
+            }
+        } else if ($type_client == 'cliente_001') {
+            if (!DB::table('clients')->where('email', $request->email)->exists()) {
+                session(['type_user'  => 'C']);
+                DB::table('clients')->insert([
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
+            } else {
+                return 'Error email registrado';
+            }
         }
+        $database   = $this->database_user($request->email, $type_client);
+        $this->session_clients($database);
+        return redirect('Bienvenido');
     }
     private function session_clients($database)
     {
@@ -54,10 +72,15 @@ class ClientsController extends Controller
         session(['photo'      => $database['photo']])   ?? "";
         session(['active'     => $active]);
         session(['uuid'       => $database['uuid']])    ?? "";
+
     }
-    private function database_user(string $email)
+    private function database_user(string $email, string $type)
     {
-        return  collect(DB::table('clients')->where('email', $email)->first());
+        if ($type == 'vendedor_002') {
+            return  collect(DB::table('seller')->where('email', $email)->first());
+        } else if ($type == 'cliente_001') {
+            return  collect(DB::table('clients')->where('email', $email)->first());
+        }
     }
     public function site(Request $request)
     {
@@ -70,7 +93,12 @@ class ClientsController extends Controller
     }
     private function queryClients($query)
     {
-        return DB::table('clients')->where($query);
+        if(session('type_user') == 'V'){
+            return DB::table('seller')->where($query);
+        }
+        if(session('type_user') == 'C'){
+            return DB::table('clients')->where($query);
+        }
     }
     public function data_clients(Request $request)
     {
@@ -88,46 +116,94 @@ class ClientsController extends Controller
         } else {
             return Redirect('Bienvenido');
         }
-        if ($request->uuid) {
-            DB::table('clients')->where('uuid', $request->uuid)->update([
-                'photo'       => $nombreArchivo,
-            ]);
-        } {
-            $validator = Validator::make($request->all(), [
-                'nombre' => 'required|string|max:255',
-                'apellidos' => 'required|string|max:255',
-                'telefono' => 'required|string',
-                //     'correo' => 'required|string|email|max:255',
-                'direccion' => 'required|string|max:255',
-                'postal'    => 'required|string|max:255',
-                'estado'    => 'required|string|max:255',
-                'ciudad'    => 'required|string|max:255',
-                'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
-            ]);
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-            DB::table('clients')->where('id', session('id_user'))->update([
-                'name'        => $request->input('nombre'),
-                'last_name'   => $request->input('apellidos'),
-                //   'email'       => $request->input('correo'),
-                'andress'     => $request->input('direccion'),
-                'photo'       => $nombreArchivo,
-                'suscription' => 1,
-                'phone'       => $request->input('telefono'),
-                'rang'        => 0,
-                'validate'    => 1,
-                'active'      => 1,
-                'id_category' => 1,
-                'postal'      => $request->postal,
-                'estado'      => $request->estado,
-                'ciudad'      => $request->ciudad,
-                'uuid'        =>   Str::uuid()
-            ]);
+        switch (session('type_user')){
+            case 'C':
+                if(isset($request->uuid)){
+                    DB::table('clients')->where('uuid', $request->uuid)->update([
+                        'photo'       => $nombreArchivo,
+                    ]);
+                }else{
+                    $validator = Validator::make($request->all(), [
+                        'nombre' => 'required|string|max:255',
+                        'apellidos' => 'required|string|max:255',
+                        'telefono' => 'required|string',
+                        //     'correo' => 'required|string|email|max:255',
+                        'direccion' => 'required|string|max:255',
+                        'postal'    => 'required|string|max:255',
+                        'estado'    => 'required|string|max:255',
+                        'ciudad'    => 'required|string|max:255',
+                        'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
+                    ]);
+                    if ($validator->fails()) {
+                        return redirect()
+                            ->back()
+                            ->withErrors($validator)
+                            ->withInput();
+                    }
+                    DB::table('clients')->where('id', session('id_user'))->update([
+                        'name'        => $request->input('nombre'),
+                        'last_name'   => $request->input('apellidos'),
+                        //   'email'       => $request->input('correo'),
+                        'andress'     => $request->input('direccion'),
+                        'photo'       => $nombreArchivo,
+                        'suscription' => 1,
+                        'phone'       => $request->input('telefono'),
+                        'rang'        => 0,
+                        'validate'    => 1,
+                        'active'      => 1,
+                        'id_category' => 1,
+                        'postal'      => $request->postal,
+                        'estado'      => $request->estado,
+                        'ciudad'      => $request->ciudad,
+                        'uuid'        =>   Str::uuid()
+                    ]);
+                }
+                break;
+             case 'V':
+                if(isset($request->uuid)){
+                    DB::table('seller')->where('uuid', $request->uuid)->update([
+                        'photo'       => $nombreArchivo,
+                    ]);
+                }else{
+                    $validator = Validator::make($request->all(), [
+                        'nombre' => 'required|string|max:255',
+                        'apellidos' => 'required|string|max:255',
+                        'telefono' => 'required|string',
+                        //     'correo' => 'required|string|email|max:255',
+                        'direccion' => 'required|string|max:255',
+                        'postal'    => 'required|string|max:255',
+                        'estado'    => 'required|string|max:255',
+                        'ciudad'    => 'required|string|max:255',
+                        'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
+                    ]);
+                    if ($validator->fails()) {
+                        return redirect()
+                            ->back()
+                            ->withErrors($validator)
+                            ->withInput();
+                    }
+                    DB::table('seller')->where('id', session('id_user'))->update([
+                        'name'        => $request->input('nombre'),
+                        'last_name'   => $request->input('apellidos'),
+                        //   'email'       => $request->input('correo'),
+                        'andress'     => $request->input('direccion'),
+                        'photo'       => $nombreArchivo,
+                        'suscription' => 1,
+                        'phone'       => $request->input('telefono'),
+                        'validate'    => 1,
+                        'active'      => 1,
+                        'category'    => 0,
+                        'postal'      => $request->postal,
+                        'estado'      => $request->estado,
+                        'ciudad'      => $request->ciudad,
+                        'uuid'        =>   Str::uuid()
+                    ]);
+                }
+                break;
+            default:
+                return 'Ocurrio un error Interno en el sistema 00000x1_01';
         }
+
         $database = collect($this->queryClients(['id' => session('id_user')])->first());
         $this->session_clients($database);
         return isset($request->uuid) ? redirect('profile') : redirect('Bienvenido');

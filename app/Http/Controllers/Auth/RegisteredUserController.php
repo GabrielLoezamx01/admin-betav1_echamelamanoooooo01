@@ -18,7 +18,7 @@ class RegisteredUserController extends Controller
     public function handleGoogleCallback()
     {
         $googleUser = Socialite::driver('google')->user();
-        $create     = DB::table('google_login')->insert([
+        DB::table('google_login')->insert([
             'nickname'    => $googleUser->getNickname == null ? $googleUser->user['name'] : $googleUser->getNickname,
             'email'       => $googleUser->email,
             'avatar'      => $googleUser->avatar,
@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
             'uuid'        => $googleUser->id,
             'active'      => 1,
         ]);
-        $clientes = DB::table('clients')->insert([
+        DB::table('clients')->insert([
             'email'     => $googleUser->email,
             'password'  => '',
             'google_id' => $googleUser->id,

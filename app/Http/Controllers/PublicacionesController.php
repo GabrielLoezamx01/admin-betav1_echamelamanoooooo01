@@ -28,7 +28,8 @@ class PublicacionesController extends Controller
             }
         }else{
             $elementos = Publications::where('status','1')
-            ->join('clients','publications.id_user','=','clients.uuid')
+            ->leftjoin('clients','publications.id_user','=','clients.uuid')
+            ->leftjoin('seller','publications.id_user','=','seller.uuid')
             ->join('services as s','publications.id_servicio','=','s.id')
             ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
             ->orderBy('date','DESC')->paginate(10);
