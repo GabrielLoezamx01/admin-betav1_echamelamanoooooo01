@@ -40,3 +40,5 @@ Route::resource('Api_subCategory', SubCategoryController::class);
 */
 Route::resource('Api_users', UsuariosController::class);
 Route::view('lista_usuarios', 'admin.usuarios.lista');
+Route::view('402', 'errors.402');
+

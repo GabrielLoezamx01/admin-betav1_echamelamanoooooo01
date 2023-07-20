@@ -17,6 +17,7 @@ class RegisteredUserController extends Controller
 
     public function handleGoogleCallback()
     {
+
         $googleUser = Socialite::driver('google')->user();
         DB::table('google_login')->insert([
             'nickname'    => $googleUser->getNickname == null ? $googleUser->user['name'] : $googleUser->getNickname,

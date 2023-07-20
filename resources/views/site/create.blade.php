@@ -55,7 +55,7 @@
 
                         </form>
                     </div>
-                    <div class="mt-5 mb-4">
+                    {{-- <div class="mt-5 mb-4">
                         <a href="auth/google/register">
                             <div class="bg-white text-center p-2">
                                 <button class="btn btn-white text-danger">
@@ -64,7 +64,7 @@
                                 </button>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-md-6 px-0 d-none d-sm-block">
                     <img src="img/icon.jpg" alt="Login image" class="w-100 vh-100"

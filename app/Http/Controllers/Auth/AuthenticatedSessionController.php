@@ -18,9 +18,8 @@ class AuthenticatedSessionController extends Controller
     public function handleGoogleCallback()
     {
         $googleUser = Socialite::driver('google')->user();
-        $user       = $this->databaseUser($googleUser);
-        if (!$user) {
-            $uuid =  Str::uuid();
+        $validate   = DB::table('clients')->where('email',$googleUser->email)->first() ?  DB::table('clients')->where('email',$googleUser->email)->first() :  DB::table('seller')->where('email',$googleUser->email)->first();
+        if(is_null($validate)){
             DB::table('clients')->insert([
                 'photo'     => '',
                 'email'     => $googleUser->email,
@@ -40,10 +39,33 @@ class AuthenticatedSessionController extends Controller
                 'uuid'        => $uuid,
                 'active'      => 1,
             ]);
+        }else{
+            $user       = $this->databaseUser($googleUser);
+            if (!$user) {
+                $uuid =  Str::uuid();
+                DB::table('clients')->insert([
+                    'photo'     => '',
+                    'email'     => $googleUser->email,
+                    'password'  => '',
+                    'google_id' => $googleUser->id,
+                    'uuid'      => '',
+                ]);
+                DB::table('google_login')->insert([
+                    'nickname'    => $googleUser->getNickname == null ? $googleUser->user['name'] : $googleUser->getNickname,
+                    'email'       => $googleUser->email,
+                    'avatar'      => $googleUser->avatar,
+                    'name'        => $googleUser->user['given_name'],
+                    'family_name' => $googleUser->user['family_name'],
+                    'google_id'   => $googleUser->id,
+                    'token'       => $googleUser->token,
+                    'expiresIn'   => $googleUser->expiresIn,
+                    'uuid'        => $uuid,
+                    'active'      => 1,
+                ]);
+            }
+            $data  = $this->sessionUsers($this->databaseUser($googleUser));
+            return redirect('Bienvenido');
         }
-        $this->sessionUsers($this->databaseUser($googleUser));
-        return redirect('Bienvenido');
-        // Aquí puedes manejar la lógica para autenticar al usuario y redirigirlo a la página deseada
     }
     private function databaseUser($googleUser){
         return DB::table('clients')->where('google_id', $googleUser->id)->first();

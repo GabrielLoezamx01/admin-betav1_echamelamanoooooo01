@@ -14,11 +14,12 @@ class ClientsController extends Controller
 {
     public function login(Request $request)
     {
+
         $validated  = $request->validate([
             'email'    => 'required',
             'password' => 'required',
         ]);
-        $database   = $this->database_user($request->email);
+        // $database   = $this->database_user($request->email);
         if (isset($database['id'])) {
             if (Hash::check($request->password, $database['password'])) {
                 $this->session_clients($database);
@@ -105,6 +106,7 @@ class ClientsController extends Controller
         $validator = Validator::make($request->all(), [
             'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
         ]);
+
         if (isset($request->foto)) {
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $extension = $request->file('foto')->extension();
@@ -116,6 +118,7 @@ class ClientsController extends Controller
         } else {
             return Redirect('Bienvenido');
         }
+
         switch (session('type_user')){
             case 'C':
                 if(isset($request->uuid)){
@@ -127,12 +130,11 @@ class ClientsController extends Controller
                         'nombre' => 'required|string|max:255',
                         'apellidos' => 'required|string|max:255',
                         'telefono' => 'required|string',
-                        //     'correo' => 'required|string|email|max:255',
                         'direccion' => 'required|string|max:255',
                         'postal'    => 'required|string|max:255',
                         'estado'    => 'required|string|max:255',
                         'ciudad'    => 'required|string|max:255',
-                        'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
+                        'foto'      => 'nullable|image|max:9000',
                     ]);
                     if ($validator->fails()) {
                         return redirect()

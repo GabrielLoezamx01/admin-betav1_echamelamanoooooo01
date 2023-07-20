@@ -25,6 +25,7 @@
 
                         <form style="width: 50rem;" method="post" action="{{ route('login_client') }}">
                             @csrf
+                            <input type="hidden" name="rol" value="001">
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
                             <div class="form-outline mb-4">
@@ -47,7 +48,7 @@
                         </form>
 
                     </div>
-                    <div class="mt-5 mb-4">
+                    {{-- <div class="mt-5 mb-4">
                         <a href="auth/google">
                             <div class="bg-white text-center p-2">
                                 <button class="btn btn-white text-danger">
@@ -56,7 +57,7 @@
                                 </button>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
 
                     <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
                         contraseña?
