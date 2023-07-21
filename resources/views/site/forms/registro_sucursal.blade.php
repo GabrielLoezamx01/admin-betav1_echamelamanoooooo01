@@ -39,6 +39,10 @@
                 <input type="file"  name="img" class="form-control custom-focus" autocomplete="off" required>
             </div>
             <div class="mb-3">
+                <p class="card-title text-title fw-ligh">RFC</p>
+                <input type="text"  name="rfc" class="form-control custom-focus" autocomplete="off" placeholder="Opcional">
+            </div>
+            <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Descripción</p>
                 <textarea  name="descripcion" class="form-control custom-focus" id="" cols="30" rows="10" required
                     maxlength="400">

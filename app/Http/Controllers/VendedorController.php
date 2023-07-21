@@ -31,9 +31,41 @@ class VendedorController extends Controller
     {
         $data       = Settings::validate_auto($request->all());
         $validated  = $request->validate($data);
-        // Se debe insertar los datos de las sucursales
-        DB::table('branch')->insert();
-        return $request->all();
+        $this->saveDatabase($this->arrayBranch($request), 'branch');
+        return redirect('mis_sucursales');
+    }
+    private function arrayBranch($request)
+    {
+        $nombreArchivo = '';
+        if (isset($request->img)) {
+            if ($request->hasFile('img') && $request->file('img')->isValid()) {
+                $extension = $request->file('img')->extension();
+                $nombreArchivo = time() . '_' . uniqid() . '.' . $extension;
+                $request->file('img')->storeAs('public/sucursales', $nombreArchivo);
+            }
+        }
+        return [
+            'id_seller'   => session('uuid'),
+            'name_branch' => $request->nombre,
+            'street'      => $request->calle,
+            'address'     => $request->direccion,
+            'city'        => $request->ciudad,
+            'state'       => 'A',
+            'postal_code' => $request->postal,
+            'delete'      => 0,
+            'id_service'  => $request->servicio,
+            'description' => $request->descripcion,
+            'span'        => isset($request->span)  ? $request->span : 0,
+            'rang'        => isset($request->rang)  ? $request->rang : 0,
+            'image'       => $nombreArchivo,
+            'id_like'     => isset($request->likes) ? $request->like : 0,
+            'maps'        => '',
+            'rfc'         => isset($request->rfc)   ? $request->rfc : 0
+        ];
+    }
+    private function saveDatabase(array $data, string $table)
+    {
+        DB::table($table)->insert($data);
     }
 
     /**
