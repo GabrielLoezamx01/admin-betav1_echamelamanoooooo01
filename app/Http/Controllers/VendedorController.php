@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Session;
+
 class VendedorController extends Controller
 {
     /**
@@ -13,6 +15,11 @@ class VendedorController extends Controller
      */
     public function index()
     {
+        dd('controlador vendedor controller');
+        if(session('type_user') == 'C'){
+
+        }
+        dd(Session::all());
         $main_sucursales =  DB::table('branch')->where('id_client', session('uuid'))->get();
         return view('site.vendedor')->with('branch', $main_sucursales);
     }
