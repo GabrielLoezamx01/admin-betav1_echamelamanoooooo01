@@ -95,15 +95,17 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Vendedor">Vendedor</a>
-                        </li>
-                        <li class="nav-item">
+                        @if(session('type_user') == 'V')
+                            <li class="nav-item animate__animated animate__backInDown">
+                                <a class="nav-link fw-bold" href="mis_sucursales">Mis Sucursales</a>
+                            </li>
+                        @endif
+                        <li class="nav-item ">
                             <a class="nav-link" href="Bienvenido">Publicaciones</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav mr-auto ">
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             <a class="nav-link" href="profile">{{ session('name') }}</a>
                         </li>
                         <li class="nav-item">

@@ -4,11 +4,19 @@
         <div class="col-md-3 animate__animated animate__fadeInLeft">
             @include('site.sidebar')
         </div>
-        <div class="col-md-7">
+        <div class="col-md-7 mt-5">
             @if (count($branch) == 0)
-                <div class="mt-5">
-                    <h5>Registra tu sucursal</h5>
-                </div>
+                <section class="card">
+                    <header class="text-center bg-dark">
+                        <h3 class="p-3 fw-bold" style="color:#FFFF00  ;">¡Registra tu primera sucursal de forma <span class="fs-2">gratuita!</span></h3>
+                    </header>
+                    <div class="mt-3 p-2">
+                        @include('site.forms.registro_sucursal')
+                    </div>
+                    <footer class="text-center p-3">
+                        <p class="text-warning">Asegúrate de ingresar toda la información requerida.</p>
+                    </footer>
+                </section>
             @endif
         </div>
         <div class="col-md-2">
@@ -24,10 +32,10 @@
             subMenu.classList.toggle('open');
         }
     </script>
-       <script>
-        var api = 'Api_publications';
+    <script>
+     //  var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
-        var api_comentarios = 'Api_comments';
+        //var api_comentarios = 'Api_comments';
         var api_notificaciones = 'api_notificaciones'; {
             new Vue({
                 el: '#vue',
@@ -74,9 +82,9 @@
                 },
                 methods: {
                     getSHOW: function() {
-                        this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body.data
-                        });
+                        // this.$http.get(api).then(function(response) {
+                        //     this.apiResponse = response.body.data
+                        // });
                         this.$http.get(api_notificaciones).then(function(datos) {
                             this.arrayNotify = datos.body;
                             this.countNotify = this.arrayNotify.length;

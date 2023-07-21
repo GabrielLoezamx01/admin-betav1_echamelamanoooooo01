@@ -38,8 +38,10 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     // Route::view('Sucursales','site.sucursales');
     // Route::resource('api_sucursales', SucursalesController::class);
     Route::resource('api_notificaciones', notificacionesController::class);
+    // Se cambio el nombre cambio de idea 21/07/2023 se llama las sucursales del vendedor.
+    Route::get('mis_sucursales', [VendedorController::class, 'index']);
+    Route::post('create_sucursal', [VendedorController::class, 'store'])->name('create_sucursal');
 
-    Route::get('Vendedor', [VendedorController::class, 'index']);
 });
 
 

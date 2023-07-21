@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Tools\Settings;
 
 class VendedorController extends Controller
 {
@@ -15,12 +17,7 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        dd('controlador vendedor controller');
-        if(session('type_user') == 'C'){
-
-        }
-        dd(Session::all());
-        $main_sucursales =  DB::table('branch')->where('id_client', session('uuid'))->get();
+        $main_sucursales =  DB::table('branch')->where('id_seller', session('uuid'))->get();
         return view('site.vendedor')->with('branch', $main_sucursales);
     }
 
@@ -32,7 +29,11 @@ class VendedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data       = Settings::validate_auto($request->all());
+        $validated  = $request->validate($data);
+        // Se debe insertar los datos de las sucursales
+        DB::table('branch')->insert();
+        return $request->all();
     }
 
     /**
