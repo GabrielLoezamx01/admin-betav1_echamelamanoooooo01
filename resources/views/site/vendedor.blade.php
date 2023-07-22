@@ -8,7 +8,8 @@
             @if (count($branch) == 0)
                 <section class="card">
                     <header class="text-center bg-dark">
-                        <h3 class="p-3 fw-bold" style="color:#FFFF00  ;">¡Registra tu primera sucursal de forma <span class="fs-2">gratuita!</span></h3>
+                        <h3 class="p-3 fw-bold" style="color:#FFFF00  ;">¡Registra tu primera sucursal de forma <span
+                                class="fs-2">gratuita!</span></h3>
                     </header>
                     <div class="mt-3 p-2">
                         @include('site.forms.registro_sucursal')
@@ -16,6 +17,36 @@
                     <footer class="text-center p-3">
                         <p class="text-warning">Asegúrate de ingresar toda la información requerida.</p>
                     </footer>
+                </section>
+            @else
+                <section class="card shadow">
+                    <header class="d-flex">
+                        <div class="p-2 w-100">
+                            <h3 class="p-3 fw-bold">Mis Sucursales</h3>
+                        </div>
+                        <div class="p-2 flex-shrink-1"><button class="btn btn-dark" title="Nueva Sucursal"> + </button></div>
+                    </header>
+                    <hr>
+                    <div>
+                        @foreach ($branch as $value)
+                            <div class="row text-center">
+                                <div class="col-md-6 p-3">
+                                    <img src="{{ asset('storage/sucursales/' . $value->image) }}"
+                                        alt="{{ $value->name_branch }}" class="card-img-top shadow">
+                                        <div class="mt-3 text-center">
+                                            <h2 class="fw-bold text-aling-justify">
+                                                {{$value->name_branch}}
+                                            </h2>
+                                        </div>
+                                </div>
+                                <div class="col-md-6 p-3 ">
+                                    <button class="btn btn-dark p-5">Ajustes de sucursal</button>
+                                    <button class="btn btn-warning p-5">Servicios Ofrecidos</button>
+                                </div>
+                            </div>
+                            <hr>
+                        @endforeach
+                    </div>
                 </section>
             @endif
         </div>
@@ -33,7 +64,7 @@
         }
     </script>
     <script>
-     //  var api = 'Api_publications';
+        //  var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
         //var api_comentarios = 'Api_comments';
         var api_notificaciones = 'api_notificaciones'; {

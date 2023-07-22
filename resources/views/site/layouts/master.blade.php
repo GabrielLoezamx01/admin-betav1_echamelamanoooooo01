@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/layouts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
+
         .sidebar {
             background-color: white;
             color: black;
@@ -57,25 +58,30 @@
             color: #249f11;
             /* text-decoration: none; */
         }
+
         .notification {
             background-color: #f6f7f9;
             padding: 10px;
             border: 1px solid #dddfe2;
             border-radius: 5px;
         }
+
         .notification .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
         }
+
         .notification .content {
             display: flex;
             align-items: center;
         }
+
         .notification .message {
             font-weight: 500;
         }
+
         .notification .timestamp {
             font-size: 12px;
             color: #999;
@@ -95,8 +101,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        @if(session('type_user') == 'V')
-                            <li class="nav-item animate__animated animate__backInDown">
+                        @if (session('type_user') == 'V')
+                            <li class="nav-item  ">
                                 <a class="nav-link fw-bold" href="mis_sucursales">Mis Sucursales</a>
                             </li>
                         @endif
@@ -119,7 +125,7 @@
     <main class="">
         @yield('content')
     </main>
-    <footer class="footer-custom animate__animated animate__slideInUp">
+    <footer class="footer-custom">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |
