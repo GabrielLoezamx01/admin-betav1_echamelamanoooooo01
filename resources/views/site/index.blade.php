@@ -2,9 +2,10 @@
 @section('content')
     <div id="vue" class="row">
         <div class="col-md-3 animate__animated animate__fadeInLeft">
-            @include('site.sidebar')
-        </div>
+                @include('site.sidebar')
+s        </div>
         <div class="col-md-7">
+            @if (session('type_user') == 'C')
             <section>
                 <div class="card border-0">
                     <div class="card-body">
@@ -25,6 +26,7 @@
                     </div>
                 </div>
             </section>
+            @endif
             <section>
                 <div class="mt-5">
                     <h4 class="text-center m-5">Publicaciones recientes</h4>

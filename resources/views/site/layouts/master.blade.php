@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/layouts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-
         .sidebar {
             background-color: white;
             color: black;
@@ -102,18 +101,31 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         @if (session('type_user') == 'V')
+                        <li class="nav-item  ">
+                            <a class="nav-link fw-bold" href="Bienvenido">Publicaciones</a>
+                        </li>
                             <li class="nav-item  ">
                                 <a class="nav-link fw-bold" href="mis_sucursales">Mis Sucursales</a>
                             </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link fw-bold" href="mensajes_vendedor">Mensajes</a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link fw-bold" href="notificaciones_vendedor">Notificaciones</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link fw-bold" href="profile">Perfil</a>
+                            </li>
+
                         @endif
-                        <li class="nav-item ">
-                            <a class="nav-link" href="Bienvenido">Publicaciones</a>
-                        </li>
+                        @if (session('type_user') == 'C')
+                            <li class="nav-item ">
+                                <a class="nav-link" href="Bienvenido">Publicaciones</a>
+                            </li>
+                        @endif
+
                     </ul>
                     <ul class="navbar-nav mr-auto ">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="profile">{{ session('name') }}</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="close_session">Salir</a>
                         </li>

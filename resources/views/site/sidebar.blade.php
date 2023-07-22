@@ -6,6 +6,7 @@
             </button>
         </div>
     </div> --}}
+    @if (session('type_user') == 'C')
     <div class="sidebar">
         <ul class="p-3">
             <li class="m-3 fw-bold fs-5"><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
@@ -54,3 +55,4 @@
         </ul>
         <hr class="shadow">
     </div>
+    @endif
