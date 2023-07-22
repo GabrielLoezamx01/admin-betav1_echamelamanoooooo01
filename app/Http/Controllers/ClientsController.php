@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Session;
 
 class ClientsController extends Controller
 {
+    var $type = '';
     public function login(Request $request)
     {
-
         $validated  = $request->validate([
             'email'    => 'required',
             'password' => 'required',
         ]);
-        // $database   = $this->database_user($request->email);
+        $database   = count($this->database_user($request->email, 'cliente_001')) > 0 ?
+        $this->database_user($request->email, 'cliente_001') : $this->database_user($request->email, 'vendedor_002');
         if (isset($database['id'])) {
             if (Hash::check($request->password, $database['password'])) {
                 $this->session_clients($database);
@@ -73,13 +74,17 @@ class ClientsController extends Controller
         session(['photo'      => $database['photo']])   ?? "";
         session(['active'     => $active]);
         session(['uuid'       => $database['uuid']])    ?? "";
+        session(['type_user'  => $this->type]);
+
 
     }
     private function database_user(string $email, string $type)
     {
         if ($type == 'vendedor_002') {
+            $this->type = 'V';
             return  collect(DB::table('seller')->where('email', $email)->first());
         } else if ($type == 'cliente_001') {
+            $this->type = 'C';
             return  collect(DB::table('clients')->where('email', $email)->first());
         }
     }
