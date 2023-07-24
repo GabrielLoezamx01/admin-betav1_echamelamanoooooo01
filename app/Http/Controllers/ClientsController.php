@@ -20,7 +20,7 @@ class ClientsController extends Controller
             'password' => 'required',
         ]);
         $database   = count($this->database_user($request->email, 'cliente_001')) > 0 ?
-        $this->database_user($request->email, 'cliente_001') : $this->database_user($request->email, 'vendedor_002');
+            $this->database_user($request->email, 'cliente_001') : $this->database_user($request->email, 'vendedor_002');
 
         if (isset($database['id'])) {
             if (Hash::check($request->password, $database['password'])) {
@@ -32,12 +32,12 @@ class ClientsController extends Controller
     }
     public function crear(Request $request)
     {
-            if(isset($request->type_client)){
-            if($request->type_client == 'type_two'){
-                session(['type_user'  => 'C']);
+        if (isset($request->type_client)) {
+            if ($request->type_client == 'type_two') {
+                $this->type_user == 'C';
             }
-            if($request->type_client == 'type_one'){
-                session(['type_user'  => 'V']);
+            if ($request->type_client == 'type_one') {
+                $this->type_user == 'V';
             }
         }
         $validated  = $request->validate([
@@ -84,8 +84,6 @@ class ClientsController extends Controller
         session(['active'     => $active]);
         session(['uuid'       => $database['uuid']])    ?? "";
         session(['type_user'  => $this->type_user]);
-
-
     }
     private function database_user(string $email, string $type)
     {
@@ -108,10 +106,10 @@ class ClientsController extends Controller
     }
     private function queryClients($query)
     {
-        if(session('type_user') == 'V'){
+        if (session('type_user') == 'V') {
             return DB::table('seller')->where($query);
         }
-        if(session('type_user') == 'C'){
+        if (session('type_user') == 'C') {
             return DB::table('clients')->where($query);
         }
     }
@@ -133,13 +131,13 @@ class ClientsController extends Controller
             return Redirect('Bienvenido');
         }
 
-        switch (session('type_user')){
+        switch (session('type_user')) {
             case 'C':
-                if(isset($request->uuid)){
+                if (isset($request->uuid)) {
                     DB::table('clients')->where('uuid', $request->uuid)->update([
                         'photo'       => $nombreArchivo,
                     ]);
-                }else{
+                } else {
                     $validator = Validator::make($request->all(), [
                         'nombre' => 'required|string|max:255',
                         'apellidos' => 'required|string|max:255',
@@ -175,12 +173,12 @@ class ClientsController extends Controller
                     ]);
                 }
                 break;
-             case 'V':
-                if(isset($request->uuid)){
+            case 'V':
+                if (isset($request->uuid)) {
                     DB::table('seller')->where('uuid', $request->uuid)->update([
                         'photo'       => $nombreArchivo,
                     ]);
-                }else{
+                } else {
                     $validator = Validator::make($request->all(), [
                         'nombre' => 'required|string|max:255',
                         'apellidos' => 'required|string|max:255',
