@@ -99,7 +99,6 @@ class ClientsController extends Controller
     }
     public function site(Request $request)
     {
-        dd($request->all());
         $data = $this->queryClients(['id' => session('id_user')])->first();
         if ($data->name == "" or $data->last_name == '' or $data->photo == '') {
             return view('site.users.profile');
