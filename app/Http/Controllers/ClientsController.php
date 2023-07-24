@@ -133,6 +133,7 @@ class ClientsController extends Controller
 
         switch (session('type_user')) {
             case 'C':
+                $this->type_user = 'C';
                 if (isset($request->uuid)) {
                     DB::table('clients')->where('uuid', $request->uuid)->update([
                         'photo'       => $nombreArchivo,
@@ -174,6 +175,7 @@ class ClientsController extends Controller
                 }
                 break;
             case 'V':
+                $this->type_user = 'V';
                 if (isset($request->uuid)) {
                     DB::table('seller')->where('uuid', $request->uuid)->update([
                         'photo'       => $nombreArchivo,
