@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class ClientsController extends Controller
 {
-    var $type = '';
+    var $type_user = '';
     public function login(Request $request)
     {
         $validated  = $request->validate([
@@ -21,6 +21,7 @@ class ClientsController extends Controller
         ]);
         $database   = count($this->database_user($request->email, 'cliente_001')) > 0 ?
         $this->database_user($request->email, 'cliente_001') : $this->database_user($request->email, 'vendedor_002');
+
         if (isset($database['id'])) {
             if (Hash::check($request->password, $database['password'])) {
                 $this->session_clients($database);
@@ -31,6 +32,15 @@ class ClientsController extends Controller
     }
     public function crear(Request $request)
     {
+        dd($request->all());
+        if(isset($request->type_client)){
+            if($request->type_client == 'type_two'){
+                session(['type_user'  => 'C']);
+            }
+            if($request->type_client == 'type_one'){
+                session(['type_user'  => 'V']);
+            }
+        }
         $validated  = $request->validate([
             'email'    => 'required',
             'password' => 'required',
@@ -74,22 +84,23 @@ class ClientsController extends Controller
         session(['photo'      => $database['photo']])   ?? "";
         session(['active'     => $active]);
         session(['uuid'       => $database['uuid']])    ?? "";
-        session(['type_user'  => $this->type]);
+        session(['type_user'  => $this->type_user]);
 
 
     }
     private function database_user(string $email, string $type)
     {
         if ($type == 'vendedor_002') {
-            $this->type = 'V';
+            $this->type_user = 'V';
             return  collect(DB::table('seller')->where('email', $email)->first());
         } else if ($type == 'cliente_001') {
-            $this->type = 'C';
+            $this->type_user = 'C';
             return  collect(DB::table('clients')->where('email', $email)->first());
         }
     }
     public function site(Request $request)
     {
+        dd($request->all());
         $data = $this->queryClients(['id' => session('id_user')])->first();
         if ($data->name == "" or $data->last_name == '' or $data->photo == '') {
             return view('site.users.profile');
