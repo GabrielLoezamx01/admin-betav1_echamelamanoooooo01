@@ -17,7 +17,7 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        $main_sucursales =  DB::table('branch')->where('id_seller', session('uuid'))->get();
+        $main_sucursales = count(DB::table('branch')->where('id_seller', session('uuid'))->get()) > 0 ? DB::table('branch')->where('id_seller', session('uuid'))->get() : [] ;
         return view('site.vendedor')->with('branch', $main_sucursales);
     }
 
