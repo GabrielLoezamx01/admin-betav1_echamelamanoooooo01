@@ -32,8 +32,7 @@ class ClientsController extends Controller
     }
     public function crear(Request $request)
     {
-        dd($request->all());
-        if(isset($request->type_client)){
+            if(isset($request->type_client)){
             if($request->type_client == 'type_two'){
                 session(['type_user'  => 'C']);
             }
