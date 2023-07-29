@@ -119,6 +119,9 @@
 
                         @endif
                         @if (session('type_user') == 'C')
+                        <li class="nav-item ">
+                            <a class="nav-link" href="profile">Perfil</a>
+                        </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="Bienvenido">Publicaciones</a>
                             </li>

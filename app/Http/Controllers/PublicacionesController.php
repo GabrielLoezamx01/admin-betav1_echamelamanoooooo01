@@ -46,6 +46,8 @@ class PublicacionesController extends Controller
     public function store(Request $request)
     {
         try {
+            $servicie = $request->servicie == 0 ? 1 : $request->servicie;
+            $user     = DB::table('clients')->where('uuid',session('uuid'))->first();
             $insert         = [
                 'content'     => $request->content,
                 'status'      => 1,
@@ -53,14 +55,40 @@ class PublicacionesController extends Controller
                 'id_user'     => session('uuid'),
                 'date'        => date('Y-m-d H:i:s'),
                 'uuid'        => $request->uuid,
-                'id_servicio' => $request->servicie == 0 ? 1 : $request->servicie
+                'id_servicio' => $servicie
             ];
+            $notify   = $this->sellerNotify($user->postal, $servicie, $request->uuid);
             return Publications::create($insert)->get();
         } catch (Throwable $e) {
             report($e);
         }
     }
-
+    public function sellerNotify($postal , $servicio, $id_publicacion){
+        $branch =  DB::table('branch')->where('postal_code',$postal)->get();
+        foreach ($branch as $key => $value){
+            if($value->id_service == $servicio){
+             $database =   DB::table('seller_notify_p')->insert([
+                    'id_p'        => $id_publicacion,
+                    'id_user'     => session('uuid'),
+                    'postal'      => $postal,
+                    'id_servicie' => $servicio,
+                    'status'      => 'A',
+                    'id_seller'         => $value->id_seller,
+                    'id_service_seller' => $value->id_service
+                ]);
+            }else{
+                DB::table('seller_notify_p')->insert([
+                    'id_p'        => $id_publicacion,
+                    'id_user'     => session('uuid'),
+                    'postal'      => $postal,
+                    'id_servicie' => $servicio,
+                    'status'      => 'F',
+                    'id_seller'         => '',
+                    'id_service_seller' => ''
+                ]);
+            }
+        }
+    }
     /**
      * Display the specified resource.
      *
