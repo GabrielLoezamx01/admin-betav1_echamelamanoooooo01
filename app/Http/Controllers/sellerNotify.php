@@ -14,8 +14,10 @@ class sellerNotify extends Controller
     public function index()
     {
         $data = DB::table('seller_notify_p')
-        ->where('id_seller', session('uuid'))
-        ->where('status','A')->get();
+        ->where('seller_notify_p.id_seller', session('uuid'))
+        ->where('seller_notify_p.status','A')
+        ->leftJoin('publications','seller_notify_p.id_p','=','publications.uuid')
+        ->get();
         return view('site.vendedor.notificaciones')->with(compact('data'));
     }
 

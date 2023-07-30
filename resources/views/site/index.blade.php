@@ -3,7 +3,7 @@
     <div id="vue" class="row">
         <div class="col-md-3 animate__animated animate__fadeInLeft">
                 @include('site.sidebar')
-s        </div>
+     </div>
         <div class="col-md-7">
             @if (session('type_user') == 'C')
             <section>

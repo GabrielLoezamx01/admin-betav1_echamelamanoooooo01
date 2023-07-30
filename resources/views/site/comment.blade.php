@@ -8,7 +8,6 @@
                         <img src="{{ asset('storage/fotos/' . $publicaciones['photo']) }}" alt="Foto"
                             class="rounded-circle me-3" width="40" height="40">
                         <h6 class="card-subtitle">{{ $publicaciones['name'] }} {{ $publicaciones["last_name"] }}</h6>
-                        <h1>{{$validate}}</h1>
                     </div>
                 </div>
                 <div class="mt-5 m-5">

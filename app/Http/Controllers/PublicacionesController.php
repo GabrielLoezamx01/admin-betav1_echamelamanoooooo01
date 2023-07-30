@@ -74,7 +74,8 @@ class PublicacionesController extends Controller
                     'id_servicie' => $servicio,
                     'status'      => 'A',
                     'id_seller'         => $value->id_seller,
-                    'id_service_seller' => $value->id_service
+                    'id_service_seller' => $value->id_service,
+                    'time'  => date("Y-m-d H:i:s")
                 ]);
             }else{
                 DB::table('seller_notify_p')->insert([
@@ -84,7 +85,9 @@ class PublicacionesController extends Controller
                     'id_servicie' => $servicio,
                     'status'      => 'F',
                     'id_seller'         => '',
-                    'id_service_seller' => ''
+                    'id_service_seller' => '',
+                    'time'  => date("Y-m-d H:i:s")
+
                 ]);
             }
         }
