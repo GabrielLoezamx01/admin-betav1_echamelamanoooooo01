@@ -16,7 +16,7 @@
                                 <div>
                                     <h5>¡Alguien está solicitando un servicio que actualmente se encuentra disponible! ¡Aprovecha esta oportunidad para brindarlo!  </h5>
                                 </div>
-                                <a href="comments?id={{$item->publications_id}}">
+                                <a href="comments?id={{$item->publications_id}}&notify=true&user={{$item->id_seller}}&idc={{$item->uuid}}">
                                     <span class="badge bg-dark p-2">Ver</span>
                                 </a>
 

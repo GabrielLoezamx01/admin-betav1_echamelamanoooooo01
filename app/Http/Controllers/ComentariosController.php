@@ -15,7 +15,6 @@ class ComentariosController extends Controller
      */
     public function index(Request $request)
     {
-
         $validate = 'HEY';
         $publicaciones = collect(Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
