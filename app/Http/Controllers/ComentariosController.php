@@ -30,7 +30,8 @@ class ComentariosController extends Controller
             $validate = 'nooo';
         }
         $database = DB::table('comments')->where('publications_id',$request->id)
-            ->join('clients','comments.id_user_comments','=','clients.uuid')
+            ->leftJoin('clients','comments.id_user_comments','=','clients.uuid')
+            ->leftJoin('seller','comments.id_user_comments','=','seller.uuid')
             ->select('clients.name','clients.last_name','clients.photo','comments.*')
             ->orderByRaw('date ASC ')->get();
             return view('site.comment')->with(compact(
