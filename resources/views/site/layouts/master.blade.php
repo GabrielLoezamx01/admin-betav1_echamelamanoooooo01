@@ -86,6 +86,48 @@
             color: #999;
         }
     </style>
+    <style>
+        /* Estilo para todos los enlaces dentro del navbar */
+        .navbar-custom .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: 700;
+            /* Color del texto de los enlaces */
+            position: relative;
+            /* Asegura que el elemento padre (.nav-link) sea un contenedor para el pseudo-elemento */
+        }
+
+        /* Efecto hover para el círculo de fondo blanco */
+        .navbar-custom .navbar-nav .nav-link::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 10px;
+            background-color: #fff;
+            color: #019E0F;
+
+            opacity: 0;
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .navbar-custom .navbar-nav .nav-link:hover::before {
+            width: 100%;
+            /* Tamaño del círculo */
+            height: 80%;
+            /* Tamaño del círculo */
+            opacity: 0.4;
+            /* Opacidad del círculo */
+        }
+
+        /* Cambiar el color del texto al aplicar el efecto hover */
+        .navbar-custom .navbar-nav .nav-link:hover {
+            color: black;
+            /* Color del texto al aplicar hover */
+        }
+    </style>
 </head>
 
 <body>
