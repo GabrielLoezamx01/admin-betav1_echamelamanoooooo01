@@ -1,36 +1,36 @@
-<div class="text-center">
-    <h2>Sucursales Destacadas</h2>
-    <div class="position-fixed  p-3">
+    <h2 class="text-center fw-bold">Sucursales Destacadas</h2>
         <div v-for="sucursal in sucursales">
             <div class="card shadow">
                 <div class="row">
-                    <div  class="col-md-6">
-                        <img :src="'storage/sucursales/' + sucursal.image" class="fija-img">
-                        <div class="mt-3">
-                            <b>
-                                @{{sucursal.name_branch}}
-                            </b>
-                          @include('site.rang')
-                            {{-- <label for="andress" class="fw-light fs-6">
-                                @{{sucursal.city}} ,
-                                @{{sucursal.address}} ,
-                                @{{sucursal.postal_code}}
-                            </label> --}}
-
+                    <div class="col-md-12">
+                        <div class="imagen-contenido">
+                            <img :src="'storage/sucursales/' + sucursal.image" class="imagen">
+                            <div class="title-overlay">
+                                <b>
+                                    @{{ sucursal.name_branch }}
+                                </b>
+                                @include('site.rang')
+                                <label for="" class="fw-light">
+                                 @{{ sucursal.name }}
+                                </label>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-warning">
+                                        Ver
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+                        {{-- <div class="mt-3"> --}}
 
+
+                        {{-- </div> --}}
                     </div>
-                    <div  class="col-md-6">
-                        <p class="fw-light">
-                            @{{sucursal.name}}
-                        </p>
-                        <button class="btn btn-dark">
-                            Ver
-                        </button>
-                    </div>
+                    {{-- <div class="col-md-6">
+                        <p class="fw-light"> --}}
+                        {{-- </p>
+
+                    </div> --}}
                 </div>
 
             </div>
         </div>
-    </div>
-</div>

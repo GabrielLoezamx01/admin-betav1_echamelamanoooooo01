@@ -1,7 +1,6 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue" class="row">
-
         <div class="col-md-8">
             @if (session('type_user') == 'C')
                 <section>

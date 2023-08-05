@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
-
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/layouts.css">
@@ -183,11 +181,51 @@
             object-fit: cover;
             /* Puedes usar 'cover', 'contain', 'fill', etc., según tus necesidades */
         }
-    </style>
+
+        .imagen-contenido {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .imagen {
+            width: 100%;
+            /* Tamaño de la imagen */
+            height: 200px;
+            /* Tamaño de la imagen */
+            object-fit: cover;
+            /* Ajustar imagen al tamaño del contenedor */
+            transition: transform 0.3s ease;
+        }
+
+        .title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Color del fondo del título */
+            color: #fff;
+            /* Color del texto del título */
+            padding: 10px;
+            width: 100%;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .imagen-contenido:hover .image {
+            transform: scale(1.1);
+            /* Efecto de escala en hover */
+        }
+
+        .imagen-contenido:hover .title-overlay {
+            transform: translateY(0);
+            /* Mostrar el título en hover */
+        }
+
+  </style>
 </head>
 
 <body>
-    <header>
+    <header class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-custom ">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="Bienvenido">
@@ -246,10 +284,13 @@
             </div>
         </nav>
     </header>
-    <main class="container mt-5">
+    <main class="container" style="margin-top: 200px">
         @yield('content')
     </main>
-    <footer class="footer-custom footer fixed-bottom  p-3">
+    <div style="margin-top: 200px">
+
+    </div>
+    <footer class="footer-custom footer  p-3">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |
