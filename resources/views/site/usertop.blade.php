@@ -20,7 +20,7 @@
 
                 </div>
                 <div  class="col-md-6">
-                    <p class="fw-light mt-5">
+                    <p class="fw-light">
                         @{{sucursal.name}}
                     </p>
                     <button class="btn btn-dark">

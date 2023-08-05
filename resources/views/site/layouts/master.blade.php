@@ -179,7 +179,7 @@
 
         .fija-img {
             width: 100%;
-            height: 50%;
+            height: 100px;
             object-fit: cover;
             /* Puedes usar 'cover', 'contain', 'fill', etc., según tus necesidades */
         }
