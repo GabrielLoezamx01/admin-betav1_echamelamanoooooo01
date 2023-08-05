@@ -65,6 +65,7 @@ class PublicacionesController extends Controller
     }
     public function sellerNotify($postal , $servicio, $id_publicacion){
         $branch =  DB::table('branch')->where('postal_code',$postal)->get();
+
         foreach ($branch as $key => $value){
             if($value->id_service == $servicio){
              $database =   DB::table('seller_notify_p')->insert([
@@ -78,16 +79,15 @@ class PublicacionesController extends Controller
                     'time'  => date("Y-m-d H:i:s")
                 ]);
             }else{
-                DB::table('seller_notify_p')->insert([
+                    DB::table('seller_notify_p')->insert([
                     'id_p'        => $id_publicacion,
                     'id_user'     => session('uuid'),
                     'postal'      => $postal,
                     'id_servicie' => $servicio,
                     'status'      => 'F',
-                    'id_seller'         => '',
-                    'id_service_seller' => '',
+                    'id_seller'         => 0,
+                    'id_service_seller' => 0,
                     'time'  => date("Y-m-d H:i:s")
-
                 ]);
             }
         }

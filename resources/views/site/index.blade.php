@@ -42,47 +42,44 @@
 
                 </div>
                 <div v-for="post in apiResponse">
-                    <div class="card shadow">
+                    <section class="card shadow">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="m-3">
-                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img">
-                                </div>
-                                <div>
-                                    <a href="users/post.id_user">
-                                        <h5 class="card-title mb-0"> @{{ post.name }} @{{ post.last_name }}
-                                    </a>
-                                    {{-- <span v-if="post.VALIDACION == 1" class="verification-icon verified"><i
-                                            class="fas fa-check"></i>
+                            <div class="row ">
+                                <div class="col-md-2 text-center">
 
-                                    </span>
-                                    <span v-if="post.VALIDACION == 0" class="verification-icon not-verified"><i
-                                            class="fas fa-times"></i></span>
-                                    </h5> --}}
-                                    <div class="post-date">
-                                        <small>@{{ post.date }}</small>
+                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img mt-3">
+                                    <div class="mt-2">
+                                        <b>
+                                            @{{ post.name }} @{{ post.last_name }}
+                                        </b>
+                                        <label for="">
+                                            <small>@{{ post.date }}</small>
+
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 p-2">
+                                    <div class="chat-bubble">
+                                        <div class="tail"></div>
+                                        <p class="message">@{{ post.content }}</p>
+                                    </div>
+                                    <div class="post-actions d-flex justify-content-end flex-wrap p-5">
+                                        <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                            <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
+                                                    class="fas fa-trash"></i></button>
+                                            <button class="btn btn-primary" @click="show_item(post.uuid)"><i
+                                                    class="fas fa-edit"></i></button>
+                                        </div>
+                                        <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
+                                                class="fas fa-comments"></i></button>
+                                    </div>
+                                    <div class="card-footer">
+                                        <p>Servicio: @{{ post.nombre_servicio }} </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="post-content p-2">
-                                <p class="fw-light">@{{ post.content }} </p>
-                            </div>
-                            <div class="post-actions d-flex justify-content-end flex-wrap p-5">
-                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                    <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
-                                            class="fas fa-trash"></i></button>
-                                    <button class="btn btn-primary" @click="show_item(post.uuid)"><i
-                                            class="fas fa-edit"></i></button>
-                                </div>
-                                <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
-                                        class="fas fa-comments"></i></button>
-                            </div>
-                            <div class="card-footer">
-                                <p>Servicio: @{{ post.nombre_servicio }} </p>
-                            </div>
-
                         </div>
-                    </div>
+                    </section>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
@@ -112,15 +109,8 @@
 @endsection
 @push('child-scripts')
     <script>
-        function toggleSubMenu(event) {
-            event.preventDefault();
-            const subMenu = event.target.nextElementSibling;
-            subMenu.classList.toggle('open');
-        }
-    </script>
-    <script>
-        var api                 = 'Api_publications';
-        var serivicios_api      = 'api_servicios';
+        var api = 'Api_publications';
+        var serivicios_api = 'api_servicios';
         // var api_notificaciones  = 'api_notificaciones';
         {
             new Vue({
@@ -204,7 +194,9 @@
                         this.apiResponse = [];
                         var id = this.serviciessearch;
                         const url = '?search=true&id=' + id;
+                        console.log(api + url);
                         this.$http.get(api + url).then(function(response) {
+                            console.log(response.body);
                             this.apiResponse = response.body.data
                         });
                     },

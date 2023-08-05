@@ -127,6 +127,32 @@
             color: black;
             /* Color del texto al aplicar hover */
         }
+
+        .chat-bubble {
+            position: relative;
+            background-color: #DCF8C6;
+            color: #000;
+            border-radius: 20px;
+            padding: 10px 15px;
+            max-width: 80%;
+            margin-bottom: 10px;
+        }
+
+        .tail {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid #DCF8C6;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .message {
+            margin: 0;
+        }
     </style>
 </head>
 
