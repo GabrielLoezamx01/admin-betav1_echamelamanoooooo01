@@ -249,7 +249,7 @@
     <main class="container mt-5">
         @yield('content')
     </main>
-    <footer class="footer-custom">
+    <footer class="footer-custom footer fixed-bottom  p-3">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |
