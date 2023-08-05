@@ -4,7 +4,7 @@
         <div class="card shadow">
             <div class="row">
                 <div  class="col-md-6">
-                    <img :src="'storage/sucursales/' + sucursal.image" class="img-fluid w-50">
+                    <img :src="'storage/sucursales/' + sucursal.image" class="fija-img">
                     <div class="mt-3">
                         <b>
                             @{{sucursal.name_branch}}

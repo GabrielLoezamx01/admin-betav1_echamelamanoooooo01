@@ -176,6 +176,13 @@
             width: 0;
             overflow: hidden;
         }
+
+        .fija-img {
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+            /* Puedes usar 'cover', 'contain', 'fill', etc., según tus necesidades */
+        }
     </style>
 </head>
 
