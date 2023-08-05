@@ -1,6 +1,6 @@
 <div class="text-center">
     <h2>Sucursales Destacadas</h2>
-    <div class="position-fixed  bg-light p-3">
+    <div class="position-fixed  p-3">
         <div v-for="sucursal in sucursales">
             <div class="card shadow">
                 <div class="row">
