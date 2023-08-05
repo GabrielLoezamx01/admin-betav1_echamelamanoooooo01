@@ -124,6 +124,7 @@
                 data: {
                     counter: 0,
                     apiResponse: [],
+                    sucursales:[],
                     pagination: 0,
                     comments: [],
                     idpublicacion: 0,
@@ -143,13 +144,13 @@
                     someModal: "",
                     arrayNotify: [],
                     countNotify: 0,
-                    settingsNotify: []
+                    settingsNotify: [],
 
                 },
                 created: function() {
                     this.getSHOW();
                     this.api_servicios();
-                    this.api_servicios_sidebar();
+                    this.sucursales_api();
                 },
                 mounted() {
                     // setInterval(this.getSHOW, 5000);
@@ -166,6 +167,11 @@
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;
+                        });
+                    },
+                    sucursales_api: function (){
+                        this.$http.get(api_sucursales).then(function(data) {
+                            this.sucursales = data.body;
                         });
                     },
                     api_servicios_sidebar: function() {

@@ -31,17 +31,17 @@
                             <div class="mb-3">
                                 <label for="">Codigo Postal:</label>
                                 <input class="form-control custom-focus" type="text" id="apellidos" name="postal"
-                                placeholder="Ingrese sus apellidos" required value="{{old('postal')}}">
+                                placeholder="Ingrese su codigo postal" required value="{{old('postal')}}">
                             </div>
                             <div class="mb-3">
                                 <label for="">Estado:</label>
                                 <input class="form-control custom-focus" type="text" id="apellidos" name="estado"
-                                placeholder="Ingrese sus apellidos" required value="Yucatán">
+                                placeholder="Ingrese su estado" required value="Yucatán">
                             </div>
                             <div class="mb-3">
                                 <label for="">Ciudad:</label>
                                 <input class="form-control custom-focus" type="text" id="apellidos" name="ciudad"
-                                placeholder="Ingrese sus apellidos" required value="{{old('ciudad')}}" >
+                                placeholder="Ingrese su ciudad" required value="{{old('ciudad')}}" >
                             </div>
                             <div class="mb-3">
                                 <label for="">Dirección:</label>

@@ -153,6 +153,29 @@
         .message {
             margin: 0;
         }
+
+        .rating {
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            font-size: 20px;
+            color: gold;
+            display: inline-block;
+        }
+
+        /* Estilos para cambiar el color de las estrellas desactivadas */
+        .stars::before {
+            color: lightgray;
+            position: absolute;
+        }
+
+        .stars::after {
+            content: "";
+            color: gold;
+            width: 0;
+            overflow: hidden;
+        }
     </style>
 </head>
 
