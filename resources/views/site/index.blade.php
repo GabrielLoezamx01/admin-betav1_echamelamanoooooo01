@@ -119,10 +119,10 @@
         }
     </script>
     <script>
-        var api = 'Api_publications';
-        var serivicios_api = 'api_servicios';
-        var api_comentarios = 'Api_comments';
-        var api_notificaciones = 'api_notificaciones'; {
+        var api                 = 'Api_publications';
+        var serivicios_api      = 'api_servicios';
+        // var api_notificaciones  = 'api_notificaciones';
+        {
             new Vue({
                 el: '#vue',
                 http: {
@@ -170,10 +170,6 @@
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
                             this.apiResponse = response.body.data
-                        });
-                        this.$http.get(api_notificaciones).then(function(datos) {
-                            this.arrayNotify = datos.body;
-                            this.countNotify = this.arrayNotify.length;
                         });
                     },
                     api_servicios: function() {
@@ -324,31 +320,6 @@
                         UIkit.modal('#mi-modal').show();
                         this.coment(id);
                     },
-                    coment: function(id) {
-                        this.$http.get(api_comentarios + '/' + id)
-                            .then(function(json) {
-                                console.log(json);
-                                this.comments = json.body;
-                            });
-                    },
-                    comentar: function() {
-                        if (!this.pcomentario == '') {
-                            var data = {
-                                'comentario': this.pcomentario,
-                                'publications_id': this.idpublicacion,
-                            };
-                            this.$http.post(api_comentarios, data)
-                                .then(function(json) {
-                                    this.pcomentario = '';
-                                    this.coment(this.idpublicacion);
-                                    // this.success_alert();
-                                });
-
-                        } else {
-                            alert('Este campo no puede estar vacio');
-                        }
-                        // Aquí se puede agregar la lógica para enviar el comentario
-                    },
                     openDivComment: function(id) {
                         const dominio = "http://localhost/admin/public/";
                         const nuevaRuta = "comments?id=" + id;
@@ -357,11 +328,11 @@
                     getJsonValue(jsonString, key) {
                         this.settingsNotify = JSON.parse(jsonString);
                     },
-                    updateNotify: function(id) {
-                        var data = {};
-                        this.$http.patch(api_notificaciones + '/' + id, data)
-                            .then(function(json) {});
-                    }
+                    // updateNotify: function(id) {
+                    //     var data = {};
+                    //     this.$http.patch(api_notificaciones + '/' + id, data)
+                    //         .then(function(json) {});
+                    // }
                 },
                 computed: {}
             })
