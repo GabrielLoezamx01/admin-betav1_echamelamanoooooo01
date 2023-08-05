@@ -2,7 +2,7 @@
 @section('content')
     <div id="vue" class="row">
 
-        <div class="col-md-10">
+        <div class="col-md-8">
             @if (session('type_user') == 'C')
                 <section>
                     <div class="card border-0">
@@ -102,7 +102,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             @include('site.usertop')
         </div>
     </div>
@@ -111,6 +111,7 @@
     <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
+        var api_sucursales = 'api_sucursales';
         // var api_notificaciones  = 'api_notificaciones';
         {
             new Vue({
