@@ -11,6 +11,7 @@ use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\sellerNotify;
+use App\Http\Controllers\ApiServiciesControlller;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
@@ -29,6 +30,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::get('Bienvenido',[ClientsController::class , 'site']);
     Route::resource('Api_publications', PublicacionesController::class);
     Route::resource('Api_comments', ComentariosController::class);
+    Route::resource('api_servicios', ApiServiciesControlller::class);
+
     Route::get('close_session',[ClientsController::class, 'close_sessions']);
     Route::get('comments', [ComentariosController::class, 'index']);
     Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');

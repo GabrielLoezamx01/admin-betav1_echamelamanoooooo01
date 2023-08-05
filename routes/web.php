@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\ApiServiciesControlller;
 
 
 /*
@@ -20,7 +19,6 @@ use App\Http\Controllers\ApiServiciesControlller;
 include('login.php');
 include('site.php');
 
-Route::apiResource('api_servicios', ApiServiciesControlller::class);
 Route::view('/', 'site.login');
 Route::view('page', 'admin.page');
 /*

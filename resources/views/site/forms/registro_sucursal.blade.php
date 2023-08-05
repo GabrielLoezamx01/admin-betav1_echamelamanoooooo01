@@ -17,10 +17,6 @@
                 <input type="text" value="{{old('nombre')}}" name="nombre" class="form-control custom-focus" autocomplete="off" required >
             </div>
             <div class="mb-3">
-                <p class="card-title text-title fw-ligh">Calle</p>
-                <input type="text" value="{{old('calle')}}" name="calle" class="form-control custom-focus" autocomplete="off" required>
-            </div>
-            <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Dirección </p>
                 <input type="text" value="{{old('direccion')}}" name="direccion" class="form-control custom-focus" autocomplete="off" required>
             </div>
@@ -40,7 +36,7 @@
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">RFC</p>
-                <input type="text"  name="rfc" class="form-control custom-focus" autocomplete="off" placeholder="Opcional">
+                <input type="text"  name="rfc" class="form-control custom-focus" autocomplete="off" placeholder="Si no tienes RFC INGRESA 01">
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Descripción</p>

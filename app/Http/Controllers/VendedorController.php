@@ -47,7 +47,7 @@ class VendedorController extends Controller
         return [
             'id_seller'   => session('uuid'),
             'name_branch' => $request->nombre,
-            'street'      => $request->calle,
+            'street'      => '',
             'address'     => $request->direccion,
             'city'        => $request->ciudad,
             'state'       => 'A',

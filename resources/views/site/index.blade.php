@@ -1,31 +1,29 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue" class="row">
-        <div class="col-md-3 animate__animated animate__fadeInLeft">
-                @include('site.sidebar')
-     </div>
-        <div class="col-md-7">
+
+        <div class="col-md-10">
             @if (session('type_user') == 'C')
-            <section>
-                <div class="card border-0">
-                    <div class="card-body">
-                        <div class="p-2 mt-5 m-4">
-                            <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
-                            <div class="mb-3">
-                                <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
+                <section>
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="p-2 mt-5 m-4">
+                                <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
+                                <div class="mb-3">
+                                    <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
+                                </div>
+                                <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
+                                <div class="mb-3">
+                                    <select v-model="servicies" class="form-control custom-focus " id="servicies">
+                                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                            @{{ select.name }}</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
                             </div>
-                            <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
-                            <div class="mb-3">
-                                <select v-model="servicies" class="form-control custom-focus " id="servicies">
-                                    <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                        @{{ select.name }}</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
             @endif
             <section>
                 <div class="mt-5">

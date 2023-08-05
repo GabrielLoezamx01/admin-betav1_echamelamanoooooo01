@@ -92,7 +92,10 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom ">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="Bienvenido">{{ env('name_site') }}</a>
+                <a class="navbar-brand fw-bold" href="Bienvenido">
+
+                    <img src="img/logo.png" class="img-fluid w-50">
+                </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,9 +104,9 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         @if (session('type_user') == 'V')
-                        <li class="nav-item  ">
-                            <a class="nav-link fw-bold" href="Bienvenido">Publicaciones</a>
-                        </li>
+                            <li class="nav-item  ">
+                                <a class="nav-link fw-bold" href="Bienvenido">Publicaciones</a>
+                            </li>
                             <li class="nav-item  ">
                                 <a class="nav-link fw-bold" href="mis_sucursales">Mis Sucursales</a>
                             </li>
@@ -116,14 +119,22 @@
                             <li class="nav-item ">
                                 <a class="nav-link fw-bold" href="profile">Perfil</a>
                             </li>
-
                         @endif
                         @if (session('type_user') == 'C')
-                        <li class="nav-item ">
-                            <a class="nav-link" href="profile">Perfil</a>
-                        </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="profile">Perfil</a>
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="Bienvenido">Publicaciones</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="list_Sucursales">Sucursales</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="mis_servicios">Servicios</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="notificaciones_cliente">Notificaciones</a>
                             </li>
                         @endif
 
@@ -137,7 +148,7 @@
             </div>
         </nav>
     </header>
-    <main class="">
+    <main class="container mt-5">
         @yield('content')
     </main>
     <footer class="footer-custom">

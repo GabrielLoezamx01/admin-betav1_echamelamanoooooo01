@@ -16,10 +16,10 @@ class ApiServiciesControlller extends Controller
     {
         if(isset($request->sidebar)){
             if($request->sidebar){
-                return ServiciesApi::where('estatus','activo')->limit(10)->get();
+                return ServiciesApi::where('estatus','A')->limit(10)->get();
             }
         }
-        return ServiciesApi::where('estatus','activo')->get();
+        return ServiciesApi::where('estatus','A')->get();
     }
 
     /**

@@ -1,10 +1,10 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue" class="row">
-        <div class="col-md-3 animate__animated animate__fadeInLeft">
-            @include('site.sidebar')
+        <div class="col-md-1 animate__animated animate__fadeInLeft">
+            {{-- @include('site.sidebar') --}}
         </div>
-        <div class="col-md-7 mt-5">
+        <div class="col-md-9 mt-5">
             @if (count($branch) == 0)
                 <section class="card">
                     <header class="text-center bg-dark">
