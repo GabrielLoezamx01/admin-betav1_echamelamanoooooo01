@@ -13,7 +13,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\sellerNotify;
 use App\Http\Controllers\ApiServiciesControlller;
 use App\Http\Controllers\apiSucursalesController;
-
+use App\Http\Controllers\ListSucursalesController;
 
 Route::view('login_client','site.login');
 Route::view('crear_client','site.create');
@@ -50,7 +50,7 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     // Se cambio el nombre cambio de idea 21/07/2023 se llama las sucursales del vendedor.
     Route::get('mis_sucursales', [VendedorController::class, 'index']);
     Route::post('create_sucursal', [VendedorController::class, 'store'])->name('create_sucursal');
-
+    Route::resource('list_Sucursales', ListSucursalesController::class);
     // vendedores......
     Route::get('notificaciones_vendedor', [sellerNotify::class, 'index']);
 

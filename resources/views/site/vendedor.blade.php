@@ -51,7 +51,7 @@
             @endif
         </div>
         <div class="col-md-2">
-            @include('site.usertop')
+            {{-- @include('site.usertop') --}}
         </div>
     </div>
 @endsection
