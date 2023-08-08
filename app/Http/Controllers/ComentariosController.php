@@ -15,7 +15,7 @@ class ComentariosController extends Controller
      */
     public function index(Request $request)
     {
-        $validate = 'HEY';
+        $validate      = 'HEY';
         $publicaciones = collect(Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
         ->join('services as s','publications.id_servicio','=','s.id')
@@ -49,9 +49,9 @@ class ComentariosController extends Controller
     public function store(Request $request)
     {
         try {
-            $fecha = date('Y-m-d H:i:s');
-            $idp   = $request->publications_id ?? $request->idp;
-            $uuid  = session('uuid');
+            $fecha      = date('Y-m-d H:i:s');
+            $idp        = $request->publications_id ?? $request->idp;
+            $uuid       = session('uuid');
             $comentario = $request->comentario ?? $request->contenido ?? 'Comentario';
             DB::table('comments')->insert([
                 'comentario'       => $comentario,
@@ -61,7 +61,7 @@ class ComentariosController extends Controller
                 'date'             => $fecha
             ]);
             $json = [
-                "type" => 1,
+                "type"    => 1,
                 "id_post" => $idp
             ];
             DB::table('notifications')->insert([
