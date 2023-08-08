@@ -22,7 +22,7 @@ class PublicacionesController extends Controller
                     $elementos = Publications::where('status','1')->where('id_servicio', $request->id)
                     ->join('clients','publications.id_user','=','clients.uuid')
                     ->join('services as s','publications.id_servicio','=','s.id')
-                    ->select('publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+                    ->select('clients.online','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
                     ->orderBy('date','DESC')->paginate(10);
                 }
             }
@@ -31,7 +31,7 @@ class PublicacionesController extends Controller
             ->leftjoin('clients','publications.id_user','=','clients.uuid')
             ->leftjoin('seller','publications.id_user','=','seller.uuid')
             ->join('services as s','publications.id_servicio','=','s.id')
-            ->select('publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+            ->select('clients.online','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
             ->orderBy('date','DESC')->paginate(10);
         }
         return response()->json($elementos);

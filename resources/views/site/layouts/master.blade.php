@@ -220,6 +220,27 @@
             transform: translateY(0);
             /* Mostrar el título en hover */
         }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            /* Color verde */
+            border-radius: 50%;
+            /* Para hacer un círculo */
+            display: inline-block;
+            margin-right: 5px;
+            /* Espacio entre el punto y el texto */
+        }
+
+        .offline-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #FF0000; /* Color rojo */
+      border-radius: 50%; /* Para hacer un círculo */
+      display: inline-block;
+      margin-right: 5px; /* Espacio entre el punto y el texto */
+    }
     </style>
 
 </head>

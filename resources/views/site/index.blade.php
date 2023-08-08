@@ -1,34 +1,32 @@
 @extends('site.layouts.master')
 @section('content')
-    <div id="vue" class="row">
+    <section id="vue" class="row">
         <div class="col-md-8">
             @if (session('type_user') == 'C')
-                <section>
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <div class="p-2 mt-5 m-4">
-                                <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
-                                <div class="mb-3">
-                                    <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
-                                </div>
-                                <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
-                                <div class="mb-3">
-                                    <select v-model="servicies" class="form-control custom-focus " id="servicies">
-                                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                            @{{ select.name }}</option>
-                                    </select>
-                                </div>
-                                <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
+                <div class="card border-0">
+                    <div class="card-body">
+                        <div class="p-2 mt-5 m-4">
+                            <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
+                            <div class="mb-3">
+                                <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
                             </div>
+                            <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
+                            <div class="mb-3">
+                                <select v-model="servicies" class="form-control custom-focus " id="servicies">
+                                    <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                        @{{ select.name }}</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
                         </div>
                     </div>
-                </section>
-            @endif
-            <section>
-                <div class="mt-5">
-                    <h4 class="text-center m-5">Publicaciones recientes</h4>
                 </div>
-                <div class="row col-md-5 p-3">
+            @endif
+            <div class="mt-5">
+                <h4 class="text-center m-5">Publicaciones recientes</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <label for="">Buscar por servicio</label>
                     <div class="input-group mb-3">
                         <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
@@ -38,46 +36,61 @@
                         <button class="btn btn-dark" type="button" id="btn-buscar"
                             @click="searchpublicaciones()">Buscar</button>
                     </div>
-
                 </div>
-                <div v-for="post in apiResponse">
-                    <section class="card shadow">
-                        <div class="card-body">
-                            <div class="row ">
-                                <div class="col-md-2 text-center">
-                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img mt-3">
-                                    <div class="mt-2">
-                                        <b>
-                                            @{{ post.userName }}
-                                        </b>
-                                        <label for="">
-                                            <small>@{{ post.date }}</small>
-
-                                        </label>
-                                    </div>
+                <div class="col-md-6  d-flex justify-content-end ">
+                    <button class="btn text-end" title="Refrescar contenido" @click="getSHOW()">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-5"></div>
+            <div v-for="post in apiResponse">
+                <div class="card ">
+                    <div class="card-header d-flex align-items-start">
+                        <div class="col-md-5">
+                          <div class="d-flex">
+                            <div>
+                                <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img mt-3">
+                            </div>
+                            <div class="m-3 text-justify">
+                                <div class="text-justify">
+                                    <label for="usuario" class="fw-bold">    @{{ post.userName }}</label>
                                 </div>
-                                <div class="col-md-10 p-2">
-                                    <div class="chat-bubble">
-                                        <div class="tail"></div>
-                                        <p class="message">@{{ post.content }}</p>
-                                    </div>
-                                    <div class="post-actions d-flex justify-content-end flex-wrap p-5">
-                                        <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                            <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
-                                                    class="fas fa-trash"></i></button>
-                                            <button class="btn btn-primary" @click="show_item(post.uuid)"><i
-                                                    class="fas fa-edit"></i></button>
-                                        </div>
-                                        <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
-                                                class="fas fa-comments"></i></button>
-                                    </div>
-                                    <div class="card-footer">
-                                        <p>Servicio: @{{ post.nombre_servicio }} </p>
-                                    </div>
+                                <p class="fw-light" style="font-size: 12px">@{{ post.date }}</p>
+                            </div>
+                          </div>
+
+                        </div>
+                            <div class="col-md-7 d-flex justify-content-end m-3 p-2">
+                            <div class="online-dot" v-if= "post.online == 1"></div>
+                            <div class="offline-dot " v-if= "post.online == 2"></div>
+                            <div class="offline-dot " v-if= "post.online == null"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 p-2">
+                        <div class="chat-bubble mt-5">
+                            <div class="tail"></div>
+                            <p class="message">@{{ post.content }}</p>
+                        </div>
+                        <div class="post-actions d-flex justify-content-end flex-wrap p-5">
+                            <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
+                                        class="fas fa-trash"></i></button>
+                                <button class="btn btn-primary" @click="show_item(post.uuid)"><i
+                                        class="fas fa-edit"></i></button>
+                            </div>
+                            <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
+                                    class="fas fa-comments"></i></button>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="text-left col">
+                                    <p class="fw-bold">Servicio: @{{ post.nombre_servicio }} </p>
                                 </div>
                             </div>
+
                         </div>
-                    </section>
+                    </div>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
@@ -98,12 +111,12 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-        <div class="col-md-4 mt-5">
-            @include('site.usertop')
-        </div>
-    </div>
+            <div class="col-md-4 mt-5">
+                @include('site.usertop')
+            </div>
+    </section>
 @endsection
 @push('child-scripts')
     <script>
@@ -122,7 +135,7 @@
                 data: {
                     counter: 0,
                     apiResponse: [],
-                    sucursales:[],
+                    sucursales: [],
                     pagination: 0,
                     comments: [],
                     idpublicacion: 0,
@@ -157,6 +170,7 @@
                     // }, 1000);
                 },
                 methods: {
+
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
                             this.apiResponse = response.body.data
@@ -167,7 +181,7 @@
                             this.apiServicios = data.body;
                         });
                     },
-                    sucursales_api: function (){
+                    sucursales_api: function() {
                         this.$http.get(api_sucursales).then(function(data) {
                             this.sucursales = data.body;
                         });

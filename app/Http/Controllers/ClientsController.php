@@ -25,6 +25,12 @@ class ClientsController extends Controller
         if (isset($database['id'])) {
             if (Hash::check($request->password, $database['password'])) {
                 $this->session_clients($database);
+                $database = DB::table('clients')->where('uuid', session('uuid'))->count();
+                if($database){
+                    DB::table('clients')->where('uuid', session('uuid'))->update([
+                        'online' => 1
+                    ]);
+                }
                 return redirect('Bienvenido');
             }
         }
@@ -173,6 +179,7 @@ class ClientsController extends Controller
                         'ciudad'      => $request->ciudad,
                         'uuid'        =>   Str::uuid(),
                         'userName'    =>   $request->userName,
+                        'online'      => 1
                     ]);
                 }
                 break;
@@ -231,6 +238,12 @@ class ClientsController extends Controller
     }
     public function close_sessions()
     {
+        $database = DB::table('clients')->where('uuid', session('uuid'))->count();
+        if($database){
+            DB::table('clients')->where('uuid', session('uuid'))->update([
+                'online' => 2
+            ]);
+        }
         Session::flush();
         return redirect('Bienvenido');
     }
