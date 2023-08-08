@@ -1,5 +1,8 @@
 @extends('site.layouts.master')
 @section('content')
+
+{{-- https://host.utravelhost.com:2083/cpsess3896083997/frontend/jupiter/terminal/index.htmls --}}
+
     <div class="row">
         @foreach ($one as $item )
             <div class="col-md-10 card shadow">

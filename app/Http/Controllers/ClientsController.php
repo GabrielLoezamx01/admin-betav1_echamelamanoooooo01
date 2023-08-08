@@ -148,6 +148,7 @@ class ClientsController extends Controller
                         'estado'    => 'required|string|max:255',
                         'ciudad'    => 'required|string|max:255',
                         'foto'      => 'nullable|image|max:9000',
+                        'userName'  => 'required|string|max:50|unique:clients',
                     ]);
                     if ($validator->fails()) {
                         return redirect()
@@ -170,7 +171,8 @@ class ClientsController extends Controller
                         'postal'      => $request->postal,
                         'estado'      => $request->estado,
                         'ciudad'      => $request->ciudad,
-                        'uuid'        =>   Str::uuid()
+                        'uuid'        =>   Str::uuid(),
+                        'userName'    =>   $request->userName,
                     ]);
                 }
                 break;
@@ -191,6 +193,8 @@ class ClientsController extends Controller
                         'estado'    => 'required|string|max:255',
                         'ciudad'    => 'required|string|max:255',
                         'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
+                        'userName'  => 'required|string|max:50|unique:seller',
+
                     ]);
                     if ($validator->fails()) {
                         return redirect()
@@ -212,7 +216,8 @@ class ClientsController extends Controller
                         'postal'      => $request->postal,
                         'estado'      => $request->estado,
                         'ciudad'      => $request->ciudad,
-                        'uuid'        =>   Str::uuid()
+                        'uuid'        =>   Str::uuid(),
+                        'userName'    =>   $request->userName,
                     ]);
                 }
                 break;

@@ -220,8 +220,8 @@
             transform: translateY(0);
             /* Mostrar el título en hover */
         }
+    </style>
 
-  </style>
 </head>
 
 <body>

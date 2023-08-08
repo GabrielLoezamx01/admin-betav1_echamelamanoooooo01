@@ -45,11 +45,10 @@
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-md-2 text-center">
-
                                     <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img mt-3">
                                     <div class="mt-2">
                                         <b>
-                                            @{{ post.name }} @{{ post.last_name }}
+                                            @{{ post.userName }}
                                         </b>
                                         <label for="">
                                             <small>@{{ post.date }}</small>
