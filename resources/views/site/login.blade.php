@@ -152,8 +152,8 @@
                     <p class="small mb-5 mt-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
                             contraseña?
                         </a></p>
-                    <div class="pt-1 mb-4 text-centers mt-5">
-                        <button class="btn btn-one">Vamos</button>
+                    <div class="pt-1 mb-4 text-center mt-5">
+                        <button class="btn btn-one  btn-large">Vamos</button>
                     </div>
                     {{-- <div class="mt-5 mb-4">
                         <a href="auth/google">
