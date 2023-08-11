@@ -22,7 +22,11 @@
                     </div>
                 </div>
             @endif
+            <a href="#" class="expand-button">
+                <i class="fas fa-expand"></i>
+              </a>
             <div class="mt-5">
+
                 <h4 class="text-center m-5">Publicaciones recientes   <button class="btn text-end" title="Refrescar contenido" @click="getSHOW()">
                     <i class="fas fa-sync"></i>
                 </button></h4>

@@ -415,6 +415,18 @@
             margin-right: 5px;
             /* Espacio entre el punto y el texto */
         }
+    .expand-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
     </style>
 </head>
 
