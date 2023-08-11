@@ -415,7 +415,7 @@
             margin-right: 5px;
             /* Espacio entre el punto y el texto */
         }
-    .expand-button {
+        #fullscreen-toggle {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -513,6 +513,21 @@
 
     <script src="vue/vue.js"></script>
     <script src="vue/resource.js"></script>
+    <script>
+        const fullscreenButton = document.getElementById("fullscreen-toggle");
+
+        fullscreenButton.addEventListener("click", () => {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+              console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+          } else {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            }
+          }
+        });
+      </script>
     @stack('child-scripts')
 </body>
 
