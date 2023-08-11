@@ -11,9 +11,181 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="css/layouts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    {{-- <link rel="stylesheet" href="css/layouts.css"> --}}
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+        body {
+            background-color: #FAFFFD;
+        }
+        body,
+        input,
+        label,
+        p,
+        b,
+        textarea,
+        select,
+        checkbox {
+            font-family: 'Poppins', sans-serif;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .bg-primaryechame {
+            background-color: #249f11;
+        }
+
+        .bg-primary>div>ul>li>a {
+            color: white;
+        }
+
+        .centered-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            background-color: #ffffff;
+        }
+
+        .navbar-custom {
+            padding: 40px;
+            background-color: #249f11;
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-custom .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+
+        @media (max-width: 767px) {
+            .navbar-custom .navbar-nav .nav-item {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        .footer-custom {
+            background-color: #343a40;
+            color: white;
+            padding: 50px 0;
+        }
+
+        .footer-custom a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .card-custom {
+            border: none;
+        }
+
+        .text-title {
+            color: #656666;
+        }
+
+        .form-control.custom-focus:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .card {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .card .post-content {
+            margin-top: 10px;
+        }
+
+        .card .post-actions {
+            margin-top: 15px;
+        }
+
+        .card .post-date {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .card .post-actions .btn {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .card .verification-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .verified {
+            background-color: green;
+            color: white;
+        }
+
+        .not-verified {
+            background-color: red;
+            color: white;
+        }
+
+        .select-option:hover {
+            background-color: #656666;
+            color: #ffffff;
+        }
+
+        @media (max-width: 767.98px) {
+
+            /* Estilos responsivos para pantallas pequeñas */
+            .card .post-actions .btn {
+                margin-bottom: 0;
+            }
+        }
+
+        .btn-minimalista {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, color 0.3s ease,
+                border-color 0.3s ease;
+            cursor: pointer;
+            border-radius: 0;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+            outline: none;
+        }
+
+        .btn-minimalista:hover {
+            background-color: #249f11;
+            color: #fff;
+            border-color: #249f11;
+        }
+
         .sidebar {
             background-color: white;
             color: black;
@@ -83,8 +255,7 @@
             font-size: 12px;
             color: #999;
         }
-    </style>
-    <style>
+
         /* Estilo para todos los enlaces dentro del navbar */
         .navbar-custom .navbar-nav .nav-link {
             color: #fff;
@@ -105,7 +276,7 @@
             height: 0;
             border-radius: 10px;
             background-color: #fff;
-            color: #019E0F;
+            color: #019e0f;
 
             opacity: 0;
             transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
@@ -128,7 +299,7 @@
 
         .chat-bubble {
             position: relative;
-            background-color: #DCF8C6;
+            background-color: #dcf8c6;
             color: #000;
             border-radius: 20px;
             padding: 10px 15px;
@@ -142,7 +313,7 @@
             height: 0;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
-            border-right: 10px solid #DCF8C6;
+            border-right: 10px solid #dcf8c6;
             left: -10px;
             top: 50%;
             transform: translateY(-50%);
@@ -224,7 +395,7 @@
         .online-dot {
             width: 10px;
             height: 10px;
-            background-color: #4CAF50;
+            background-color: #4caf50;
             /* Color verde */
             border-radius: 50%;
             /* Para hacer un círculo */
@@ -234,21 +405,23 @@
         }
 
         .offline-dot {
-      width: 10px;
-      height: 10px;
-      background-color: #FF0000; /* Color rojo */
-      border-radius: 50%; /* Para hacer un círculo */
-      display: inline-block;
-      margin-right: 5px; /* Espacio entre el punto y el texto */
-    }
+            width: 10px;
+            height: 10px;
+            background-color: #ff0000;
+            /* Color rojo */
+            border-radius: 50%;
+            /* Para hacer un círculo */
+            display: inline-block;
+            margin-right: 5px;
+            /* Espacio entre el punto y el texto */
+        }
     </style>
-
 </head>
 
 <body>
     <header class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-custom ">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand fw-bold" href="Bienvenido">
 
                     <img src="img/logo.png" class="img-fluid w-50">
@@ -309,9 +482,8 @@
         @yield('content')
     </main>
     <div style="margin-top: 200px">
-
     </div>
-    <footer class="footer-custom footer  p-3">
+    <footer class="footer-custom footer  p-3" style="background-color: #342E37">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |

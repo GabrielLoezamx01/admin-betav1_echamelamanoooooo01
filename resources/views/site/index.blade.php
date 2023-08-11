@@ -3,21 +3,21 @@
     <section id="vue" class="row">
         <div class="col-md-8">
             @if (session('type_user') == 'C')
-                <div class="card border-0">
+                <div class="border-0 shadow p-3">
                     <div class="card-body">
-                        <div class="p-2 mt-5 m-4">
-                            <p class="card-title fs-4 text-title fw-ligh">Nueva Publicacion</p>
-                            <div class="mb-3">
+                        <div class="p-2 mt-3 m-4">
+                            <p class="card-title fs-4 text-title fw-ligh"><i class="fas fa-edit"></i>  Nueva Publicacion   </p>
+                            <div class="mb-3 mt-3">
                                 <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
                             </div>
-                            <p class="card-title fs-4 text-title fw-ligh">Servicio</p>
-                            <div class="mb-3">
+                            <p class="card-title fs-4 text-title fw-ligh mt-3"> <i class="fas fa-cogs"></i> Servicio</p>
+                            <div class="mb-3 mt-3">
                                 <select v-model="servicies" class="form-control custom-focus " id="servicies">
                                     <option class="select-option" v-for="select in apiServicios" :value="select.id">
                                         @{{ select.name }}</option>
                                 </select>
                             </div>
-                            <button class="btn btn-dark border-0 p-2 " @click="postnew()">Publicar</button>
+                            <button class="btn btn-dark border-0 p-2 mt-3 " @click="postnew()">Publicar</button>
                         </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                             <option class="select-option" v-for="select in apiServicios" :value="select.id">
                                 @{{ select.name }}</option>
                         </select>
-                        <button class="btn btn-dark" type="button" id="btn-buscar"
-                            @click="searchpublicaciones()">Buscar</button>
+                        <button class="btn btn-dark" type="button" id="btn-buscar" title="Buscar"
+                            @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
                     </div>
                 </div>
                 <div class="col-md-6  d-flex justify-content-end ">
