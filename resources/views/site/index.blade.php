@@ -23,7 +23,10 @@
                 </div>
             @endif
             <div class="mt-5">
-                <h4 class="text-center m-5">Publicaciones recientes</h4>
+                <h4 class="text-center m-5">Publicaciones recientes   <button class="btn text-end" title="Refrescar contenido" @click="getSHOW()">
+                    <i class="fas fa-sync"></i>
+                </button></h4>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -38,9 +41,7 @@
                     </div>
                 </div>
                 <div class="col-md-6  d-flex justify-content-end ">
-                    <button class="btn text-end" title="Refrescar contenido" @click="getSHOW()">
-                        <i class="fas fa-sync"></i>
-                    </button>
+
                 </div>
             </div>
             <div class="mt-5"></div>
