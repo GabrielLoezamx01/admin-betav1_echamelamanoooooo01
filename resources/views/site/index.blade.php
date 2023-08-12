@@ -52,7 +52,7 @@
                         <div class="text-center">
                             <div class="profile-image-container">
                                 <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                    class="img-fluid rounded-circle mt-3" style="width: 30%">
+                                    class="img-fluid profile-image" style="width: 30%">
                             </div>
                             <label for="user" class="fs-5 fw-bold">
                                 @{{ post.userName }}

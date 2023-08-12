@@ -15,9 +15,11 @@
     {{-- <link rel="stylesheet" href="css/layouts.css"> --}}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
         body {
             background-color: #FAFFFD;
         }
+
         body,
         input,
         label,
@@ -28,6 +30,7 @@
         checkbox {
             font-family: 'Poppins', sans-serif;
         }
+
         h1,
         h2,
         h3,
@@ -415,21 +418,33 @@
             margin-right: 5px;
             /* Espacio entre el punto y el texto */
         }
+
         .profile-image-container {
-            text-align: center; /* Centrar la imagen horizontalmente */
-            margin-bottom: 1rem; /* Espacio inferior */
+            text-align: center;
+            /* Centrar la imagen horizontalmente */
+            margin-bottom: 1rem;
+            /* Espacio inferior */
         }
 
         .profile-image-container img {
             max-width: 100%;
-            border: 10px solid #4caf50; /* Agregar un borde blanco */
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+            border: 10px solid #4caf50;
+            /* Agregar un borde blanco */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            /* Agregar sombra */
         }
 
         .publicaciones:hover {
-      transform: scale(1.1);
-      transition: transform 0.3s ease;
-         }
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image {
+            width: 40%;
+            height: 40%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
     </style>
 </head>
 
