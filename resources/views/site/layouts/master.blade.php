@@ -440,10 +440,10 @@
         }
 
         .profile-image {
-            width: 40%;
-            height: 40%;
+            width: 200px;
+            height: 200spx;
+            border-radius: 50%;
             object-fit: cover;
-            border-radius: 100%;
         }
     </style>
 </head>
