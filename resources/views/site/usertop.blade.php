@@ -1,6 +1,6 @@
     <h2 class="text-center fw-bold">Sucursales Destacadas</h2>
-        <div v-for="sucursal in sucursales">
-            <div class="card shadow">
+        <div v-for="sucursal in sucursales" class="shadow">
+            <div class="p-1">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="imagen-contenido">

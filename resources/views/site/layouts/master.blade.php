@@ -53,7 +53,7 @@
         }
 
         .navbar-custom {
-            padding: 40px;
+            padding: 5px;
             background-color: #249f11;
         }
 
@@ -259,7 +259,7 @@
         /* Estilo para todos los enlaces dentro del navbar */
         .navbar-custom .navbar-nav .nav-link {
             color: #fff;
-            font-weight: 700;
+            font-weight: 400;
             /* Color del texto de los enlaces */
             position: relative;
             /* Asegura que el elemento padre (.nav-link) sea un contenedor para el pseudo-elemento */
@@ -415,28 +415,31 @@
             margin-right: 5px;
             /* Espacio entre el punto y el texto */
         }
-        #fullscreen-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      padding: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
+        .profile-image-container {
+            text-align: center; /* Centrar la imagen horizontalmente */
+            margin-bottom: 1rem; /* Espacio inferior */
+        }
+
+        .profile-image-container img {
+            max-width: 100%;
+            border: 10px solid #4caf50; /* Agregar un borde blanco */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+        }
+
+        .publicaciones:hover {
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
+         }
     </style>
 </head>
 
 <body>
     <header class="fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-custom ">
+        <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold" href="Bienvenido">
 
-                    <img src="img/logo.png" class="img-fluid w-50">
+                    <img src="img/logo.png" class="img-fluid" style="width: 50%">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -513,21 +516,7 @@
 
     <script src="vue/vue.js"></script>
     <script src="vue/resource.js"></script>
-    <script>
-        const fullscreenButton = document.getElementById("fullscreen-toggle");
 
-        fullscreenButton.addEventListener("click", () => {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-              console.log(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
-          } else {
-            if (document.exitFullscreen) {
-              document.exitFullscreen();
-            }
-          }
-        });
-      </script>
     @stack('child-scripts')
 </body>
 
