@@ -427,7 +427,7 @@
         }
 
         .profile-image-container img {
-            max-width: 100%;
+            max-width: 400pxs;
             border: 10px solid #4caf50;
             /* Agregar un borde blanco */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);

@@ -50,7 +50,7 @@
                             <p class="fw-light mt-2"><b>Solicita:</b> @{{ post.nombre_servicio }} </p>
                         </div>
                         <div class="text-center">
-                            <div class="profile-image-container">
+                             <div class="profile-image-container">
                                 <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
                                     class="img-fluid profile-image" style="width: 30%">
                             </div>
