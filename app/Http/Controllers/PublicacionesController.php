@@ -22,7 +22,7 @@ class PublicacionesController extends Controller
                     $elementos = Publications::where('status','1')->where('id_servicio', $request->id)
                     ->join('clients','publications.id_user','=','clients.uuid')
                     ->join('services as s','publications.id_servicio','=','s.id')
-                    ->select('clients.online','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+                    ->select('clients.online','clients.estado','clients.ciudad','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
                     ->orderBy('date','DESC')->paginate(10);
                 }
             }
@@ -31,7 +31,7 @@ class PublicacionesController extends Controller
             ->leftjoin('clients','publications.id_user','=','clients.uuid')
             ->leftjoin('seller','publications.id_user','=','seller.uuid')
             ->join('services as s','publications.id_servicio','=','s.id')
-            ->select('clients.online','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+            ->select('clients.estado','clients.ciudad','clients.online','publications.*','clients.name','clients.userName','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
             ->orderBy('date','DESC')->paginate(10);
         }
         return response()->json($elementos);
@@ -46,10 +46,16 @@ class PublicacionesController extends Controller
     public function store(Request $request)
     {
         try {
+            $validated  = $request->validate([
+                'content'    => 'required|string|max:400',
+                'uuid'       => 'required',
+                'servicie'   => 'required',
+            ]);
+            $textoSinSaltosDeLinea = str_replace("\n", " ", $request->content);
             $servicie = $request->servicie == 0 ? 1 : $request->servicie;
             $user     = DB::table('clients')->where('uuid',session('uuid'))->first();
             $insert         = [
-                'content'     => $request->content,
+                'content'     => $textoSinSaltosDeLinea,
                 'status'      => 1,
                 'reactions'   => 0,
                 'id_user'     => session('uuid'),

@@ -364,7 +364,7 @@
         .imagen {
             width: 100%;
             /* Tamaño de la imagen */
-            height: 200px;
+            height: 300px;
             /* Tamaño de la imagen */
             object-fit: cover;
             /* Ajustar imagen al tamaño del contenedor */
@@ -446,6 +446,35 @@
             border-radius: 50%;
             object-fit: cover;
         }
+
+        .fixed-column {
+            background-color: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 100px);
+            /* Ajusta la altura máxima según tus necesidades */
+        }
+
+        .scrollable-column {
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        @media (max-width: 767px) {
+            .fixed-column {
+                position: relative;
+                width: 100%;
+                padding: 0;
+                max-height: none;
+            }
+
+            .scrollable-column {
+                overflow-y: scroll;
+                max-height: 300px;
+                /* Ajusta la altura máxima según tus necesidades */
+            }
+        }
+
     </style>
 </head>
 
@@ -509,7 +538,7 @@
             </div>
         </nav>
     </header>
-    <main class="container" style="margin-top: 200px">
+    <main class="container-fluid" style="margin-top: 100px">
         @yield('content')
     </main>
     <div style="margin-top: 200px">

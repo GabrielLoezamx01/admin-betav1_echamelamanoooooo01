@@ -1,89 +1,34 @@
 @extends('site.layouts.master')
 @section('content')
-    <section id="vue" class="row">
-        <div class="col-md-8">
-            @if (session('type_user') == 'C')
-                <div class="border-0 shadow p-3">
-                    <div class="card-body">
-                        <div class="p-2 mt-3 m-4">
-                            <p class="card-title fs-4 text-title fw-ligh"><i class="fas fa-edit"></i> Nueva Publicacion </p>
-                            <div class="mb-3 mt-3">
-                                <textarea class="form-control custom-focus" rows="5" v-model="newPost"></textarea>
-                            </div>
-                            <p class="card-title fs-4 text-title fw-ligh mt-3"> <i class="fas fa-cogs"></i> Servicio</p>
-                            <div class="mb-3 mt-3">
-                                <select v-model="servicies" class="form-control custom-focus " id="servicies">
-                                    <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                        @{{ select.name }}</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-dark border-0 p-2 mt-3 " @click="postnew()">Publicar</button>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            <div class="mt-5">
-
-                <h4 class="text-center m-5">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
-                        @click="getSHOW()">
-                        <i class="fas fa-sync"></i>
-                    </button></h4>
-
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Buscar por servicio</label>
-                    <div class="input-group mb-3">
-                        <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
-                            <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                @{{ select.name }}</option>
-                        </select>
-                        <button class="btn btn-dark" type="button" id="btn-buscar" title="Buscar"
-                            @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div v-for="post in apiResponse" style="margin-top: 100px" class="col-md-6">
-                    <div class="shadow">
-                        <div class="p-2">
-                            <p class="fw-light mt-2"><b>Solicita:</b> @{{ post.nombre_servicio }} </p>
-                        </div>
-                        <div class="text-center">
-                             <div class="profile-image-container">
-                                <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                    class="img-fluid profile-image" style="width: 30%">
-                            </div>
-                            <label for="user" class="fs-5 fw-bold">
-                                @{{ post.userName }}
-                            </label>
-
-                            <div class="p-5">
-                                <p class="fw-light">@{{ post.content }}</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-end ">
-                            <div class="d-flex justify-content-end gap-2 m-5">
-                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-
-                                    <button class="btn  btn-sm " style="background-color: #342E37; color: white;" @click="show_item(post.uuid)"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                        @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+    <div id="vue">
+        <section class="row">
+            <div class="col-lg-12">
+                @if (session('type_user') == 'C')
+                    <div class="border-0 shadow p-3">
+                        <div class="card-body">
+                            <div class="p-2 mt-5 m-4">
+                                <p class="card-title fs-4 text-title fw-ligh"><i class="fas fa-edit"></i> Nueva Publicacion
+                                </p>
+                                <div class="mb-3 mt-3">
+                                    <textarea class="form-control custom-focus" rows="10" v-model="newPost" maxlength="400"></textarea>
                                 </div>
-                                <button class="btn  btn-sm" style="background-color: #E6AF2E; color: white;" @click="openDivComment(post.publications_id)"><i
-                                        class="fas fa-comments"></i></button>
+                                <p class="card-title fs-4 text-title fw-ligh mt-5"> <i class="fas fa-cogs"></i> Servicio</p>
+                                <div class="mb-3 mt-3">
+                                    <select v-model="servicies" class="form-control custom-focus " id="servicies">
+                                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                            @{{ select.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-warning border-0 p-2 mt-3 btn-lgs"
+                                        @click="postnew()">Publicar</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-5">
-                            <p class="fw-light" style="font-size: 12px">@{{ post.date }}</p>
-                        </div>
                     </div>
-
-                </div>
+                @endif
             </div>
-        </div>
-        {{-- <div class="card ">
+            {{-- <div class="card ">
                         <div class="card-header d-flex align-items-start">
                             <div class="col-md-5">
                               <div class="d-flex">
@@ -130,32 +75,91 @@
                             </div>
                         </div>
                     </div> --}}
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
+            <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-        </div>
 
-        </div>
-        <div class="col-md-4 mt-5">
+            {{-- <div class="col-lg-5 col-md-5 bg-primary" style="background-color: #FAFFFD">
             @include('site.usertop')
+        </div> --}}
+        </section>
+        <div class="row p-5 bg-dark">
+            <h4 class="text-center text-white">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
+                @click="getSHOW()">
+                <i class="fas fa-sync text-white"></i>
+            </button></h4>
+            <div class="col-md-6">
+                <label for="">Buscar por servicio</label>
+                <div class="input-group mb-3">
+                    <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
+                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                            @{{ select.name }}</option>
+                    </select>
+                    <button class="btn btn-warning" type="button" id="btn-buscar" title="Buscar"
+                        @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
+                </div>
+            </div>
+            <div class="p-1"></div>
+            <div v-for="post in apiResponse" style="margin-top: 100px" class="col-md-4 bg-primar d-flex align-items-stretch">
+                <div class="row p-4 m-2 shadow card bg-dark">
+                    <div class="row mt">
+                        <div class="col-md-4 bg-dark text-center mt-3">
+                            <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="img-fluid profile-image w-50">
+                            <br>
+                            <label for="user" class="fw-bold mt-3 text-white">
+                                @{{ post.userName }}
+                            </label>
+                        </div>
+                        <div class="col">
+                            <p class="fw-light text-white p-3 mt-3"><b>Solicita:</b> @{{ post.nombre_servicio }} </p>
+                        </div>
+                    </div>
+
+                    <div class="col mt-3">
+                        <p class="text-white fw-light fs-6 p-2">
+                            @{{ post.content }}
+                        </p>
+                    </div>
+                    <div class="card-footer mt-4">
+                        <p class="fw-light p-3 text-white" style="font-size: 12px">@{{ post.date }}</p>
+                        <div class="row justify-content-end ">
+                            <div class="d-flex justify-content-end gap-2">
+                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                    <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
+                                        @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm" style="background-color: #C42021; color: white;"
+                                        @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <button class="btn  btn-sm" style="background-color: #E6AF2E; color: white;"
+                                    @click="openDivComment(post.publications_id)"><i class="fas fa-comments"></i></button>
+                                    {{-- <button class="btn  btn-sm  shadow fw-light bg-primaryechame">
+                                        <i class="fas fa-hand-paper"></i>
+                                    </button> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 @endsection
 @push('child-scripts')
     <script>
@@ -310,8 +314,9 @@
                                         this.uuid = '';
                                         this.name = '';
                                         this.success_alert();
-                                        this.bootrappModal('close');
                                     }
+                                    this.bootrappModal('close');
+                                    this.getSHOW();
                                 });
                         }
                     },
