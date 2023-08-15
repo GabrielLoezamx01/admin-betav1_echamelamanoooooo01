@@ -541,9 +541,9 @@
     <main class="container-fluid" style="margin-top: 100px">
         @yield('content')
     </main>
-    <div style="margin-top: 200px">
-    </div>
-    <footer class="footer-custom footer  p-3" style="background-color: #342E37">
+    {{-- <div style="margin-top: 200px">
+    </div> --}}
+    <footer class="footer-custom footer  p-3 bg-dark shadow" >
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |

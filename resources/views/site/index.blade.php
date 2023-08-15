@@ -1,11 +1,28 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue">
+        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
         <section class="row">
             <div class="col-lg-12">
                 @if (session('type_user') == 'C')
-                    <div class="border-0 shadow p-3">
-                        <div class="card-body">
+                    <div class="border-0 shadow">
+                        <div class="card-body p-3">
                             <div class="p-2 mt-5 m-4">
                                 <p class="card-title fs-4 text-title fw-ligh"><i class="fas fa-edit"></i> Nueva Publicacion
                                 </p>
@@ -28,76 +45,14 @@
                     </div>
                 @endif
             </div>
-            {{-- <div class="card ">
-                        <div class="card-header d-flex align-items-start">
-                            <div class="col-md-5">
-                              <div class="d-flex">
-                                <div>
-                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="profile-img mt-3">
-                                </div>
-                                <div class="m-3 text-justify">
-                                    <div class="text-justify">
-                                        <label for="usuario" class="fw-bold">    @{{ post.userName }}</label>
-                                    </div>
-                                    <p class="fw-light" style="font-size: 12px">@{{ post.date }}</p>
-                                </div>
-                              </div>
 
-                            </div>
-                                <div class="col-md-7 d-flex justify-content-end m-3 p-2">
-                                <div class="online-dot" v-if= "post.online == 1"></div>
-                                <div class="offline-dot " v-if= "post.online == 2"></div>
-                                <div class="offline-dot " v-if= "post.online == null"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 p-2">
-                            <div class="chat-bubble mt-5">
-                                <div class="tail"></div>
-                                <p class="message">@{{ post.content }}</p>
-                            </div>
-                            <div class="post-actions d-flex justify-content-end flex-wrap p-5">
-                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                    <button class="btn btn-danger" @click="deletePost(post.uuid)"><i
-                                            class="fas fa-trash"></i></button>
-                                    <button class="btn btn-primary" @click="show_item(post.uuid)"><i
-                                            class="fas fa-edit"></i></button>
-                                </div>
-                                <button class="btn btn-secondary" @click="openDivComment(post.publications_id)"><i
-                                        class="fas fa-comments"></i></button>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="text-left col">
-                                        <p class="fw-bold">Servicio: @{{ post.nombre_servicio }} </p>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div> --}}
-            <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- <div class="col-lg-5 col-md-5 bg-primary" style="background-color: #FAFFFD">
             @include('site.usertop')
         </div> --}}
         </section>
-        <div class="row p-5 bg-dark">
+        <div class="row p-5 bg-dark mt-5">
             <h4 class="text-center text-white">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
                 @click="getSHOW()">
                 <i class="fas fa-sync text-white"></i>
@@ -165,8 +120,7 @@
     <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
-        var api_sucursales = 'api_sucursales';
-        // var api_notificaciones  = 'api_notificaciones';
+
         {
             new Vue({
                 el: '#vue',
@@ -222,16 +176,6 @@
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;
-                        });
-                    },
-                    sucursales_api: function() {
-                        this.$http.get(api_sucursales).then(function(data) {
-                            this.sucursales = data.body;
-                        });
-                    },
-                    api_servicios_sidebar: function() {
-                        this.$http.get(serivicios_api + '?sidebar=true').then(function(data) {
-                            this.apiServiciossidebar = data.body;
                         });
                     },
                     postnew: function() {
