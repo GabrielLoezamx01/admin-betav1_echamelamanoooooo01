@@ -18,6 +18,7 @@
 
         body {
             background-color: #FAFFFD;
+            color: #333333;
         }
 
         body,
@@ -41,6 +42,10 @@
 
         .bg-primaryechame {
             background-color: #249f11;
+        }
+
+        .text-sys {
+            color: #249f11;
         }
 
         .bg-primary>div>ul>li>a {
@@ -460,6 +465,46 @@
             padding: 20px;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10vh;
+            /* Ajusta esto según tu diseño */
+        }
+
+        .publish-button {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 25px;
+            background-color: #249f11;
+            color: white;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-right: 10px;
+        }
+
+        .publish-button:hover {
+            background-color: #1e7e0d;
+            transform: scale(1.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .publish-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(36, 159, 17, 0.3);
+        }
+
         @media (max-width: 767px) {
             .fixed-column {
                 position: relative;
@@ -475,6 +520,71 @@
             }
         }
 
+        .custom-textarea {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #FAFFFD;
+            color: #333333;
+            resize: vertical;
+        }
+
+        .custom-textarea::placeholder {
+            color: #999999;
+        }
+
+        .custom-textarea:focus {
+            outline: none;
+            border-color: #249f11;
+            box-shadow: 0 0 0 3px rgba(36, 159, 17, 0.3);
+        }
+
+        .custom-focus:focus {
+            outline: none;
+            border-color: #249f11;
+            box-shadow: 0 0 0 3px rgba(36, 159, 17, 0.3);
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .custom-select {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #FAFFFD;
+            color: #333333;
+            outline: none;
+        }
+
+        .custom-select:focus {
+            border-color: #249f11;
+            box-shadow: 0 0 0 3px rgba(36, 159, 17, 0.3);
+        }
+
+        .custom-select:hover {
+            background-color: #249f11;
+            color: white;
+        }
+
+        .custom-select option {
+            background-color: #FAFFFD;
+            color: #333333;
+        }
+
+        .custom-select option:hover {
+            background-color: #249f11;
+            color: white;
+        }
     </style>
 </head>
 
@@ -538,12 +648,12 @@
             </div>
         </nav>
     </header>
-    <main class="container-fluid" style="margin-top: 100px">
+    <main class="container" style="margin-top: 100px">
         @yield('content')
     </main>
     {{-- <div style="margin-top: 200px">
     </div> --}}
-    <footer class="footer-custom footer  p-3 bg-dark shadow" >
+    <footer class="footer-custom footer  p-3 bg-dark shadow">
         <div class="container text-center">
             <p>
                 <a href="#contacto">Contactanos</a> |

@@ -1,44 +1,47 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue">
-        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
+        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <section class="row">
             <div class="col-lg-12">
                 @if (session('type_user') == 'C')
-                    <div class="border-0 shadow">
-                        <div class="card-body p-3">
-                            <div class="p-2 mt-5 m-4">
-                                <p class="card-title fs-4 text-title fw-ligh"><i class="fas fa-edit"></i> Nueva Publicacion
+                    <div class="border-0 ">
+                        <div class="card-body p-3 shadow">
+                            <div class="p-2 mt-5 m-4 ">
+                                <p class="card-title fs-5 text-title fw-light"><i class="fas fa-edit"></i> Nueva Publicacion
                                 </p>
-                                <div class="mb-3 mt-3">
-                                    <textarea class="form-control custom-focus" rows="10" v-model="newPost" maxlength="400"></textarea>
+                                <div class="mb-3 mt-3 textarea-container">
+                                    <textarea class="custom-textarea fw-light text-sys" rows="5" v-model="newPost" maxlength="400" placeholder="Escribe tu post aquí"></textarea>
                                 </div>
-                                <p class="card-title fs-4 text-title fw-ligh mt-5"> <i class="fas fa-cogs"></i> Servicio</p>
-                                <div class="mb-3 mt-3">
-                                    <select v-model="servicies" class="form-control custom-focus " id="servicies">
+                                <p class="card-title fs-5 text-title fw-light mt-5"> <i class="fas fa-cogs"></i> Servicio</p>
+                                <div class="input-container">
+                                    <select v-model="servicies" class="custom-select custom-textarea" id="servicies">
                                         <option class="select-option" v-for="select in apiServicios" :value="select.id">
                                             @{{ select.name }}</option>
                                     </select>
                                 </div>
-                                <div class="text-center">
-                                    <button class="btn btn-warning border-0 p-2 mt-3 btn-lgs"
-                                        @click="postnew()">Publicar</button>
+
+                                <div class="button-container">
+                                    <button class="publish-button" @click="postnew()">
+                                        <i class="icon fas fa-paper-plane"></i>
+                                        Publicar
+                                      </button>
                                 </div>
                             </div>
                         </div>
@@ -53,10 +56,10 @@
         </div> --}}
         </section>
         <div class="row p-5 bg-dark mt-5">
-            <h4 class="text-center text-white">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
-                @click="getSHOW()">
-                <i class="fas fa-sync text-white"></i>
-            </button></h4>
+            <h4 class="text-center text-white">Publicaciones recientes <button class="btn text-end"
+                    title="Refrescar contenido" @click="getSHOW()">
+                    <i class="fas fa-sync text-white"></i>
+                </button></h4>
             <div class="col-md-6">
                 <label for="">Buscar por servicio</label>
                 <div class="input-group mb-3">
@@ -69,11 +72,13 @@
                 </div>
             </div>
             <div class="p-1"></div>
-            <div v-for="post in apiResponse" style="margin-top: 100px" class="col-md-4 bg-primar d-flex align-items-stretch">
+            <div v-for="post in apiResponse" style="margin-top: 100px"
+                class="col-md-4 bg-primar d-flex align-items-stretch">
                 <div class="row p-4 m-2 shadow card bg-dark">
                     <div class="row mt">
                         <div class="col-md-4 bg-dark text-center mt-3">
-                            <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="img-fluid profile-image w-50">
+                            <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
+                                class="img-fluid profile-image w-50">
                             <br>
                             <label for="user" class="fw-bold mt-3 text-white">
                                 @{{ post.userName }}
@@ -101,7 +106,7 @@
                                 </div>
                                 <button class="btn  btn-sm" style="background-color: #E6AF2E; color: white;"
                                     @click="openDivComment(post.publications_id)"><i class="fas fa-comments"></i></button>
-                                    {{-- <button class="btn  btn-sm  shadow fw-light bg-primaryechame">
+                                {{-- <button class="btn  btn-sm  shadow fw-light bg-primaryechame">
                                         <i class="fas fa-hand-paper"></i>
                                     </button> --}}
                             </div>
