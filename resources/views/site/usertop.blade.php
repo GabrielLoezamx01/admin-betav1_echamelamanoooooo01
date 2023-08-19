@@ -1,10 +1,10 @@
-<div style="margin-top: 200px" >
-    <h2 class="text-center fw-bold">Sucursales Destacadas</h2>
-    <div v-for="sucursal in sucursales" class="shadow">
+<div style="margin-top: 50px">
+    <h2 class="text-center fw-bold fs-5">Sucursales Destacadas</h2>
+    <div v-for="sucursal in sucursales" class="shadow mt-5 rounded-3">
         <div class="p-1">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="imagen-contenido">
+            <div class="row ">
+                <div class="col-md-12 rounded-3">
+                    <div class="imagen-contenido rounded-3">
                         <img :src="'storage/sucursales/' + sucursal.image" class="imagen">
                         <div class="title-overlay">
                             <b>
@@ -25,4 +25,4 @@
             </div>
         </div>
 
-</div>
+    </div>

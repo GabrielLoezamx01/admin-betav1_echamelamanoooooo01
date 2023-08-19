@@ -19,17 +19,21 @@
             </div>
         </div>
         <section class="row">
-            <div class="col-lg-12">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-7">
                 @if (session('type_user') == 'C')
                     <div class="border-0 ">
-                        <div class="card-body p-3 shadow">
+                        <div class="card-body p-3 shadow rounded-3">
                             <div class="p-2 mt-5 m-4 ">
                                 <p class="card-title fs-5 text-title fw-light"><i class="fas fa-edit"></i> Nueva Publicacion
                                 </p>
                                 <div class="mb-3 mt-3 textarea-container">
-                                    <textarea class="custom-textarea fw-light text-sys" rows="5" v-model="newPost" maxlength="400" placeholder="Escribe tu post aquí"></textarea>
+                                    <textarea class="custom-textarea fw-light text-sys" rows="5" v-model="newPost" maxlength="400"
+                                        placeholder="Escribe tu post aquí"></textarea>
                                 </div>
-                                <p class="card-title fs-5 text-title fw-light mt-5"> <i class="fas fa-cogs"></i> Servicio</p>
+                                <p class="card-title fs-5 text-title fw-light mt-5"> <i class="fas fa-cogs"></i> Servicio
+                                </p>
                                 <div class="input-container">
                                     <select v-model="servicies" class="custom-select custom-textarea" id="servicies">
                                         <option class="select-option" v-for="select in apiServicios" :value="select.id">
@@ -41,91 +45,76 @@
                                     <button class="publish-button" @click="postnew()">
                                         <i class="icon fas fa-paper-plane"></i>
                                         Publicar
-                                      </button>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endif
-            </div>
+                <div class="p-5"></div>
 
+                <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
+                        @click="getSHOW()">
+                        <i class="fas fa-sync text-dark"></i>
+                    </button></h4>
+                <div class="col-md-6 mt-3">
+                    <label for="">Buscar por servicio</label>
+                    <div class="input-container">
+                        <div class="input-group mb-3">
+                            <select v-model="serviciessearch" class="form-control custom-select custom-textarea "
+                                id="servicies">
+                                <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                    @{{ select.name }}</option>
+                            </select>
+                            <button class="publish-button" type="button" id="btn-buscar" title="Buscar"
+                                @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
+                        </div>
+                    </div>
 
-
-            {{-- <div class="col-lg-5 col-md-5 bg-primary" style="background-color: #FAFFFD">
-            @include('site.usertop')
-        </div> --}}
-        </section>
-        <div class="row p-5 bg-dark mt-5">
-            <h4 class="text-center text-white">Publicaciones recientes <button class="btn text-end"
-                    title="Refrescar contenido" @click="getSHOW()">
-                    <i class="fas fa-sync text-white"></i>
-                </button></h4>
-            <div class="col-md-6">
-                <label for="">Buscar por servicio</label>
-                <div class="input-group mb-3">
-                    <select v-model="serviciessearch" class="form-control custom-focus " id="servicies">
-                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                            @{{ select.name }}</option>
-                    </select>
-                    <button class="btn btn-warning" type="button" id="btn-buscar" title="Buscar"
-                        @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
                 </div>
-            </div>
-            <div class="p-1"></div>
-            <div v-for="post in apiResponse" style="margin-top: 100px"
-                class="col-md-4 bg-primar d-flex align-items-stretch">
-                <div class="row p-4 m-2 shadow card bg-dark">
-                    <div class="row mt">
-                        <div class="col-md-4 bg-dark text-center mt-3">
-                            <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                class="img-fluid profile-image w-50">
-                            <br>
-                            <label for="user" class="fw-bold mt-3 text-white">
-                                @{{ post.userName }}
-                            </label>
-                        </div>
-                        <div class="col">
-                            <p class="fw-light text-white p-3 mt-3"><b>Solicita:</b> @{{ post.nombre_servicio }} </p>
-                        </div>
-                    </div>
-
-                    <div class="col mt-3">
-                        <p class="text-white fw-light fs-6 p-2">
-                            @{{ post.content }}
-                        </p>
-                    </div>
-                    <div class="card-footer mt-4">
-                        <p class="fw-light p-3 text-white" style="font-size: 12px">@{{ post.date }}</p>
-                        <div class="row justify-content-end ">
-                            <div class="d-flex justify-content-end gap-2">
-                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                    <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
-                                        @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                        @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                <div class="row  d-flex align-items-stretch">
+                    <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4">
+                        <div class="card  mt-5 ">
+                            <div class="card-body text-center">
+                                <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
+                                    class="img-fluid circular-image w-50">
+                                <div>
+                                    <label for="user" class="fw-bold mt-3 text-dark">
+                                        @{{ post.userName }}
+                                    </label>
                                 </div>
-                                <button class="btn  btn-sm" style="background-color: #E6AF2E; color: white;"
-                                    @click="openDivComment(post.publications_id)"><i class="fas fa-comments"></i></button>
-                                {{-- <button class="btn  btn-sm  shadow fw-light bg-primaryechame">
-                                        <i class="fas fa-hand-paper"></i>
-                                    </button> --}}
+                                <div class="mt-3">
+                                    <button class="btn border-black"
+                                    @click="openDivComment(post.publications_id)"><i class="fas fa-comments"></i>
+                                    Comentar</button>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="justify-content-end mt-5">
+                                    <div v-if="post.uuidCliente == '{{ session('uuid') }}'" class="d-flex justify-content-end gap-2">
+                                        <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
+                                            @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm" style="background-color: #C42021; color: white;"
+                                            @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
-                <div>
-
-                </div>
             </div>
-        </div>
+            <div class="col-md-3 p-5">
+                @include('site.usertop')
+            </div>
+        </section>
     </div>
 @endsection
 @push('child-scripts')
     <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
-
+        var api_sucursales = 'api_sucursales';
         {
             new Vue({
                 el: '#vue',
@@ -181,6 +170,11 @@
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;
+                        });
+                    },
+                    sucursales_api: function() {
+                        this.$http.get(api_sucursales).then(function(data) {
+                            this.sucursales = data.body;
                         });
                     },
                     postnew: function() {

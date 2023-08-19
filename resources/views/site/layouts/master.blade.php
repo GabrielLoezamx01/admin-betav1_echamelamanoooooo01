@@ -369,7 +369,7 @@
         .imagen {
             width: 100%;
             /* Tamaño de la imagen */
-            height: 300px;
+            height: 200px;
             /* Tamaño de la imagen */
             object-fit: cover;
             /* Ajustar imagen al tamaño del contenedor */
@@ -585,6 +585,22 @@
             background-color: #249f11;
             color: white;
         }
+
+        .fixed-column {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background-color: lightgray;
+            padding: 15px;
+        }
+
+        .circular-image {
+            width: 150px;
+            height: 150px;
+            border: 8px solid #249f11;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -648,11 +664,11 @@
             </div>
         </nav>
     </header>
-    <main class="container" style="margin-top: 100px">
+    <main class="container-fluid" style="margin-top: 100px">
         @yield('content')
     </main>
-    {{-- <div style="margin-top: 200px">
-    </div> --}}
+    <div style="margin-top: 200px">
+    </div>
     <footer class="footer-custom footer  p-3 bg-dark shadow">
         <div class="container text-center">
             <p>
