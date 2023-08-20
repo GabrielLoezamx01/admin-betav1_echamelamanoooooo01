@@ -26,9 +26,12 @@
                 </div>
             </div>
         </div>
-        <div class="mt-5 text-center">
-            <button class="btn btn-dark">Ofrecer Servicio</button>
-        </div>
+        @if(count($validate) > 0)
+            <div class="mt-5 text-center">
+                <button class="btn btn-dark">Ofrecer Servicio</button>
+            </div>
+        @endif
+
         <hr>
         <div class="container mt-5">
             <div class="row">

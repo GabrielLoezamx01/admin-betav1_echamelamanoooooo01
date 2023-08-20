@@ -15,24 +15,28 @@ class ComentariosController extends Controller
      */
     public function index(Request $request)
     {
-        $validate      = 'HEY';
+        // $validate      = 'HEY';
         $publicaciones = collect(Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
         ->join('services as s','publications.id_servicio','=','s.id')
-        ->select('publications.*','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+        ->select('publications.*','clients.postal','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
         ->orderBy('date','DESC')->first());
-        $validate = [
-            'session'     => session('uuid'),
-            'basededatos' =>  $publicaciones->get('uuid')
-        ];
+        // $validate = [
+        //     'session'     => session('uuid'),
+        //     'basededatos' =>  $publicaciones->get('uuid')
+        // ];
         if(session('uuid') == $publicaciones->get('uuid')){
-            $validate = 'nooo';
+
         }
         $database = DB::table('comments')->where('publications_id',$request->id)
             ->leftJoin('clients','comments.id_user_comments','=','clients.uuid')
             ->leftJoin('seller','comments.id_user_comments','=','seller.uuid')
             ->select('clients.name','clients.last_name','clients.photo','comments.*')
             ->orderByRaw('date ASC ')->get();
+        $validate  = DB::table('branch')->where('id_seller', session('uuid'))
+        ->where('id_service', $publicaciones['id_servicio'])
+        ->where('postal_code', $publicaciones['postal'])
+        ->get();
             return view('site.comment')->with(compact(
                 'database',
                 'publicaciones',

@@ -20,7 +20,6 @@
         </div>
         <section class="row">
             <div class="col-md-2"></div>
-
             <div class="col-md-7">
                 @if (session('type_user') == 'C')
                     <div class="border-0 ">
@@ -51,12 +50,12 @@
                         </div>
                     </div>
                 @endif
-                <div class="p-5"></div>
-
-                <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
-                        @click="getSHOW()">
-                        <i class="fas fa-sync text-dark"></i>
-                    </button></h4>
+                <div class="p-5">
+                    <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
+                            @click="getSHOW()">
+                            <i class="fas fa-sync text-dark"></i>
+                        </button></h4>
+                </div>
                 <div class="col-md-6 mt-3">
                     <label for="">Buscar por servicio</label>
                     <div class="input-container">
@@ -72,39 +71,52 @@
                     </div>
 
                 </div>
-                <div class="row  d-flex align-items-stretch">
-                    <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4">
-                        <div class="card  mt-5 ">
-                            <div class="card-body text-center">
-                                <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                    class="img-fluid circular-image w-50">
-                                <div>
-                                    <label for="user" class="fw-bold mt-3 text-dark">
-                                        @{{ post.userName }}
-                                    </label>
-                                </div>
-                                <div class="mt-3">
-                                    <button class="btn border-black"
-                                    @click="openDivComment(post.publications_id)"><i class="fas fa-comments"></i>
-                                    Comentar</button>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="justify-content-end mt-5">
-                                    <div v-if="post.uuidCliente == '{{ session('uuid') }}'" class="d-flex justify-content-end gap-2">
-                                        <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
-                                            @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                            @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                <div>
+                    <div class="row  d-flex align-items-stretch">
+                        <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4 publicaciones" >
+                            <div class="card mt-5  h-100 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
+                                            class="img-fluid circular-image">
+                                            <div>
+                                                <label for="user" class="fw-bold mt-3 text-dark tex">
+                                                    @{{ post.userName }}
+                                                </label>
+                                            </div>
+                                    </div>
+                                    <div class="mt-5 text-justify">
+                                        <p class="fw-light">
+                                            @{{ post.content }}
+                                        </p>
                                     </div>
                                 </div>
+                                <div class="card-footer bg-white">
+                                    <p class="text-dark fw-light fs-6 ">
+                                        @{{ post.nombre_servicio }}
+                                    </p>
+                                    <div class="justify-content-end mt-5">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                                <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
+                                                    @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm" style="background-color: #C42021; color: white;"
+                                                    @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                            <button class="btn btn-sm" style="background-color: #249f11; color: white;"
+                                                @click="openDivComment(post.publications_id)"><i
+                                                    class="fas fa-comments"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
                     </div>
                 </div>
+
             </div>
-            <div class="col-md-3 p-5">
+            <div class="col-md-3">
                 @include('site.usertop')
             </div>
         </section>

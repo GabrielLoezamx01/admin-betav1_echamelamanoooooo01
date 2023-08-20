@@ -12,12 +12,14 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.css" rel="stylesheet">
+
     {{-- <link rel="stylesheet" href="css/layouts.css"> --}}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
         body {
-            background-color: #FAFFFD;
+            background-color: white;
             color: #333333;
         }
 
@@ -602,6 +604,7 @@
             object-fit: cover;
         }
     </style>
+    @stack('styles')
 </head>
 
 <body>
@@ -687,7 +690,15 @@
 
     <script src="vue/vue.js"></script>
     <script src="vue/resource.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.js"></script>
 
+    <script>
+         AOS.init({
+            duration: 1000, // Duración de la animación en milisegundos
+            once: false,    // Animar cada vez que se desplaza
+        });
+
+    </script>
     @stack('child-scripts')
 </body>
 

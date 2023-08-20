@@ -104,10 +104,18 @@ class ClientsController extends Controller
     public function site(Request $request)
     {
         $data = $this->queryClients(['id' => session('id_user')])->first();
+
         if ($data->name == "" or $data->last_name == '' or $data->photo == '') {
             return view('site.users.profile');
         } else {
-            return view('site.index');
+            if(session('type_user') == 'V'){
+                $branch = DB::table('branch')->where('id_seller',session('uuid'))->get();
+                return view('site.index')->with(compact('branch'));
+            }
+            if(session('type_user') == 'C'){
+                return 'configura las publicaciones de las sucursales..';
+                return view('site.index');
+      }
         }
     }
     private function queryClients($query)
@@ -121,6 +129,10 @@ class ClientsController extends Controller
     }
     public function data_clients(Request $request)
     {
+        $userName = DB::table('clients')->where('userName',$request->data_clients)->count();
+        if($userName){
+            return back()->withErrors(['userName' => 'Usuario Registrados']);
+        }
         $validator = Validator::make($request->all(), [
             'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
         ]);
