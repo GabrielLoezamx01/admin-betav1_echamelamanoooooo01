@@ -30,23 +30,29 @@
                 </div>
 
             </div>
-            <div class="shadow col-md-5  animate__animated animate__backInRight">
+            <div class="col-md-5 shadow animate__animated animate__backInRight">
                 <div class="mt-5 right-side">
                     <h4>Comentarios</h4>
-                    <div class="container">
+                    <div class="container ">
                         @foreach ($database as $item)
-                            <div class="row mt-5">
+                            <div class="row p-2">
                                 <div class="col-md-12 mx-auto">
                                     <div class="scrollable-div">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
-                                                        class="rounded-circle me-3 shadow" width="40" height="40">
+                                                <div class="row">
+                                                    {{-- <div class="col-md-8">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
+                                                                class="rounded-circle me-3 shadow" width="40" height="40">
+                                                        </div>
+                                                    </div> --}}
+                                                    <div class="col-md-3">
+                                                        <h6 class="fw-bold mt-2">{{ $item->userName }}</h6>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-10">
-                                                    <h6 class="fw-bold">{{ $item->userName }}</h6>
+                                            <div class="col-md-12">
                                                     <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
                                             </div>
                                         </div>
@@ -74,7 +80,7 @@
                             @csrf
                             <input type="hidden" name="idp" value="{{ $publicaciones['publications_id'] }}">
                             <input type="hidden" name="uuidc" value="{{ $publicaciones['id_user'] }}">
-                            <textarea class="custom-textarea fw-light text-sys" rows="5" name="contenido" id="" cols="20"></textarea>
+                            <textarea class="custom-textarea fw-light text-sys" rows="3" name="contenido"></textarea>
                             <button class="publish-button mt-5">Agregar Comentario</button>
                         </form>
                     </div>
