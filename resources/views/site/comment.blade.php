@@ -53,13 +53,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                    <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
+                                                <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <small class="text-muted" style="font-size: 10px">{{ $item->date }}</small>
                                             <div>
-                                                <button class="btn btn-sm" title="ajustes" >
+                                                <button class="btn btn-sm" title="ajustes">
                                                     <i class="fas fa-cog"></i>
                                                 </button>
                                                 {{-- <button class="btn btn-sm btn-outline-danger me-2">
