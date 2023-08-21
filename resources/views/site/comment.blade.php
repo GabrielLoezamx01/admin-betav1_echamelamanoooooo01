@@ -31,7 +31,7 @@
 
             </div>
             <div class="col-md-5 shadow animate__animated animate__backInRight">
-                <div class="mt-5 right-side">
+                <div class="mt-2 right-side">
                     <h4>Comentarios</h4>
                     <div class="container ">
                         @foreach ($database as $item)
@@ -47,7 +47,7 @@
                                                                 class="rounded-circle me-3 shadow" width="40" height="40">
                                                         </div>
                                                     </div> --}}
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-10">
                                                         <h6 class="fw-bold mt-2">{{ $item->userName }}</h6>
                                                     </div>
                                                 </div>
@@ -56,16 +56,18 @@
                                                     <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
                                             </div>
                                         </div>
-
                                         <div class="d-flex justify-content-between align-items-center">
                                             <small class="text-muted" style="font-size: 10px">{{ $item->date }}</small>
                                             <div>
-                                                <button class="btn btn-sm btn-outline-danger me-2">
+                                                <button class="btn btn-sm" title="ajustes" >
+                                                    <i class="fas fa-cog"></i>
+                                                </button>
+                                                {{-- <button class="btn btn-sm btn-outline-danger me-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-outline-primary">
                                                     <i class="fas fa-edit"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                         </div>
                                     </div>
