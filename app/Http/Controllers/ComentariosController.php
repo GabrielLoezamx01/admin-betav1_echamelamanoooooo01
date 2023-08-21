@@ -19,19 +19,19 @@ class ComentariosController extends Controller
         $publicaciones = collect(Publications::where('status','1')->where('publications_id', $request->id)
         ->join('clients','publications.id_user','=','clients.uuid')
         ->join('services as s','publications.id_servicio','=','s.id')
-        ->select('publications.*','clients.postal','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
+        ->select('clients.userName','publications.*','clients.postal','clients.name','clients.last_name','clients.email','clients.phone','clients.andress','clients.photo','clients.validate as VALIDACION', 'clients.uuid as uuidCliente','s.name as nombre_servicio')
         ->orderBy('date','DESC')->first());
         // $validate = [
         //     'session'     => session('uuid'),
         //     'basededatos' =>  $publicaciones->get('uuid')
         // ];
-        if(session('uuid') == $publicaciones->get('uuid')){
+        // if(session('uuid') == $publicaciones->get('uuid')){
 
-        }
+        // }
         $database = DB::table('comments')->where('publications_id',$request->id)
             ->leftJoin('clients','comments.id_user_comments','=','clients.uuid')
             ->leftJoin('seller','comments.id_user_comments','=','seller.uuid')
-            ->select('clients.name','clients.last_name','clients.photo','comments.*')
+            ->select('clients.name','clients.last_name','clients.photo','comments.*','seller.name as seller_name','seller.photo as photo','seller.userName as userName')
             ->orderByRaw('date ASC ')->get();
         $validate  = DB::table('branch')->where('id_seller', session('uuid'))
         ->where('id_service', $publicaciones['id_servicio'])

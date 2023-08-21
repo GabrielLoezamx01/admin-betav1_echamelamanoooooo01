@@ -1,78 +1,87 @@
 @extends('site.layouts.master')
 @section('content')
-    <div class="col-md-12">
-        <div class="row justify-content-center">
-            <div class="col-md-6 ">
-                <div class="m-5">
-                    <div class="d-flex align-items-center mb-2">
+    <div class="container">
+        <div class="row shadow">
+            <div class="p-5 left-side col-md-7">
+                <div class="row">
+                    <div class="col-md-2">
                         <img src="{{ asset('storage/fotos/' . $publicaciones['photo']) }}" alt="Foto"
-                            class="rounded-circle me-3" width="40" height="40">
-                        <h6 class="card-subtitle">{{ $publicaciones['name'] }} {{ $publicaciones['last_name'] }}</h6>
+                            class="rounded-circle me-3" width="100" height="100">
                     </div>
-                </div>
-                <div class="mt-5 m-5">
-                    <p>
-                        {{ $publicaciones['content'] }}
-                    </p>
-                    <div class="card-header card">
-                        <p class="fw-light">
-                            Dirrecion: {{ $publicaciones['andress'] }}
+                    <div class="col-md-7">
+                        <label for="username" class="fw-bold fs-6">{{ $publicaciones['userName'] }}</label>
+                        <div class="mt-1">
+                            <span style="font-size: 13px;">Servicio: {{ $publicaciones['nombre_servicio'] }}</span>
+                        </div>
+                        <div class="mt-1">
+                            <span style="font-size: 13px;">Dirrecion: {{ $publicaciones['andress'] }}</span>
+                        </div>
+                        <p class="mt-5 fw-light">
+                            {{ $publicaciones['content'] }}
                         </p>
-                        <p class="fw-bold">
-                            Servicio: {{ $publicaciones['nombre_servicio'] }}
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        @if(count($validate) > 0)
-            <div class="mt-5 text-center">
-                <button class="btn btn-dark">Ofrecer Servicio</button>
-            </div>
-        @endif
-
-        <hr>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Comentarios</h5>
-                            <hr>
-                            @foreach ($database as $item)
-                                <div class="mb-4">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
-                                            class="rounded-circle me-3" width="40" height="40">
-                                        <h6 class="card-subtitle">{{ $item->name }} {{ $item->last_name }}</h6>
-                                    </div>
-                                    <p class="card-text">{{ $item->comentario }}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">{{ $item->date }}</small>
-                                        <div>
-                                            <button class="btn btn-sm btn-outline-danger me-2">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div class="mt-5">
+                            @if (count($validate) > 0)
+                                <div class="mt-5 text-center">
+                                    <button class="publish-button">EchameLamano</button>
                                 </div>
-                            @endforeach
-                            <div class="mt-5">
-                                <form method="post" action="{{ route('newComment') }}">
-                                    @csrf
-                                    <input type="hidden" name="idp" value="{{ $publicaciones['publications_id'] }}">
-                                    <input type="hidden" name="uuidc" value="{{ $publicaciones['id_user'] }}">
-                                    <textarea class="form-control" name="contenido" id="" cols="20" rows="6"></textarea>
-                                    <button class="btn btn-dark mt-3">Agregar Comentario</button>
-                                </form>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
+
+            </div>
+            <div class="shadow col-md-5  animate__animated animate__backInRight">
+                <div class="mt-5 right-side">
+                    <h4>Comentarios</h4>
+                    <div class="container">
+                        @foreach ($database as $item)
+                            <div class="row mt-5">
+                                <div class="col-md-12 mx-auto">
+                                    <div class="scrollable-div">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
+                                                        class="rounded-circle me-3 shadow" width="40" height="40">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                    <h6 class="fw-bold">{{ $item->userName }}</h6>
+                                                    <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted" style="font-size: 10px">{{ $item->date }}</small>
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-danger me-2">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="mt-5">
+                        <form method="post" action="{{ route('newComment') }}">
+                            @csrf
+                            <input type="hidden" name="idp" value="{{ $publicaciones['publications_id'] }}">
+                            <input type="hidden" name="uuidc" value="{{ $publicaciones['id_user'] }}">
+                            <textarea class="custom-textarea fw-light text-sys" rows="5" name="contenido" id="" cols="20"></textarea>
+                            <button class="publish-button mt-5">Agregar Comentario</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5">
+
             </div>
         </div>
     </div>

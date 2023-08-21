@@ -33,6 +33,9 @@
         checkbox {
             font-family: 'Poppins', sans-serif;
         }
+        p{
+            color: #333333;
+        }
 
         h1,
         h2,
@@ -40,6 +43,7 @@
         h4,
         h5 {
             font-family: "Poppins", sans-serif;
+            color: #16450c;
         }
 
         .bg-primaryechame {
@@ -603,6 +607,14 @@
             border-radius: 50%;
             object-fit: cover;
         }
+
+        /* Estilo para el lado derecho con scroll */
+        .right-side {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 90%;
+        }
+
     </style>
     @stack('styles')
 </head>

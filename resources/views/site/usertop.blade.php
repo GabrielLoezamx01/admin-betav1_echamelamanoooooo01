@@ -1,4 +1,4 @@
-<div style="margin-top: 50px">
+<div style="margin-top: 100px">
     <h2 class="text-center fw-bold fs-5">Sucursales Destacadas</h2>
     <div v-for="sucursal in sucursales" class="shadow mt-5 rounded-3">
         <div class="p-1">
