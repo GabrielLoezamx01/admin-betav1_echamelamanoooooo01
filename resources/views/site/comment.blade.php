@@ -112,7 +112,7 @@
         }
 
         .row-even {
-  background-color: rgba(36, 159, 17, 0.4);
+  background-color: #FAFAFA;
 }
 
 .row-odd {
