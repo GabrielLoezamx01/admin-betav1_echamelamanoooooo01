@@ -1,6 +1,119 @@
 @extends('site.layouts.master')
+@push('styles')
+    <style>
+        .elegant-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+            background-color: #249f11;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .elegant-button:hover {
+            background-color: #1a7d0a;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .elegant-button.secondary {
+            background-color: #2a2a2a;
+        }
+
+        .elegant-button.secondary:hover {
+            background-color: #1e1e1e;
+        }
+
+        .elegant-button.outlined {
+            background-color: transparent;
+            border: 2px solid #249f11;
+            color: #249f11;
+        }
+
+        .elegant-button.outlined:hover {
+            background-color: #249f11;
+            color: #fff;
+        }
+
+        .elegant-button.accent {
+            background-color: #ff6f00;
+        }
+
+        .elegant-button.accent:hover {
+            background-color: #d95c00;
+        }
+
+        .elegant-button.icon-button {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #249f11;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .elegant-button.icon-button:hover {
+            background-color: #1a7d0a;
+        }
+
+        .outlined-button {
+            display: inline-block;
+            /* padding: 12px 24px; */
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #249f11;
+            background-color: transparent;
+            border: 2px solid #249f11;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .outlined-button:hover {
+            background-color: #249f11;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .outlined-button.stroked {
+            background-color: transparent;
+            border: 2px solid #2a2a2a;
+            color: #2a2a2a;
+        }
+
+        .outlined-button.stroked:hover {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+        .outlined-button.underline {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outlined-button.underline::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #249f11;
+            bottom: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .outlined-button.underline:hover::before {
+            transform: scaleX(1);
+        }
+    </style>
+@endpush
 @section('content')
-    <div class="container">
+    <div class="container" id="vue">
         <div class="row shadow">
             <div class="p-5 left-side col-md-7">
                 <div class="row">
@@ -30,71 +143,177 @@
                 </div>
 
             </div>
+            {{-- <div class="col-md-5">
+                <button class="btn outlined-button stroked">
+                    Comentarios
+                </button>
+            </div> --}}
             <div class="col-md-5 shadow animate__animated animate__backInRight">
                 <div class="mt-2 right-side">
                     <h4>Comentarios</h4>
                     <div class="container ">
-                        @foreach ($database as $item)
-                            <div class="row p-2">
-                                <div class="col-md-12 mx-auto">
-                                    <div class="scrollable-div">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="row">
-                                                    {{-- <div class="col-md-8">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
-                                                                class="rounded-circle me-3 shadow" width="40" height="40">
-                                                        </div>
-                                                    </div> --}}
-                                                    <div class="col-md-10">
-                                                        <h6 class="fw-bold mt-2">{{ $item->userName }}</h6>
+                        <div class="row mt-2" v-for="comentario in comentarios">
+                            <div class="col-md-12 mx-auto">
+                                <div class="scrollable-div">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="d-flex align-items-center">
+                                                        {{-- <img :src="'storage/fotos/' + comentario.photo" alt="Foto de perfil"
+                                                            class="img-fluid circular-image"> --}}
+                                                        {{-- <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto"
+                                                                class="rounded-circle me-3 shadow" width="40" height="40"> --}}
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <p class="fw-light" style="font-size: 14px">{{ $item->comentario }}</p>
+                                                <div class="col-md-10">
+                                                    <h6 class="fw-bold mt-2">@{{ comentario.userName }}</h6>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <small class="text-muted" style="font-size: 10px">{{ $item->date }}</small>
-                                            <div>
-                                                <button class="btn btn-sm" title="ajustes">
+
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        {{-- <small class="text-muted" style="font-size: 10px">@{{ comentario.date }}</small> --}}
+                                        <div>
+                                            <p class="fw-light" style="font-size: 14px">
+                                                @{{ comentario.comentario }}</p>
+                                                <div v-if="editar_comentario == true && row == comentario.comments_id" class="">
+                                                    <input type="text" v-model="comentario.comentario"
+                                                    class="form-control custom-focus" >
+                                                    <button class="btn mt-2 btn-sm btn-dark" @click="editarc(comentario.comments_id,comentario.comentario )">Actualizar</button>
+                                                </div>
+
+                                        </div>
+                                        <div v-if="comentario.id_user_comments == '{{ session('uuid') }}'">
+                                            <div class="text-center">
+                                                <button class="btn btn-sm btn-danger  animate__animated animate__fadeInUp"
+                                                    v-if="open == true && row == comentario.comments_id"
+                                                    @click="eliminar(comentario.comments_id)"> <i
+                                                        class="fas fa-trash"></i></button>
+                                                <button class="btn btn-sm btn-primary  animate__animated animate__fadeInUp"
+                                                    @click="editar(comentario.comments_id)"
+                                                    v-if="open == true && row == comentario.comments_id"> <i
+                                                        class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm" title="ajustes"
+                                                    @click="open_settings(comentario.comments_id)">
                                                     <i class="fas fa-cog"></i>
                                                 </button>
-                                                {{-- <button class="btn btn-sm btn-outline-danger me-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline-primary">
-                                                    <i class="fas fa-edit"></i>
-                                                </button> --}}
                                             </div>
+
+                                            {{-- <button class="btn btn-sm btn-outline-danger me-2">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button> --}}
                                         </div>
                                     </div>
 
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
 
-                    <div class="mt-5">
-                        <form method="post" action="{{ route('newComment') }}">
-                            @csrf
-                            <input type="hidden" name="idp" value="{{ $publicaciones['publications_id'] }}">
-                            <input type="hidden" name="uuidc" value="{{ $publicaciones['id_user'] }}">
-                            <textarea class="custom-textarea fw-light text-sys" rows="3" name="contenido"></textarea>
-                            <button class="publish-button mt-5">Agregar Comentario</button>
-                        </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-5">
-
+                <div class="mt-5 p-5">
+                    @csrf
+                    <textarea class="custom-textarea fw-light text-sys" rows="3" v-model="contenido"></textarea>
+                    <button class="publish-button mt-5" @click="comentar()">Agregar Comentario</button>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 @push('child-scripts')
+    <script>
+        var api = 'Api_comments';
+        new Vue({
+            el: '#vue',
+            http: {
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                }
+            },
+            data: {
+                id: 0,
+                comentarios: [],
+                open: false,
+                row: 0,
+                idp: 0,
+                uuidc: '',
+                contenido: '',
+                comentario_edit: '',
+                editar_comentario: false,
+                coments: ''
+            },
+            created: function() {
+                this.comentarios_api();
+            },
+            methods: {
+                comentarios_api: function() {
+                    const params = new URLSearchParams(window.location.search);
+                    this.id = params.get('id');
+                    this.$http.get(api + '/' + this.id).then(function(data) {
+                        this.comentarios = data.body;
+                    });
+                },
+                open_settings: function(row) {
+                    if (this.open == true) {
+                        this.open = false;
+                        this.row = 0;
+                    } else {
+                        this.open = true;
+                        this.row = row;
+                    }
+                },
+                comentar: function() {
+                    if (this.contenido == '') {
+                        alert('Contenido vacio');
+                    } else {
+                        var data = {
+                            'idp': '{{ $publicaciones['publications_id'] }}',
+                            'uuidc': '{{ $publicaciones['id_user'] }}',
+                            'contenido': this.contenido
+                        };
+                        this.$http.post(api, data)
+                            .then(function(json) {
+                                console.log(json.body);
+                                this.idp = '';
+                                this.uuidc = '';
+                                this.contenido = '';
+                                this.comentarios_api();
+                            });
+                    }
+                },
+                eliminar: function(id) {
+                    const confirmed = window.confirm('¿Eliminar?');
+                    if(confirmed){
+                        this.$http.delete(api + '/' + id)
+                        .then(function(json) {
+                            this.comentarios_api();
+                        })
+                    }
+
+                },
+                editar: function(id) {
+                    this.editar_comentario = true;
+                    this.row = id;
+                },
+                editarc: function(id, valor){
+                    var data = {
+                             comentario: valor,
+                    };
+                    this.$http.patch(api + '/' + id, data)
+                                .then(function(json) {
+                                });
+                    this.comentarios_api();
+                    this.editar_comentario = false;
+                    this.row = 0;
+                }
+            }
+        });
+    </script>
     {{-- <script>
         var api = 'Api_publications';
         var serivicios_api = 'api_servicios';

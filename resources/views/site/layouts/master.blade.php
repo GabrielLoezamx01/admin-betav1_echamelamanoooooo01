@@ -612,7 +612,7 @@
         .right-side {
             padding: 20px;
             overflow-y: auto;
-            max-height: 90%;
+            max-height: 500px;
         }
 
     </style>

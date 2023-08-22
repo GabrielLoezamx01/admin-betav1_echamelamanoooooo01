@@ -53,6 +53,9 @@ class ComentariosController extends Controller
     public function store(Request $request)
     {
         try {
+            if($request->contenido == ''){
+                return 'error';
+            }
             $fecha      = date('Y-m-d H:i:s');
             $idp        = $request->publications_id ?? $request->idp;
             $uuid       = session('uuid');
@@ -76,9 +79,7 @@ class ComentariosController extends Controller
                 'id_client'   => $request->uuidc,
                 'json'        => json_encode($json)
             ]);
-            if(isset($request->idp)){
-                return redirect('comments?id='.$request->idp);
-            }
+
         } catch (Throwable $e) {
             report($e);
         }
@@ -94,8 +95,9 @@ class ComentariosController extends Controller
     {
         try {
             return DB::table('comments')->where('publications_id',$id)
-            ->join('clients','comments.id_user_comments','=','clients.uuid')
-            ->select('clients.name','clients.last_name','clients.photo','comments.*')
+            ->leftJoin('clients','comments.id_user_comments','=','clients.uuid')
+            ->leftJoin('seller','comments.id_user_comments','=','seller.uuid')
+            ->select('clients.name','clients.last_name','clients.photo','comments.*','seller.name as seller_name','seller.photo as photo','seller.userName as userName')
             ->orderByRaw('date ASC ')->get();
         } catch (Throwable $e) {
             report($e);
@@ -112,7 +114,9 @@ class ComentariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('comments')->where('comments_id',$id)->update([
+            'comentario' => $request->comentario ?? 'error en el update'
+        ]);
     }
 
     /**
@@ -123,6 +127,6 @@ class ComentariosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('comments')->where('comments_id', $id)->delete();
     }
 }
