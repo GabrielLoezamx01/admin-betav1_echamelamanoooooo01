@@ -110,6 +110,14 @@
         .outlined-button.underline:hover::before {
             transform: scaleX(1);
         }
+
+        .row-even {
+  background-color: rgba(36, 159, 17, 0.4);
+}
+
+.row-odd {
+  background-color: #ffffff; /* Color blanco para filas impares */
+}
     </style>
 @endpush
 @section('content')
@@ -152,7 +160,8 @@
                 <div class="mt-2 right-side">
                     <h4>Comentarios</h4>
                     <div class="container ">
-                        <div class="row mt-2" v-for="comentario in comentarios">
+                        <div class="row mt-2" v-for="(comentario, index) in comentarios" :key="index"
+                            :class="{ 'row-even': index % 2 === 0, 'row-odd': index % 2 !== 0 }">
                             <div class="col-md-12 mx-auto">
                                 <div class="scrollable-div">
                                     <div class="row">
@@ -178,11 +187,13 @@
                                         <div>
                                             <p class="fw-light" style="font-size: 14px">
                                                 @{{ comentario.comentario }}</p>
-                                                <div v-if="editar_comentario == true && row == comentario.comments_id" class="">
-                                                    <input type="text" v-model="comentario.comentario"
-                                                    class="form-control custom-focus" >
-                                                    <button class="btn mt-2 btn-sm btn-dark" @click="editarc(comentario.comments_id,comentario.comentario )">Actualizar</button>
-                                                </div>
+                                            <div v-if="editar_comentario == true && row == comentario.comments_id"
+                                                class="">
+                                                <input type="text" v-model="comentario.comentario"
+                                                    class="form-control custom-focus">
+                                                <button class="btn mt-2 btn-sm btn-dark"
+                                                    @click="editarc(comentario.comments_id,comentario.comentario )">Actualizar</button>
+                                            </div>
 
                                         </div>
                                         <div v-if="comentario.id_user_comments == '{{ session('uuid') }}'">
@@ -288,11 +299,11 @@
                 },
                 eliminar: function(id) {
                     const confirmed = window.confirm('¿Eliminar?');
-                    if(confirmed){
+                    if (confirmed) {
                         this.$http.delete(api + '/' + id)
-                        .then(function(json) {
-                            this.comentarios_api();
-                        })
+                            .then(function(json) {
+                                this.comentarios_api();
+                            })
                     }
 
                 },
@@ -300,13 +311,12 @@
                     this.editar_comentario = true;
                     this.row = id;
                 },
-                editarc: function(id, valor){
+                editarc: function(id, valor) {
                     var data = {
-                             comentario: valor,
+                        comentario: valor,
                     };
                     this.$http.patch(api + '/' + id, data)
-                                .then(function(json) {
-                                });
+                        .then(function(json) {});
                     this.comentarios_api();
                     this.editar_comentario = false;
                     this.row = 0;
