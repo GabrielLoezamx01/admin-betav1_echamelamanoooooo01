@@ -104,7 +104,6 @@ class ClientsController extends Controller
     public function site(Request $request)
     {
         $data = $this->queryClients(['id' => session('id_user')])->first();
-
         if ($data->name == "" or $data->last_name == '' or $data->photo == '') {
             return view('site.users.profile');
         } else {
@@ -113,9 +112,11 @@ class ClientsController extends Controller
                 return view('site.index')->with(compact('branch'));
             }
             if(session('type_user') == 'C'){
-                return 'configura las publicaciones de las sucursales..';
-                return view('site.index');
-      }
+                $post = DB::table('post_branch')
+                ->join('branch','branch.id_branch','=','post_branch.id_branch')
+                ->orderBy('fecha', 'desc')->get();
+                return view('site.index2')->with(compact('post'));
+             }
         }
     }
     private function queryClients($query)
@@ -129,7 +130,12 @@ class ClientsController extends Controller
     }
     public function data_clients(Request $request)
     {
-        $userName = DB::table('clients')->where('userName',$request->data_clients)->count();
+        if (session('type_user') == 'V') {
+            $userName = DB::table('seller')->where('userName',$request->userName)->count();
+        }
+        if (session('type_user') == 'C') {
+            $userName = DB::table('clients')->where('userName',$request->userName)->count();
+        }
         if($userName){
             return back()->withErrors(['userName' => 'Usuario Registrados']);
         }

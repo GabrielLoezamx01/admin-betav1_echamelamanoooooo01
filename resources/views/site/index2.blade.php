@@ -1,23 +1,6 @@
 @extends('site.layouts.master')
 @section('content')
     <div id="vue">
-        <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Editar Publicacion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea class="form-control custom-focus" rows="5" v-model="name"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" @click="update_item()">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <section class="row">
             <div class="col-md-2"></div>
             <div class="col-md-7">
@@ -50,74 +33,49 @@
                         </div>
                     </div>
                 @endif
-
-                @if(session('type_user') == 'V')
-                <div class="p-5">
-                    <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
-                            @click="getSHOW()">
-                            <i class="fas fa-sync text-dark"></i>
-                        </button></h4>
+                <div class="mt-5"></div>
+                <div class="text-center">
+                    <h2>
+                        Últimas publicaciones de la comunidad Echamelamano.
+                    </h2>
                 </div>
-                <div class="col-md-6 mt-3">
-                    <label for="">Buscar por servicio</label>
-                    <div class="input-container">
-                        <div class="input-group mb-3">
-                            <select v-model="serviciessearch" class="form-control custom-select custom-textarea "
-                                id="servicies">
-                                <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                    @{{ select.name }}</option>
-                            </select>
-                            <button class="publish-button" type="button" id="btn-buscar" title="Buscar"
-                                @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
+                @foreach ($post as $key => $data)
+                    <div class="row mt-5 shadow">
+                        <div class="col-md-3 mt-5 text-center">
+                            <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
+                                class="circular-image img-fluid">
+                                <h5 class="fw-bold mt-3">
+                                    {{ $data->name_branch }}</h5>
+                                    <label for="" class="fw-light" style="font-size: 12px">
+                                        {{$data->description}}
+                                    </label>
+                                    <div class="mt-5">
+                                        <label for="" class="fw-light" style="font-size: 12px">
+                                            {{$data->city}},  {{$data->address}}, {{$data->postal_code}}
+                                        </label>
+                                    </div>
                         </div>
-                    </div>
-
-                </div>
-                <div>
-                    <div class="row  d-flex align-items-stretch">
-                        <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4 publicaciones" >
-                            <div class="card mt-5  h-100 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                            class="img-fluid circular-image">
-                                            <div>
-                                                <label for="user" class="fw-bold mt-3 text-dark tex">
-                                                    @{{ post.userName }}
-                                                </label>
-                                            </div>
-                                    </div>
-                                    <div class="mt-5 text-justify">
-                                        <p class="fw-light">
-                                            @{{ post.content }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-white">
-                                    <p class="text-dark fw-light fs-6 ">
-                                        @{{ post.nombre_servicio }}
-                                    </p>
-                                    <div class="justify-content-end mt-5">
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                                <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
-                                                    @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                                    @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                            <button class="btn btn-sm" style="background-color: #249f11; color: white;"
-                                                @click="openDivComment(post.publications_id)"><i
-                                                    class="fas fa-comments"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-
+                        <div class="col-md-7 mt-5">
+                            <div>
+                                <h1>
+                                    {{$data->Tittle}}
+                                </h1>
                             </div>
+                            <div class="mt-3">
+                                <p class="fw-light text-justify">{{ $data->contenido }}</p>
+                            </div>
+                            <div class="mt-5 text-center">
+                                <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
+                                    class="img-fluid" style="height: 500px">
+                            </div>
+                            <div class="p-5"></div>
                         </div>
                     </div>
-                </div>
-                @endif
-
+                    <div>
+                        {{ $data->img_1 }}
+                        {{ $data->likes }}
+                    </div>
+                @endforeach
             </div>
             <div class="col-md-3">
                 @include('site.usertop')
@@ -127,7 +85,6 @@
 @endsection
 @push('child-scripts')
     <script>
-        var api            = 'Api_publications';
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
         {
@@ -165,7 +122,6 @@
 
                 },
                 created: function() {
-                    this.getSHOW();
                     this.api_servicios();
                     this.sucursales_api();
                 },
@@ -176,12 +132,6 @@
                     // }, 1000);
                 },
                 methods: {
-
-                    getSHOW: function() {
-                        this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body.data
-                        });
-                    },
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;
@@ -210,16 +160,7 @@
                                 });
                         }
                     },
-                    searchpublicaciones: function() {
-                        this.apiResponse = [];
-                        var id = this.serviciessearch;
-                        const url = '?search=true&id=' + id;
-                        console.log(api + url);
-                        this.$http.get(api + url).then(function(response) {
-                            console.log(response.body);
-                            this.apiResponse = response.body.data
-                        });
-                    },
+
                     generate_uuid: function() {
                         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                             var r = Math.random() * 16 | 0,
@@ -341,11 +282,7 @@
                     getJsonValue(jsonString, key) {
                         this.settingsNotify = JSON.parse(jsonString);
                     },
-                    // updateNotify: function(id) {
-                    //     var data = {};
-                    //     this.$http.patch(api_notificaciones + '/' + id, data)
-                    //         .then(function(json) {});
-                    // }
+
                 },
                 computed: {}
             })
