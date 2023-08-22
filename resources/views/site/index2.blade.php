@@ -87,6 +87,7 @@
     <script>
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
+        var api = 'Api_publications'
         {
             new Vue({
                 el: '#vue',
