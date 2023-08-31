@@ -40,7 +40,7 @@
                     </h2>
                 </div>
                 @foreach ($post as $key => $data)
-                    <div class="row mt-5 shadow">
+                    <div class="row mt-5 shadow ">
                         <div class="col-md-3 mt-5 text-center">
                             <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
                                 class="circular-image img-fluid">
