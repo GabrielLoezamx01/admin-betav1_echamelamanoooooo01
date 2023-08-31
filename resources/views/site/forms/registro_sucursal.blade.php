@@ -1,4 +1,4 @@
-<form method="post" action="{{route('create_sucursal')}}" enctype="multipart/form-data">
+{!! Form::open(['route' => 'create_sucursal', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
     @csrf
     <div class="row">
         <div class="mt-3">
