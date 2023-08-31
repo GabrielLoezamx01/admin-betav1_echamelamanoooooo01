@@ -35,8 +35,9 @@ class ComentariosController extends Controller
             ->orderByRaw('date ASC ')->get();
         $validate  = DB::table('branch')->where('id_seller', session('uuid'))
         ->where('id_service', $publicaciones['id_servicio'])
-        ->where('postal_code', $publicaciones['postal'])
+        // ->where('postal_code', $publicaciones['postal'])
         ->get();
+
             return view('site.comment')->with(compact(
                 'database',
                 'publicaciones',

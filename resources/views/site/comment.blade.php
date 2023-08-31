@@ -124,7 +124,7 @@
 @endpush
 @section('content')
     <div class="container" id="vue">
-        <div class="row shadow">
+        <div class="row shadow bg-white">
             <div class="p-5 left-side col-md-7">
                 <div class="row">
                     <div class="col-md-2">
@@ -158,7 +158,7 @@
                     Comentarios
                 </button>
             </div> --}}
-            <div class="col-md-5 shadow animate__animated animate__backInRight">
+            <div class="col-md-5 bg-white animate__animated animate__backInRight">
                 <div class="mt-2 right-side">
                     <h4>Comentarios</h4>
                     <div class="container ">
