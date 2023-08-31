@@ -6,7 +6,7 @@
             <div class="col-md-7">
                 @if (session('type_user') == 'C')
                     <div class="border-0 ">
-                        <div class="card-body p-3 shadow rounded-3">
+                        <div class="card-body p-3 shadow bg-white rounded-3">
                             <div class="p-2 mt-5 m-4 ">
                                 <p class="card-title fs-5 text-title fw-light"><i class="fas fa-edit"></i> Nueva Publicacion
                                 </p>

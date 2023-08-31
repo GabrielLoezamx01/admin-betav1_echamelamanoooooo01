@@ -7,7 +7,7 @@
 @endpush
 @section('content')
     <div class="container mt-5">
-        <div class="row shadow rounded-3 ">
+        <div class="row shadow rounded-3 bg-primary">
             <div class="col-md-12">
                 <div class="text-center">
                     <h1 class="mt-5 fs-3" style="color: #249f11">
