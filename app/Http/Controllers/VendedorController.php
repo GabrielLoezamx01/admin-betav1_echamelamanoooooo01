@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Tools\Settings;
+use Whoops\Run;
 
 class VendedorController extends Controller
 {
@@ -17,8 +18,10 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        $main_sucursales = count(DB::table('branch')->where('id_seller', session('uuid'))->get()) > 0 ? DB::table('branch')->where('id_seller', session('uuid'))->get() : [] ;
-        return view('site.vendedor')->with('branch', $main_sucursales);
+        $data_base = DB::table('branch')
+        ->select('name_branch','image','id_branch')
+        ->where('id_seller', session('uuid'))->get();
+        return view('site.vendedor')->with('branch', $data_base);
     }
 
     /**
@@ -74,9 +77,12 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $branch =  DB::table('branch')->where('id_seller', session('uuid'))
+        ->where('id_branch', $request->id)
+        ->get();
+        return view('site.vendedor.branch')->with(compact('branch'));
     }
 
     /**

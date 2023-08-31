@@ -1,14 +1,63 @@
 @extends('site.layouts.master')
 @section('content')
-    <div id="vue" class="row">
-        <div class="col-md-1 animate__animated animate__fadeInLeft">
-            {{-- @include('site.sidebar') --}}
-        </div>
-        <div class="col-md-9 mt-5">
+    @push('styles')
+        <style>
+            /*** ESTILOS BOTÓN SLIDE TOP ***/
+            .ov-btn-slide-top {
+                background: white;
+                border: none;
+                border: 1px solid #249f11;
+                /* tamaño y color de borde */
+                /* padding: 16px 20px; */
+                width: 70px;
+                height: 40px;
+                border-radius: 3px;
+                /* redondear bordes */
+                position: relative;
+                z-index: 1;
+                overflow: hidden;
+                display: inline-block;
+                /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1); */
+            }
+
+            .ov-btn-slide-top:hover {
+                color: #fff;
+                /* color de fuente hover */
+            }
+
+            .ov-btn-slide-top::after {
+                content: "";
+                background: #249f11;
+                /* color de fondo hover */
+                position: absolute;
+                z-index: -1;
+                padding: 16px 20px;
+                display: block;
+                left: 0;
+                right: 0;
+                top: -100%;
+                bottom: 100%;
+                -webkit-transition: all 0.35s;
+                transition: all 0.35s;
+            }
+
+            .ov-btn-slide-top:hover::after {
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                -webkit-transition: all 0.35s;
+                transition: all 0.35s;
+            }
+        </style>
+    @endpush
+    <div id="vue" class="container mt-5">
+
+        <div class="col-md-12 mt-5">
             @if (count($branch) == 0)
                 <section class="card">
                     <header class="text-center bg-dark">
-                        <h3 class="p-3 fw-bold" style="color:#FFFF00  ;">¡Registra tu primera sucursal de forma <span
+                        <h3 class="p-3 fw-bold" style="color:#FFFF00;">¡Registra tu primera sucursal de forma <span
                                 class="fs-2">gratuita!</span></h3>
                     </header>
                     <div class="mt-3 p-2">
@@ -19,55 +68,57 @@
                     </footer>
                 </section>
             @else
-                <section class="card shadow">
-                    <header class="d-flex">
-                        <div class="p-2 w-100">
-                            <h3 class="p-3 fw-bold">Mis Sucursales</h3>
+                @isset($branch)
+                    <section class="row mt-5  justify-content-center">
+                        <h3 class="p-3 fw-bold text-center">Mis Sucursales</h3>
+                        <div class="p-5">
+                            {{-- <button class="elegant-button outlined" data-toggle="modal" data-target="#exampleModal">Nueva
+                                Sucursal</button> --}}
                         </div>
-                        <div class="p-2 flex-shrink-1"><button class="btn btn-dark" title="Nueva Sucursal"> + </button></div>
-                    </header>
-                    <hr>
-                    <div>
-                        @foreach ($branch as $value)
-                            <div class="row text-center">
-                                <div class="col-md-6 p-3">
-                                    <img src="{{ asset('storage/sucursales/' . $value->image) }}"
-                                        alt="{{ $value->name_branch }}" class="card-img-top shadow">
-                                        <div class="mt-3 text-center">
-                                            <h2 class="fw-bold text-aling-justify">
-                                                {{$value->name_branch}}
-                                            </h2>
-                                        </div>
-                                </div>
-                                <div class="col-md-6 p-3 ">
-                                    <button class="btn btn-dark p-5">Ajustes de sucursal</button>
-                                    <button class="btn btn-warning p-5">Servicios Ofrecidos</button>
-                                </div>
+                        @foreach ($branch as $key => $data)
+                            <div class="col-md-3 text-center">
+                                   <div class="bg-white shadow">
+                                        {!! Html::image('storage/sucursales/' . $data->image, $data->name_branch, [
+                                            'title' => $data->name_branch,
+                                            'class' => 'img-fluid shadow w-50 circular-image mt-5',
+                                            'style' => 'border-color: white',
+                                        ]) !!}
+                                        <p class="fw-bold text-center mt-4 fs-4">
+                                            {{ $data->name_branch }}
+                                        </p>
+
+                                        {!! Form::open(['route' => 'sucursal', 'method' => 'GET']) !!}
+                                            @csrf
+                                            {!! Form::hidden('id_branch', $data->id_branch) !!}
+                                            <div class="text-centerr">
+                                                {!! Form::button('<i class="fa fa-cog"></i>', [
+                                                    'type'  => 'submit',
+                                                    'class' => 'ov-btn-slide-top m-2',
+                                                    'title' => 'Ajustes'
+                                                ]) !!}
+                                                {!! Form::button('<i class="fa fa-eye"></i>', [
+                                                    'type'  => 'submit',
+                                                    'class' => 'ov-btn-slide-top m-2',
+                                                    'title' => 'Ver Pefil'
+                                                ]) !!}
+                                            </div>
+                                            <div class="p-5"></div>
+                                    {!! Form::close() !!}
+                                   </div>
                             </div>
-                            <hr>
                         @endforeach
-                    </div>
-                </section>
+                        <div class="p-5"></div>
+                    </section>
+                @endisset
             @endif
         </div>
-        <div class="col-md-2">
-            {{-- @include('site.usertop') --}}
-        </div>
+
     </div>
 @endsection
 @push('child-scripts')
     <script>
-        function toggleSubMenu(event) {
-            event.preventDefault();
-            const subMenu = event.target.nextElementSibling;
-            subMenu.classList.toggle('open');
-        }
-    </script>
-    <script>
-        //  var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
-        //var api_comentarios = 'Api_comments';
-        var api_notificaciones = 'api_notificaciones'; {
+        {
             new Vue({
                 el: '#vue',
                 http: {
@@ -76,239 +127,19 @@
                     }
                 },
                 data: {
-                    counter: 0,
-                    apiResponse: [],
-                    pagination: 0,
-                    comments: [],
-                    idpublicacion: 0,
-                    conectadi: 'VUE JS',
-                    name: '',
-                    save: true,
-                    edit: false,
-                    uuid: '',
-                    pcomentario: '',
-                    newPost: '',
-                    divcomment: false,
                     apiServicios: [],
-                    apiServiciossidebar: [],
-                    servicies: 0,
-                    serviciessearch: 0,
-                    modalVisible: false,
-                    someModal: "",
-                    arrayNotify: [],
-                    countNotify: 0,
-                    settingsNotify: []
-
+                    services: 0,
                 },
                 created: function() {
-                    this.getSHOW();
                     this.api_servicios();
-                    this.api_servicios_sidebar();
-                },
-                mounted() {
-                    // setInterval(this.getSHOW, 5000);
-                    // setInterval(() => {
-                    //     this.coment(this.idpublicacion);
-                    // }, 1000);
                 },
                 methods: {
-                    getSHOW: function() {
-                        // this.$http.get(api).then(function(response) {
-                        //     this.apiResponse = response.body.data
-                        // });
-                        this.$http.get(api_notificaciones).then(function(datos) {
-                            this.arrayNotify = datos.body;
-                            this.countNotify = this.arrayNotify.length;
-                        });
-                    },
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;
                         });
-                    },
-                    api_servicios_sidebar: function() {
-                        this.$http.get(serivicios_api + '?sidebar=true').then(function(data) {
-                            this.apiServiciossidebar = data.body;
-                        });
-                    },
-                    postnew: function() {
-                        if (this.newPost == "" || this.servicies == 0) {
-                            alert('No puede estar vacio la publicacion');
-                        } else {
-                            var data = {
-                                'content': this.newPost,
-                                'servicie': this.servicies,
-                                'uuid': this.generate_uuid()
-                            };
-                            this.$http.post(api, data)
-                                .then(function(json) {
-                                    console.log(json);
-                                    this.newPost = '';
-                                    this.servicies = 0;
-                                    this.getSHOW();
-                                });
-                        }
-                    },
-                    searchpublicaciones: function() {
-                        this.apiResponse = [];
-                        var id = this.serviciessearch;
-                        const url = '?search=true&id=' + id;
-                        this.$http.get(api + url).then(function(response) {
-                            this.apiResponse = response.body.data
-                        });
-                    },
-                    generate_uuid: function() {
-                        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                            var r = Math.random() * 16 | 0,
-                                v = c == 'x' ? r : (r & 0x3 | 0x8);
-                            return v.toString(16);
-                        });
-                    },
-                    modal: function(value) {
-                        var myModal = new bootstrap.Modal(document.getElementById('modal'), {
-                            backdrop: 'static'
-                        });
-                        if (value) {
-                            myModal.show();
-                        }
-                        myModal.hide();
-                    },
-                    save_item: function() {
-                        if (!this.name == '') {
-                            var data = {
-                                'cat_name': this.name,
-                                'cat_status': 'A',
-                                'cat_uuid': this.generate_uuid()
-                            };
-                            this.$http.post(api, data)
-                                .then(function(json) {
-                                    this.name = '';
-                                    this.getSHOW();
-                                    this.success_alert();
-                                });
-
-                        }
-                    },
-                    show_item: function(uuid) {
-                        this.$http.get(api + '/' + uuid)
-                            .then(function(json) {
-                                this.name = json.data.content;
-                                this.uuid = json.data.uuid;
-                                this.servicies = json.data.id_servicio;
-                                this.bootrappModal('open');
-                            });
-                    },
-                    update_item: function() {
-                        if (!this.uuid == '' && !this.name == '') {
-                            var data = {
-                                cat_name: this.name,
-                            };
-                            this.$http.patch(api + '/' + this.uuid, data)
-                                .then(function(json) {
-                                    if (json.status == 200) {
-                                        this.uuid = '';
-                                        this.name = '';
-                                        this.success_alert();
-                                        this.bootrappModal('close');
-                                    }
-                                });
-                        }
-                    },
-                    deletePost: function(id) {
-                        this.msg_confirmation(id);
-                    },
-                    msg_confirmation: function(id) {
-                        Swal.fire({
-                                title: '¿Estás seguro?',
-                                text: 'Una vez eliminado, no podrás recuperar este elemento.',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Eliminar',
-                                cancelButtonText: 'Cancelar',
-                                dangerMode: true
-                            })
-                            .then((willDelete) => {
-                                if (willDelete.isConfirmed) {
-                                    this.$http.delete(api + '/' + id)
-                                        .then(function(json) {
-                                            this.getSHOW();
-                                            Swal.fire('¡Eliminado!', 'El elemento ha sido eliminado.',
-                                                'success');
-                                        })
-                                } else {
-                                    Swal.fire('Cancelado', 'La eliminación ha sido cancelada.', 'info');
-                                }
-                            });
-                    },
-                    bootrappModal: function(setting) {
-                        this.someModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-                        switch (setting) {
-                            case 'close':
-                                this.someModal.hide();
-                                break;
-                            case 'open':
-                                this.someModal.show();
-                                break;
-                            default:
-                                modal.show();
-                        }
-                    },
-                    success_alert: function() {
-                        Swal.fire({
-                            title: '¡Excelente!',
-                            text: 'Se ha actualizado correctamente.',
-                            icon: 'success',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    },
-                    close_modal: function() {
-                        $('#modal').modal('hide');
-                        this.name = '';
-                    },
-                    modal: function(id) {
-                        UIkit.modal('#mi-modal').show();
-                        this.coment(id);
-                    },
-                    coment: function(id) {
-                        this.$http.get(api_comentarios + '/' + id)
-                            .then(function(json) {
-                                console.log(json);
-                                this.comments = json.body;
-                            });
-                    },
-                    comentar: function() {
-                        if (!this.pcomentario == '') {
-                            var data = {
-                                'comentario': this.pcomentario,
-                                'publications_id': this.idpublicacion,
-                            };
-                            this.$http.post(api_comentarios, data)
-                                .then(function(json) {
-                                    this.pcomentario = '';
-                                    this.coment(this.idpublicacion);
-                                    // this.success_alert();
-                                });
-
-                        } else {
-                            alert('Este campo no puede estar vacio');
-                        }
-                        // Aquí se puede agregar la lógica para enviar el comentario
-                    },
-                    openDivComment: function(id) {
-                        const dominio = "http://localhost/admin/public/";
-                        const nuevaRuta = "comments?id=" + id;
-                        window.location.assign(nuevaRuta);
-                    },
-                    getJsonValue(jsonString, key) {
-                        this.settingsNotify = JSON.parse(jsonString);
-                    },
-                    updateNotify: function(id) {
-                        var data = {};
-                        this.$http.patch(api_notificaciones + '/' + id, data)
-                            .then(function(json) {});
                     }
                 },
-                computed: {}
             })
         }
     </script>

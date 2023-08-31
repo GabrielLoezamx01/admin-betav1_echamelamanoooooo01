@@ -1,4 +1,4 @@
-<form method="post" action="{{route('create_sucursal')}}" enctype="multipart/form-data">
+{!! Form::open(['route' => 'create_sucursal', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
     @csrf
     <div class="row">
         <div class="mt-3">
@@ -14,41 +14,37 @@
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Nombre</p>
-                <input type="text" value="{{old('nombre')}}" name="nombre" class="form-control custom-focus" autocomplete="off" required >
+                {!! Form::text('nombre', old('nombre'), ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'required']) !!}
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Dirección </p>
-                <input type="text" value="{{old('direccion')}}" name="direccion" class="form-control custom-focus" autocomplete="off" required>
+                {!! Form::text('direccion', old('direccion'), ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'required']) !!}
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Ciudad </p>
-                <input type="text" value="{{old('ciudad')}}" name="ciudad" class="form-control custom-focus" autocomplete="off" required>
+                {!! Form::text('ciudad', old('ciudad'), ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'required']) !!}
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Código postal </p>
-                <input type="text" value="{{old('postal')}}" name="postal" class="form-control custom-focus" autocomplete="off" required>
+                {!! Form::text('postal', old('postal'), ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'required']) !!}
             </div>
         </div>
         <div class="col-md-6 mt-3">
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Imagen de perfil</p>
-                <input type="file"  name="img" class="form-control custom-focus" autocomplete="off" required>
+                {!! Form::file('img', ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'required']) !!}
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">RFC</p>
-                <input type="text"  name="rfc" class="form-control custom-focus" autocomplete="off" placeholder="Si no tienes RFC INGRESA 01">
+                {!! Form::text('rfc', null, ['class' => 'form-control custom-focus', 'autocomplete' => 'off', 'placeholder' => 'Si no tienes RFC INGRESA 01']) !!}
             </div>
             <div class="mb-3">
                 <p class="card-title text-title fw-ligh">Descripción</p>
-                <textarea  name="descripcion" class="form-control custom-focus" id="" cols="30" rows="10" required
-                    maxlength="400">
-                    {{old('descripcion')}}
-                </textarea>
+                {!! Form::textarea('descripcion', old('descripcion'), ['class' => 'form-control custom-focus', 'cols' => '30', 'rows' => '10', 'required', 'maxlength' => '400']) !!}
             </div>
             <div class="mb-3 text-center">
-                <button class="btn btn-dark p-2">Registrar</button>
+                {!! Form::button('Registrar', ['class' => 'btn btn-dark p-2', 'type' => 'submit']) !!}
             </div>
         </div>
     </div>
-
-</form>
+{!! Form::close() !!}

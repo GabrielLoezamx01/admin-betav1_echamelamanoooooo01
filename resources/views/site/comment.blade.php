@@ -1,5 +1,6 @@
 @extends('site.layouts.master')
 @push('styles')
+
     <style>
         .elegant-button {
             display: inline-block;
@@ -112,12 +113,13 @@
         }
 
         .row-even {
-  background-color: #FAFAFA;
-}
+            background-color: #FAFAFA;
+        }
 
-.row-odd {
-  background-color: #ffffff; /* Color blanco para filas impares */
-}
+        .row-odd {
+            background-color: #ffffff;
+            /* Color blanco para filas impares */
+        }
     </style>
 @endpush
 @section('content')

@@ -16,10 +16,133 @@
 
     {{-- <link rel="stylesheet" href="css/layouts.css"> --}}
     <style>
+        .elegant-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+            background-color: #249f11;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .elegant-button:hover {
+            background-color: #1a7d0a;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .elegant-button.secondary {
+            background-color: #2a2a2a;
+        }
+
+        .elegant-button.secondary:hover {
+            background-color: #1e1e1e;
+        }
+
+        .elegant-button.outlined {
+            background-color: transparent;
+            border: 2px solid #249f11;
+            color: #249f11;
+        }
+
+        .elegant-button.outlined:hover {
+            background-color: #249f11;
+            color: #fff;
+        }
+
+        .elegant-button.accent {
+            background-color: #ff6f00;
+        }
+
+        .elegant-button.accent:hover {
+            background-color: #d95c00;
+        }
+
+        .elegant-button.icon-button {
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #249f11;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .elegant-button.icon-button:hover {
+            background-color: #1a7d0a;
+        }
+
+        .outlined-button {
+            display: inline-block;
+            /* padding: 12px 24px; */
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #249f11;
+            background-color: transparent;
+            border: 2px solid #249f11;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .outlined-button:hover {
+            background-color: #249f11;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .outlined-button.stroked {
+            background-color: transparent;
+            border: 2px solid #2a2a2a;
+            color: #2a2a2a;
+        }
+
+        .outlined-button.stroked:hover {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+        .outlined-button.underline {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outlined-button.underline::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #249f11;
+            bottom: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .outlined-button.underline:hover::before {
+            transform: scaleX(1);
+        }
+
+        .row-even {
+            background-color: #FAFAFA;
+        }
+
+        .row-odd {
+            background-color: #ffffff;
+            /* Color blanco para filas impares */
+        }
+    </style>
+    <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
         body {
-            background-color: white;
+            background-image: url('{{ asset('img/body.png') }}');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: #333333;
         }
 
@@ -33,7 +156,8 @@
         checkbox {
             font-family: 'Poppins', sans-serif;
         }
-        p{
+
+        p {
             color: #333333;
         }
 
@@ -614,7 +738,6 @@
             overflow-y: auto;
             max-height: 500px;
         }
-
     </style>
     @stack('styles')
 </head>
@@ -705,11 +828,10 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.js"></script>
 
     <script>
-         AOS.init({
+        AOS.init({
             duration: 1000, // Duración de la animación en milisegundos
-            once: false,    // Animar cada vez que se desplaza
+            once: false, // Animar cada vez que se desplaza
         });
-
     </script>
     @stack('child-scripts')
 </body>
