@@ -46,7 +46,7 @@
                         <div class="d-flex justify-content-between efect">
                             <input type="password" name="password" id="password" autocomplete="off" placeholder=" "
                                 class="mt-3" />
-                            <label class="form-label" for="form2Example28">Contraseña</label>
+                            <label class="form-label" for="password">Contraseña</label>
                             <div class="p-2">
                                 <button class="btn" type="button" id="togglePassword" style="border: none">
                                     <i class="fas fa fa-eye" id="eye-icon"></i>

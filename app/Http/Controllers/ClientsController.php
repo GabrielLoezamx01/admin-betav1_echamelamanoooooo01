@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Validation\Rule;
 class ClientsController extends Controller
 {
     var $type_user = '';
@@ -33,53 +33,68 @@ class ClientsController extends Controller
         if(isset($errors) && count($errors)){
             return redirect('/')->withErrors ($errors)->withInput($request->except('password'));
         }
+        // Falta el codigo de verificacion
+        // $this->sendMenssage($email);
+        // $this->validateCode();
+
         $this->session_clients($database);
         return redirect('Bienvenido');
     }
     public function crear(Request $request)
     {
-        if (isset($request->type_client)) {
-            if ($request->type_client == 'type_two') {
-                $this->type_user == 'C';
-            }
-            if ($request->type_client == 'type_one') {
-                $this->type_user == 'V';
-            }
-        }
-        $validated  = $request->validate([
-            'email'    => 'required',
-            'password' => 'required',
-            'type_client' => 'required'
+        $validated        = $request->validate([
+            'email'       => 'required',
+            'password'    => 'required',
+            'confirm'     => 'required',
+            'type_client' => ['required',Rule::in(['type_one', 'type_two'])]
         ]);
-        $type = [
-            'type_two' => 'cliente_001',
-            'type_one' => 'vendedor_002',
-        ];
-        $type_client = $type[$request->type_client] ?? 000;
-        if ($type_client == 'vendedor_002') {
-            if (!DB::table('seller')->where('email', $request->email)->exists()) {
-                session(['type_user'  => 'V']);
-                DB::table('seller')->insert([
-                    'email'    => $request->email,
-                    'password' => Hash::make($request->password),
-                ]);
-            } else {
-                return 'Error email registrado';
+        if($request->password == $request->confirm){
+            $email           = $request->email;
+            $type_client     = $request->type_client ;
+            $this->type_user = $type_client == 'type_two' ? 'C' : 'V';
+            $type = [
+                'type_two' => 'cliente_001',
+                'type_one' => 'vendedor_002',
+            ];
+            $type_client    = $type[$request->type_client] ?? 000;
+            if($type_client == 000){
+                $errors[] = 'Ocurrio un problema interno';
+                return redirect('crear_client')->withErrors($errors)->withInput($request->except('password'));
             }
-        } else if ($type_client == 'cliente_001') {
-            if (!DB::table('clients')->where('email', $request->email)->exists()) {
-                session(['type_user'  => 'C']);
-                DB::table('clients')->insert([
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                ]);
-            } else {
-                return 'Error email registrado';
+            if ($type_client == 'vendedor_002') {
+                if (!DB::table('seller')->where('email', $email)->exists()) {
+                    $this->insertNewUser('seller', $request->all());
+                } else {
+                    $errors[] = 'Este correo electrónico ya está registrado. Por favor, inicia sesión.';
+                    return redirect('/')->withErrors($errors)->withInput($request->except('password'));
+                }
+            } else if ($type_client == 'cliente_001') {
+                if (!DB::table('clients')->where('email', $email)->exists()) {
+                    $this->insertNewUser('clients', $request->all());
+                } else {
+                    $errors[] = 'Este correo electrónico ya está registrado. Por favor, inicia sesión.';
+                    return redirect('/')->withErrors($errors)->withInput($request->except('password'));
+                }
             }
+            $database   = $this->database_user($request->email, $type_client);
+            $this->session_clients($database);
+            return redirect('Bienvenido');
         }
-        $database   = $this->database_user($request->email, $type_client);
-        $this->session_clients($database);
-        return redirect('Bienvenido');
+        $errors[] = 'Contraseña no son iguales';
+        return redirect('crear_client')->withErrors($errors)->withInput($request->except('password'));
+
+    }
+    private function insertNewUser(string $table, array $request){
+        try {
+            DB::table($table)->insert([
+                'email'    => $request['email'],
+                'password' => Hash::make($request['password']),
+            ]);
+            $id = $table == 'clients' ? 'C' : 'V';
+            session(['type_user'  => $id]);
+        } catch (Exception $e) {
+            echo "Ha ocurrido una excepción: " . $e->getMessage();
+        }
     }
     private function session_clients($database)
     {
