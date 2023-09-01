@@ -8,121 +8,10 @@
     <title>EchameLaMano - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/layouts.css">
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-        body,
-        input,
-        label,
-        p,
-        h1,
-        h2,
-        b,
-        textarea,
-        select,
-        checkbox {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: #FAFFFD;
-        }
-
-        .text-site {
-            color: #249F11;
-        }
-
-        .btn-one {
-            background-color: #342E37;
-            color: #FAFFFD;
-        }
-
-        .efect {
-            position: relative;
-            margin-bottom: 1rem;
-        }
-
-        .efect input {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid #342E37;
-            padding: 0.5rem;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .efect label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: top left;
-            transform: translateY(1rem);
-            font-size: 0.875rem;
-            /* Ajusta el tamaño de la fuente según tus preferencias */
-            color: #666;
-            transition: transform 0.2s ease-out, font-size 0.2s ease-out, color 0.2s ease-out;
-        }
-
-        .efect input:focus+label,
-        .efect input:not(:placeholder-shown)+label {
-            transform: translateY(0);
-            font-size: 0.75rem;
-            /* Ajusta el tamaño de la fuente según tus preferencias */
-            color: #333;
-        }
-
-        .efect input:not(:placeholder-shown)+label {
-            transform: translateY(0);
-            font-size: 1rem;
-            /* Ajusta el tamaño de la fuente según tus preferencias */
-            color: #333;
-            padding-left: 0.5rem;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-20px);
-            }
-
-            60% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .animated-h1 {
-            animation: bounce 2s infinite;
-        }
-
-        .background-image {
-            background-image: url('img/icon.jpg');
-            background-size: cover;
-            background-position: center;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            opacity: 0.04;
-            /* Cambia el valor para ajustar la opacidad */
-            z-index: -1;
-        }
-
-        a {
-            color: #249F11 !important;
-            text-decoration: none !important;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/site.css">
 </head>
 
 <body>
@@ -137,17 +26,39 @@
                 <div class="mt-5">
                 </div>
                 <form method="post" action="{{ route('login_client') }}">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <span class="close-btn" onclick="cerrarAlerta()">&times;</span>
+                            <h2>¡Ocurrió un problema!</h2>
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                       </div>
+                    @endif
                     @csrf
-                    <input type="hidden" name="rol" value="001">
-                    {{-- <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3> --}}
                     <div class="efect mt-5">
                         <input type="email" name="email" id="email" autocomplete="off" placeholder=" "
-                            class="mt-3" />
+                            value="{{ old('email') }}" class="mt-3" />
                         <label for="email">Correo</label>
                     </div>
-                    <div class="efect mt-5">
-                        <input type="password" name="password" autocomplete="off" placeholder=" " class="mt-3" />
-                        <label class="form-label" for="form2Example28">Contraseña</label>
+                    <div class="mt-5 efect">
+                        <div class="d-flex justify-content-between efect">
+                            <input type="password" name="password" id="password" autocomplete="off" placeholder=" "
+                                class="mt-3" />
+                            <label class="form-label" for="form2Example28">Contraseña</label>
+                            <div class="p-2">
+                                <button class="btn" type="button" id="togglePassword" style="border: none">
+                                    <i class="fas fa fa-eye" id="eye-icon"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+
+
+
                     </div>
                     <p class="small mb-5 mt-5 pb-lg-2"><a class="text-muted" href="#!">¿Has olvidado tu
                             contraseña?
@@ -175,6 +86,23 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
+    <script>
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        eyeIcon.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        });
+
+        function cerrarAlerta() {
+            const alerta = document.querySelector('.alert');
+            alerta.style.display = 'none';
+        }
     </script>
 </body>
 

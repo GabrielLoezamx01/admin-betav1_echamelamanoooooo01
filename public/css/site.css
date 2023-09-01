@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body,
+input,
+label,
+p,
+h1,
+h2,
+b,
+textarea,
+select,
+checkbox {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #FAFFFD;
+}
+
+.text-site {
+    color: #249F11;
+}
+
+.btn-one {
+    background-color: #342E37;
+    color: #FAFFFD;
+}
+
+.efect {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.efect input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #342E37;
+    padding: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.efect label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: translateY(1rem);
+    font-size: 0.875rem;
+    /* Ajusta el tamaño de la fuente según tus preferencias */
+    color: #666;
+    transition: transform 0.2s ease-out, font-size 0.2s ease-out, color 0.2s ease-out;
+}
+
+.efect input:focus+label,
+.efect input:not(:placeholder-shown)+label {
+    transform: translateY(0);
+    font-size: 0.75rem;
+    /* Ajusta el tamaño de la fuente según tus preferencias */
+    color: #333;
+}
+
+.efect input:not(:placeholder-shown)+label {
+    transform: translateY(0);
+    font-size: 1rem;
+    /* Ajusta el tamaño de la fuente según tus preferencias */
+    color: #333;
+    padding-left: 0.5rem;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.animated-h1 {
+    animation: bounce 2s infinite;
+}
+
+.background-image {
+    background-image: url('img/icon.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.04;
+    /* Cambia el valor para ajustar la opacidad */
+    z-index: -1;
+}
+
+a {
+    color: #249F11 !important;
+    text-decoration: none !important;
+}
+
+#eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+  .alert {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .alert h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .alert p {
+            margin-top: 10px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }

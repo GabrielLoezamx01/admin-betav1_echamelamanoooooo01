@@ -15,26 +15,26 @@ class ClientsController extends Controller
     var $type_user = '';
     public function login(Request $request)
     {
-        $validated  = $request->validate([
+        $validated   = $request->validate([
             'email'    => 'required',
             'password' => 'required',
         ]);
-        $database   = count($this->database_user($request->email, 'cliente_001')) > 0 ?
-            $this->database_user($request->email, 'cliente_001') : $this->database_user($request->email, 'vendedor_002');
-
-        if (isset($database['id'])) {
-            if (Hash::check($request->password, $database['password'])) {
-                $this->session_clients($database);
-                $database = DB::table('clients')->where('uuid', session('uuid'))->count();
-                if($database){
-                    DB::table('clients')->where('uuid', session('uuid'))->update([
-                        'online' => 1
-                    ]);
-                }
-                return redirect('Bienvenido');
-            }
+        $password    = $request->password;
+        $email       = $request->email;
+        $clienteData = $this->database_user($email, 'cliente_001');
+        $database    = $clienteData->isNotEmpty() ? $clienteData : $this->database_user($email, 'vendedor_002');
+        if ($database->isEmpty()) {
+            $errors[] = 'No existe una cuenta con el correo proporcionado';
+            return redirect('/')->withErrors($errors)->withInput($request->except('password'));
         }
-        return redirect('login_client');
+        if (!Hash::check($password, $database['password'])) {
+            $errors[] = 'Contraseña errónea';
+        }
+        if(isset($errors) && count($errors)){
+            return redirect('/')->withErrors ($errors)->withInput($request->except('password'));
+        }
+        $this->session_clients($database);
+        return redirect('Bienvenido');
     }
     public function crear(Request $request)
     {
