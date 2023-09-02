@@ -52,7 +52,6 @@
         </style>
     @endpush
     <div id="vue" class="container mt-5">
-
         <div class="col-md-12 mt-5">
             @if (count($branch) == 0)
                 <section class="card">
@@ -69,18 +68,14 @@
                 </section>
             @else
                 @isset($branch)
-                    <section class="row mt-5  justify-content-center">
-                        <h3 class="p-3 fw-bold text-center">Mis Sucursales</h3>
-                        <div class="p-5">
-                            {{-- <button class="elegant-button outlined" data-toggle="modal" data-target="#exampleModal">Nueva
-                                Sucursal</button> --}}
-                        </div>
+                    <section class="row mt-5 justify-content-center">
+                        <h3 class="mt-5 fw-bold">Sucursales Registradas</h3>
                         @foreach ($branch as $key => $data)
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-5 text-center mt-5">
                                    <div class="bg-white shadow">
                                         {!! Html::image('storage/sucursales/' . $data->image, $data->name_branch, [
                                             'title' => $data->name_branch,
-                                            'class' => 'img-fluid shadow w-50 circular-image mt-5',
+                                            'class' => 'img-fluid shadow circular-image mt-5',
                                             'style' => 'border-color: white',
                                         ]) !!}
                                         <p class="fw-bold text-center mt-4 fs-4">

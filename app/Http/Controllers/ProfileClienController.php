@@ -10,21 +10,23 @@ class ProfileClienController extends Controller
 {
     public function index()
     {
-        return 'papu';
-        if(session('name') == ''){
+        if (empty(session('name'))) {
             return redirect('Bienvenido');
         }
-        switch (session('type_user')) {
-            case 'C':
-                $user = Clientuser::where('uuid', session('uuid'))->limit(1)->get();
-                break;
-            case 'V':
-                $user = DB::table('seller')->where('uuid', session('uuid'))->limit(1)->get();
-                break;
-            default:
-                $user = Clientuser::where('uuid', session('uuid'))->limit(1)->get();
-                break;
+        if (session()->has('type_user') && session()->has('uuid')) {
+            $table    = session('type_user') == 'C' ? 'clients' : 'seller';
+            $query    = DB::table($table)->where('uuid', session('uuid'))->first();
+            $database = collect($query);
+            if($database->isEmpty()){
+                return redirect('Bienvenido');
+            }
+            return view('site.users.user')->with(compact('query'));
         }
-        return view('site.users.user')->with(compact('user'));
+        return redirect('Bienvenido');
     }
+
+    public function store (Request $request){
+        return $request->all();
+    }
+
 }

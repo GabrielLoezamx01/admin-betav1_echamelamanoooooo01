@@ -1,37 +1,22 @@
 @extends('site.layouts.master')
 @section('title', 'Perfil')
+@push('styles')
+
+@endpush
+
 @section('content')
-    <div id="vue" class="p-5">
-        <div class="row mt-5">
-            @foreach ($user as $item)
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <img src="{{ asset('storage/fotos/' . $item->photo) }}" alt="Foto de perfil"
-                            class="img-fluid rounded-circle profile-picture w-50">
-                        <div class="mt-4">
-                            <h4>{{ $item->name }} {{ $item->last_name }}</h4>
-                            <p>Correo electrónico: {{ $item->email }}</p>
-                        </div>
-                        <a href="#" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Actualizar Foto</a>
-                    </div>
-                </div>
-                <div class="col-md-8 mt-5">
-                    <h3>Información del perfil</h3>
-                    <p>Postal: {{ $item->postal }}</p>
-                    <p>Estado: {{ $item->estado }} </p>
-                    <p>Ciudad: {{ $item->ciudad }}</p>
-                    <p>Telefono: {{ $item->phone }}</p>
-                    <p>suscription: @if ($item->suscription == 1)
-                            <span class="fw-bold">Normal</span>
-                        @endif
-                    </p>
-                    <div class="text-center">
-                        <button class="btn btn-warning">Actualizar informacion</button>
-                    </div>
-                </div>
-            @endforeach
+    <div id="vue">
+        <div class="row mt-5 ">
+            <div class="col-md-2 bg-primary"></div>
+            <div class="col-md-8">
+                <img src="{{ asset('storage/fotos/' . $query->photo) }}" alt="Foto de perfil"
+                class="img-fluid rounded-circle" style="width: 200px">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="row">
+            </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -51,7 +36,7 @@
                   </div>
                 </div>
               </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
 @push('child-scripts')
