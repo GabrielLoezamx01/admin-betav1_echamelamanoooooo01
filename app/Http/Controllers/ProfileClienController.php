@@ -10,6 +10,7 @@ class ProfileClienController extends Controller
 {
     public function index()
     {
+        return 'papu';
         if(session('name') == ''){
             return redirect('Bienvenido');
         }

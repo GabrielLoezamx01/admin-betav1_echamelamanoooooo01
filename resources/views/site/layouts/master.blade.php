@@ -33,19 +33,19 @@
                     <ul class="navbar-nav ml-auto">
                         @if (session('type_user') == 'V')
                             <li class="nav-item  ">
-                                <a class="nav-link fw-bold" href="Bienvenido">Publicaciones</a>
+                                <a class="nav-link" href="Bienvenido">Publicaciones</a>
                             </li>
                             <li class="nav-item  ">
-                                <a class="nav-link fw-bold" href="mis_sucursales">Mis Sucursales</a>
+                                <a class="nav-link" href="mis_sucursales">Mis Sucursales</a>
                             </li>
                             <li class="nav-item  ">
-                                <a class="nav-link fw-bold" href="mensajes_vendedor">Mensajes</a>
+                                <a class="nav-link" href="mensajes_vendedor">Mensajes</a>
                             </li>
                             <li class="nav-item  ">
-                                <a class="nav-link fw-bold" href="notificaciones_vendedor">Notificaciones</a>
+                                <a class="nav-link" href="notificaciones_vendedor">Notificaciones</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link fw-bold" href="profile">Perfil</a>
+                                <a class="nav-link" href="profile">Perfil</a>
                             </li>
                         @endif
                         @if (session('type_user') == 'C')

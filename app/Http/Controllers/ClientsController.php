@@ -164,7 +164,7 @@ class ClientsController extends Controller
         $apellidos     =  $request->apellidos;
         $direccion     =  $request->direccion;
         $telefono      =  $request->telefono;
-        $nombreArchivo = '';
+        $nombreArchivo = 'defauld.jpg';
         $type_user     =  session('type_user');
         $table         =  $type_user  == 'V' ? 'seller' : 'clients';
         if(DB::table($table)->where('userName',$userName)->exists()){

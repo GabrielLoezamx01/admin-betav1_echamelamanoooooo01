@@ -19,105 +19,76 @@
             </div>
         </div>
         <section class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-7">
-                @if (session('type_user') == 'C')
-                    <div class="border-0 ">
-                        <div class="card-body p-3 shadow rounded-3">
-                            <div class="p-2 mt-5 m-4 ">
-                                <p class="card-title fs-5 text-title fw-light"><i class="fas fa-edit"></i> Nueva Publicacion
-                                </p>
-                                <div class="mb-3 mt-3 textarea-container">
-                                    <textarea class="custom-textarea fw-light text-sys" rows="5" v-model="newPost" maxlength="400"
-                                        placeholder="Escribe tu post aquí"></textarea>
-                                </div>
-                                <p class="card-title fs-5 text-title fw-light mt-5"> <i class="fas fa-cogs"></i> Servicio
-                                </p>
-                                <div class="input-container">
-                                    <select v-model="servicies" class="custom-select custom-textarea" id="servicies">
-                                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                            @{{ select.name }}</option>
-                                    </select>
-                                </div>
-
-                                <div class="button-container">
-                                    <button class="publish-button" @click="postnew()">
-                                        <i class="icon fas fa-paper-plane"></i>
-                                        Publicar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-                @if(session('type_user') == 'V')
-                <div class="p-5">
+            <div class="col-md-1"></div>
+            <div class="col-md-8 ">
+                <div class="row">
                     <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
                             @click="getSHOW()">
                             <i class="fas fa-sync text-dark"></i>
                         </button></h4>
                 </div>
-                <div class="col-md-6 mt-3">
-                    <label for="">Buscar por servicio</label>
-                    <div class="input-container">
-                        <div class="input-group mb-3">
-                            <select v-model="serviciessearch" class="form-control custom-select custom-textarea "
-                                id="servicies">
-                                <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                    @{{ select.name }}</option>
-                            </select>
-                            <button class="publish-button" type="button" id="btn-buscar" title="Buscar"
-                                @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
-                        </div>
-                    </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-md-4 mt-3">
+                            <label for="">Buscar por servicio</label>
+                            <div class="input-container">
+                                <div class="input-group mb-3">
+                                    <select v-model="serviciessearch" class="form-control custom-select custom-textarea "
+                                        id="servicies">
+                                        <option class="select-option" v-for="select in apiServicios" :value="select.id">
+                                            @{{ select.name }}</option>
+                                    </select>
+                                    <button class="publish-button" type="button" id="btn-buscar" title="Buscar"
+                                        @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
+                                </div>
+                            </div>
 
-                </div>
-                <div>
-                    <div class="row  d-flex align-items-stretch">
-                        <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4 publicaciones" >
-                            <div class="card mt-5  h-100 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                            class="img-fluid circular-image">
+                        </div>
+                        <div class="row  d-flex align-items-stretch">
+                            <div v-for="post in apiResponse" style="margin-top: 50px" class="col-md-4 publicaciones">
+                                <div class="card mt-5  h-100 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
+                                                class="img-fluid circular-image">
                                             <div>
                                                 <label for="user" class="fw-bold mt-3 text-dark tex">
                                                     @{{ post.userName }}
                                                 </label>
                                             </div>
-                                    </div>
-                                    <div class="mt-5 text-justify">
-                                        <p class="fw-light">
-                                            @{{ post.content }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-white">
-                                    <p class="text-dark fw-light fs-6 ">
-                                        @{{ post.nombre_servicio }}
-                                    </p>
-                                    <div class="justify-content-end mt-5">
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                                <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
-                                                    @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                                    @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                            <button class="btn btn-sm" style="background-color: #249f11; color: white;"
-                                                @click="openDivComment(post.publications_id)"><i
-                                                    class="fas fa-comments"></i></button>
+                                        </div>
+                                        <div class="mt-5 text-justify">
+                                            <p class="fw-light">
+                                                @{{ post.content }}
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="card-footer bg-white">
+                                        <p class="text-dark fw-light fs-6 ">
+                                            @{{ post.nombre_servicio }}
+                                        </p>
+                                        <div class="justify-content-end mt-5">
+                                            <div class="d-flex justify-content-end gap-2">
+                                                <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
+                                                    <button class="btn  btn-sm "
+                                                        style="background-color: #342E37; color: white;"
+                                                        @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm"
+                                                        style="background-color: #C42021; color: white;"
+                                                        @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
+                                                </div>
+                                                <button class="btn btn-sm" style="background-color: #249f11; color: white;"
+                                                    @click="openDivComment(post.publications_id)"><i
+                                                        class="fas fa-comments"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @endif
-
             </div>
             <div class="col-md-3">
                 @include('site.usertop')
@@ -127,7 +98,7 @@
 @endsection
 @push('child-scripts')
     <script>
-        var api            = 'Api_publications';
+        var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
         {
