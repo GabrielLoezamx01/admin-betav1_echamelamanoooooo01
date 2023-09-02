@@ -155,19 +155,17 @@ class ClientsController extends Controller
             return back()->withErrors(['userName' => 'Usuario Registrados']);
         }
         $validator = Validator::make($request->all(), [
-            'foto'      => 'nullable|image|max:2048', // Tamaño máximo de 2 MB
+            'foto'      => 'image|max:2048', // Tamaño máximo de 2 MB
         ]);
-
+        $nombreArchivo = '';
         if (isset($request->foto)) {
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $extension = $request->file('foto')->extension();
                 $nombreArchivo = time() . '_' . uniqid() . '.' . $extension;
                 $request->file('foto')->storeAs('public/fotos', $nombreArchivo);
             } else {
-                $nombreArchivo = null;
+                $nombreArchivo = '';
             }
-        } else {
-            return Redirect('Bienvenido');
         }
 
         switch (session('type_user')) {
@@ -186,7 +184,6 @@ class ClientsController extends Controller
                         'postal'    => 'required|string|max:255',
                         'estado'    => 'required|string|max:255',
                         'ciudad'    => 'required|string|max:255',
-                        'foto'      => 'nullable|image|max:9000',
                         'userName'  => 'required|string|max:50|unique:clients',
                     ]);
                     if ($validator->fails()) {
@@ -198,7 +195,6 @@ class ClientsController extends Controller
                     DB::table('clients')->where('id', session('id_user'))->update([
                         'name'        => $request->input('nombre'),
                         'last_name'   => $request->input('apellidos'),
-                        //   'email'       => $request->input('correo'),
                         'andress'     => $request->input('direccion'),
                         'photo'       => $nombreArchivo,
                         'suscription' => 1,

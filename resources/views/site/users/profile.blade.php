@@ -16,82 +16,82 @@
                 </div>
             </div>
             <div class="col-md-12">
-                    @if (session('name') == '' or session('photo') == '')
-                        <div class="m-4">
-                            <label for="informacion">Completa tus datos para finalizar.</label>
+                @if (session('name') == '' or session('photo') == '')
+                    <div class="m-4">
+                        <label for="informacion">Completa tus datos para finalizar.</label>
+                    </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form class="" method="post" action="{{ route('data_clients') }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="m-3 mt-5">
-                                <label for="intruccion 1" class="fw-bold">Información personal.</label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="m-5">
-                                        <div class="mb-3">
-                                            <label for="userName">Nombre de usuario:</label>
-                                            <input class="mt-3 form-control custom-focus" type="text" id="userName"
-                                                name="userName"  required autocomplete="off" maxlength="10"
-                                                oninput="eliminarEspacios(event)" value="{{old('userName')}}" required >
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="nombre">Nombres:</label>
-                                            <input class="mt-3 form-control custom-focus" type="text" id="nombre" value="{{ old('nombre') }}"
-                                                name="nombre" required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="apellidos">Apellidos:</label>
-                                            <input class="mt-3 form-control custom-focus" type="text" id="apellidos" value="{{old('apellidos')}}"
-                                                name="apellidos">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="telefono">Teléfono:</label>
-                                            <input class="mt-3 form-control custom-focus" type="tel" id="telefono" autocomplete="off" value="{{old('telefono')}}"
-                                                name="telefono"  required maxlength="12"
-                                                pattern="\d{1,12}" value="{{ old('telefono') }}">
-                                        </div>
+                    @endif
+                    <form class="" method="post" action="{{ route('data_clients') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="m-3 mt-5">
+                            <label for="intruccion 1" class="fw-bold">Información personal.</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="m-5">
+                                    <div class="mb-3">
+                                        <label for="userName">Nombre de usuario:</label>
+                                        <input class="mt-3 form-control custom-focus" type="text" id="userName"
+                                            name="userName" required autocomplete="off" maxlength="10"
+                                            oninput="eliminarEspacios(event)" value="{{ old('userName') }}" required>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="m-5">
-                                        <div class="mb-3">
-                                            <label for="foto">Foto de perfil:</label>
-                                            <input type="file" id="foto" name="foto"
-                                                class="mt-3 form-control custom-focus" accept="image/*">
-                                        </div>
+
+                                    <div class="mb-3">
+                                        <label for="nombre">Nombres:</label>
+                                        <input class="mt-3 form-control custom-focus" type="text" id="nombre"
+                                            value="{{ old('nombre') }}" name="nombre" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="apellidos">Apellidos:</label>
+                                        <input class="mt-3 form-control custom-focus" type="text" id="apellidos"
+                                            value="{{ old('apellidos') }}" name="apellidos">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="telefono">Teléfono:</label>
+                                        <input class="mt-3 form-control custom-focus" type="tel" id="telefono"
+                                            autocomplete="off" value="{{ old('telefono') }}" name="telefono" required
+                                            maxlength="12" pattern="\d{1,12}" value="{{ old('telefono') }}">
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="m-3 mt-5">
-                                <label for="intruccion 1" class="fw-bold">Dirección.    </label>
+                            <div class="col-md-6">
+                                <div class="m-5">
+                                    <div class="mb-3">
+                                        <label for="foto">Foto de perfil:</label>
+                                        <input type="file" id="foto" name="foto"
+                                            class="mt-3 form-control custom-focus" accept="image/*">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="m-5">
-                                        <div class="mb-3">
-                                            <label for="postal">Codigo Postal:</label>
-                                            <input class="mt-3 form-control custom-focus" type="text" id="postal"
-                                                name="postal" required value="{{old('postal')}}"
-                                                value="{{ old('postal') }}">
-                                        </div>
+                        </div>
+                        <hr>
+                        <div class="m-3 mt-5">
+                            <label for="intruccion 1" class="fw-bold">Dirección. </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="m-5">
+                                    <div class="mb-3">
+                                        <label for="postal">Codigo Postal:</label>
+                                        <input class="mt-3 form-control custom-focus" type="number" id="postal"
+                                            autocomplete="off" maxlength="10" name="postal" required
+                                            value="{{ old('postal') }}" value="{{ old('postal') }}">
+                                    </div>
+                                    <div id="divShow">
                                         <div class="mb-3">
                                             <label for="estado">Estado:</label>
                                             <input class="mt-3 form-control custom-focus" type="text" id="estado"
-                                                name="estado"  required value="{{old('estado')}}">
+                                                name="estado" required value="{{ old('estado') }}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="ciudad">Ciudad:</label>
@@ -100,18 +100,21 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="direccion">Dirección:</label>
-                                            <input type="text" id="direccion" value="{{old('direccion')}}" name="direccion" class="mt-3 form-control custom-focus" required autocomplete="off">
+                                            <input type="text" id="direccion" value="{{ old('direccion') }}"
+                                                name="direccion" class="mt-3 form-control custom-focus" required
+                                                autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-3">
-                                <div class="text-center mt-5">
-                                    <button class="btn btn-dark" type="submit">Enviar</button>
-                                </div>
+                        </div>
+                        <div class="p-3">
+                            <div class="text-center mt-5">
+                                <button class="btn btn-dark" type="submit">Enviar</button>
                             </div>
-                        </form>
-                    @endif
+                        </div>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -122,5 +125,44 @@
             var input = event.target;
             input.value = input.value.replace(/\s/g, '');
         }
+    </script>
+    <script>
+        const input = document.getElementById('postal');
+        const resultsList = document.getElementById('results');
+        const apiUrl = 'echamelamanoApi_Postal';
+        input.addEventListener('input', () => {
+            const searchTerm = input.value;
+            if (searchTerm.length >= 3) {
+                const headers = new Headers({
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Content-Type': 'application/json'
+                });
+                const requestOptions = {
+                    method: 'GET',
+                    headers: headers
+                };
+                fetch(apiUrl + '?postal=' + searchTerm, requestOptions)
+                    .then(response => {
+                        if (!response.ok) {
+                            console.log(`La solicitud falló con el código de estado ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const estado = document.getElementById('estado');
+                        const ciudad = document.getElementById('ciudad');
+                        if (data[0] !== undefined) {
+                            estado.value = data[0]['d_estado'] ?? '';
+                            ciudad.value = data[0]['D_mnpio'] ?? '';
+                        } else {
+                            estado.value = '';
+                            ciudad.value = '';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al realizar la solicitud:', error);
+                    });
+            }
+        });
     </script>
 @endpush

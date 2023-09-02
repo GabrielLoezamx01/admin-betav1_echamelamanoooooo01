@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body,
 input,
 label,
@@ -14,6 +15,7 @@ checkbox {
 
 body {
     background-color: #FAFFFD;
+    font-family: 'Poppins', sans-serif;
 }
 
 .text-site {
@@ -89,6 +91,7 @@ body {
 .animated-h1 {
     animation: bounce 2s infinite;
 }
+
 /* Estilos para el select con la clase .select-login */
 .select-login {
     appearance: none;
@@ -99,31 +102,31 @@ body {
     font-size: 16px;
     width: 100%;
     cursor: pointer;
-  }
+}
 
-  /* Estilo cuando se enfoca (hover) */
-  .select-login:hover {
+/* Estilo cuando se enfoca (hover) */
+.select-login:hover {
     border-color: #333;
-  }
+}
 
-  /* Estilo cuando se selecciona */
-  .select-login:focus {
+/* Estilo cuando se selecciona */
+.select-login:focus {
     border-color: #555;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     outline: none;
-  }
+}
 
-  /* Estilo para las opciones (dropdown) */
-  .select-login option {
+/* Estilo para las opciones (dropdown) */
+.select-login option {
     background-color: #fff;
     color: #333;
-  }
+}
 
-  /* Estilo para las opciones al pasar el cursor sobre ellas */
-  .select-login option:hover {
+/* Estilo para las opciones al pasar el cursor sobre ellas */
+.select-login option:hover {
     background-color: #f0f0f0;
     color: #555;
-  }
+}
 
 .background-image {
     /* background-image: url('{{ asset('img/icon.jpg') }}'); */
@@ -151,37 +154,86 @@ a {
     transform: translateY(-50%);
     cursor: pointer;
 }
-  .alert {
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
 
-        .alert h2 {
-            margin: 0;
-            color: #333;
-            font-size: 24px;
-        }
+.alert {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
 
-        .alert p {
-            margin-top: 10px;
-            color: #666;
-            font-size: 16px;
-        }
+.alert h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+}
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #999;
-            font-size: 18px;
-        }
+.alert p {
+    margin-top: 10px;
+    color: #666;
+    font-size: 16px;
+}
 
-        .close-btn:hover {
-            color: #333;
-        }
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.password-input {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.password-input label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: top 0.2s ease, font-size 0.2s ease;
+}
+
+.password-input input {
+    border: none;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    padding: 15px;
+    transition: border-color 0.2s ease;
+}
+
+.password-input input:focus {
+    border-color: transparent;
+}
+
+.password-input input:focus+label {
+    top: -20px;
+    /* font-size: 14px;s */
+}
+
+.password-input button {
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 70%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.password-input button i {
+    /* font-size: 20px; */
+}
+
+.password-input button:hover {
+    color: #333;
+}

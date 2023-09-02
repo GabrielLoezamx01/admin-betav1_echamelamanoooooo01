@@ -5,60 +5,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>EchameLaMano - Login</title>
+        <title>EchameLaMano - Crear Usuario</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/site.css">
-        <style>
-            .password-input {
-                position: relative;
-                margin-bottom: 20px;
-            }
-
-            .password-input label {
-                position: absolute;
-                top: 0;
-                left: 0;
-                pointer-events: none;
-                transition: top 0.2s ease, font-size 0.2s ease;
-            }
-
-            .password-input input {
-                border: none;
-                border-bottom: 1px solid #333;
-                width: 100%;
-                padding: 15px;
-                transition: border-color 0.2s ease;
-            }
-
-            .password-input input:focus {
-                border-color: transparent;
-            }
-
-            .password-input input:focus+label {
-                top: -20px;
-                /* font-size: 14px;s */
-            }
-
-            .password-input button {
-                background: transparent;
-                border: none;
-                position: absolute;
-                top: 70%;
-                right: 0;
-                transform: translateY(-50%);
-                cursor: pointer;
-            }
-
-            .password-input button i {
-                /* font-size: 20px; */
-            }
-
-            .password-input button:hover {
-                color: #333;
-            }
-        </style>
     </head>
 
     <body>
@@ -136,7 +87,7 @@
 
             });
             const confirm        = document.getElementById('confirm');
-            const btn       = document.getElementById('showconfirm')
+            const btn            = document.getElementById('showconfirm')
             btn.addEventListener('click', function() {
                 if (confirm.type === 'password') {
                     confirm.type = 'text';

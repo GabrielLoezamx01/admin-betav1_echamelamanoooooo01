@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\postalcodes;
 
 
 /*
@@ -16,6 +17,9 @@ use App\Http\Controllers\SubCategoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('echamelamanoApi_Postal', postalcodes::class);
+
 include('login.php');
 include('site.php');
 

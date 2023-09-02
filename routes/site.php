@@ -24,15 +24,14 @@ Route::post('crear_cliente',[ClientsController::class, 'crear'])->name('crear_cl
 
 
 
-Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
-Route::get('/auth/google/register', [RegisteredUserController::class, 'redirectToGoogle'])->name('auth.google.register');
-Route::get('/auth/google/callback/register', [RegisteredUserController::class, 'handleGoogleCallback']);
+// Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
+// Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+// Route::get('/auth/google/register', [RegisteredUserController::class, 'redirectToGoogle'])->name('auth.google.register');
+// Route::get('/auth/google/callback/register', [RegisteredUserController::class, 'handleGoogleCallback']);
 
 Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('data_clients',[ClientsController::class, 'data_clients'])->name('data_clients');
     Route::get('Bienvenido',[ClientsController::class , 'site']);
-
     Route::resource('Api_publications', PublicacionesController::class);
     Route::resource('Api_comments', ComentariosController::class);
     Route::resource('api_servicios', ApiServiciesControlller::class);
