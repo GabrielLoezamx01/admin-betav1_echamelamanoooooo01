@@ -10,6 +10,9 @@ class ProfileClienController extends Controller
 {
     public function index()
     {
+        if(session('name') == ''){
+            return redirect('Bienvenido');
+        }
         switch (session('type_user')) {
             case 'C':
                 $user = Clientuser::where('uuid', session('uuid'))->limit(1)->get();

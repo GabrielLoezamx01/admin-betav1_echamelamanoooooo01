@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
 class ListSucursalesController extends Controller
 {
     /**
@@ -13,6 +14,9 @@ class ListSucursalesController extends Controller
      */
     public function index()
     {
+        if(session('name') == ''){
+            return redirect('Bienvenido');
+        }
         $one = DB::table('branch as b')
         ->leftJoin('services as s','b.id_service','=','s.id')->get();
         return view('site.sucursalesLista')->with(compact('one'));
