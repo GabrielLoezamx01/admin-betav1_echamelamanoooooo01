@@ -15,6 +15,8 @@ use App\Http\Controllers\ApiServiciesControlller;
 use App\Http\Controllers\apiSucursalesController;
 use App\Http\Controllers\ListSucursalesController;
 use App\Http\Controllers\ViewSucursalController;
+use App\Http\Controllers\LikesController;
+
 
 
 Route::view('login_client','site.login');
@@ -36,6 +38,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::resource('Api_comments', ComentariosController::class);
     Route::resource('api_servicios', ApiServiciesControlller::class);
     Route::resource('api_sucursales', apiSucursalesController::class);
+    Route::resource('likes_api', LikesController::class);
+
 
 
     Route::get('close_session',[ClientsController::class, 'close_sessions']);

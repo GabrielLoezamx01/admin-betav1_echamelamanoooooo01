@@ -90,9 +90,11 @@
 @endsection
 @push('child-scripts')
     <script>
-        var api = 'Api_publications';
+        var api            = 'Api_publications';
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
+        var api_likes      = 'api_sucursales';
+
         {
             new Vue({
                 el: '#vue',

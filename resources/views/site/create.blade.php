@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Regístrate en EchameLaMano para crear tu cuenta de usuario.">
         <title>EchameLaMano - Crear Usuario</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -47,12 +48,12 @@
                             <label for="email">Correo</label>
                         </div>
                         <div class="efect password-input col-11 mt-5">
-                            <input type="password" id="password" name="password" required placeholder="" class="mt-3" >
+                            <input type="password" id="password" name="password" required placeholder class="mt-3" autocomplete="new-password">
                             <label for="password" class="p-1">Contraseña</label>
                             <button id="showPassword" type="button"><i class="far fa-eye"></i></button>
                         </div>
                         <div class="efect password-input col-11 mt-5">
-                            <input type="password" id="confirm" name="confirm" required placeholder="" class="mt-3">
+                            <input type="password" id="confirm" name="confirm" required placeholder class="mt-3" autocomplete="new-password">
                             <label for="confirm" class="p-1">Confirmar Contraseña</label>
                             <button id="showconfirm" type="button"><i class="far fa-eye"></i></button>
                         </div>
