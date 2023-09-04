@@ -62,11 +62,12 @@ class ClientsController extends Controller
                 return redirect('crear_client')->withErrors($errors)->withInput($request->except('password'));
             }
             if ($type_client == 'vendedor_002') {
-                if (!DB::table('seller')->where('email', $email)->exists()) {
-                    $this->insertNewUser('seller', $request->all());
-                } else {
+                if (DB::table('seller')->where('email', $email)->exists()) {
                     $errors[] = 'Este correo electrónico ya está registrado. Por favor, inicia sesión.';
                     return redirect('/')->withErrors($errors)->withInput($request->except('password'));
+                } else {
+                    echo 'Se insertaaaa..........';
+                    $this->insertNewUser('seller', $request->all());
                 }
             } else if ($type_client == 'cliente_001') {
                 if (!DB::table('clients')->where('email', $email)->exists()) {
