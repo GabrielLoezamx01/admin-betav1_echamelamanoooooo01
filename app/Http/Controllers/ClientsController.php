@@ -57,6 +57,7 @@ class ClientsController extends Controller
                 'type_one' => 'vendedor_002',
             ];
             $type_client    = $type[$request->type_client] ?? 000;
+            return $type_client;
             if($type_client == 000){
                 $errors[] = 'Ocurrio un problema interno';
                 return redirect('crear_client')->withErrors($errors)->withInput($request->except('password'));
