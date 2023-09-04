@@ -53,11 +53,22 @@
                                     <div class="d-flex justify-content-between">
                                         <p style="font-size: 12px;" class="fw-light">
                                             Servicio: @{{ post.nombre_servicio }} </p>
-                                            <p style="font-size: 12px;" class="fw-light"> @{{ post.reactions }} Me gusta</p>
+                                        <p style="font-size: 14px;" class="fw-light" v-if="likes[post.uuid]">
+                                            @{{ likes[post.uuid].total }} Me gusta</p>
+                                        <p style="font-size: 14px;" class="fw-light" v-else> 0 Me gusta</p>
+
                                     </div>
                                 </div>
 
                                 <div class="justify-content-end mt-5">
+
+                                    {{-- <div v-if="likes[post.uuid].id_seller.includes(skmksm)">
+                                        El valor existe en id_seller.
+                                      </div>
+                                      <div v-else>
+                                        El valor no existe en id_seller.
+                                      </div> --}}
+                                    {{-- @{{ likes }} --}}
                                     <div class="d-flex justify-content-between gap-2">
                                         {{-- <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
                                             <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
@@ -65,15 +76,30 @@
                                             <button class="btn btn-sm" style="background-color: #C42021; color: white;"
                                                 @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
                                         </div> --}}
-                                        <button style="border: none; background-color: white;" class="fw-light publicaciones"
-                                            @click="likes(post.publications_id)"> <i class="fas fa fa-heart" style="color:rgb(183, 193, 183);"></i>
-                                            Me
-                                            gusta</button>
-                                        <button style="border: none; background-color: white;" class="fw-light publicaciones"
-                                            @click="openDivComment(post.publications_id)"><i class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
+                                        <div
+                                            v-if="likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}')">
+                                            <button style="border: none; background-color: white;"
+                                                class="fw-light publicaciones" @click="likespost(post.uuid , '{{ session('uuid') }}'), true">
+                                                <i class="fas fa fa-heart text-danger"></i>
+                                                Me gusta</button>
+                                        </div>
+                                        <div v-else>
+                                            <div :class="{ 'd-none': likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}') }">
+                                                <button style="border: none; background-color: white;" class="fw-light publicaciones" @click="likespost(post.uuid , '{{ session('uuid') }}')">
+                                                    Me gusta
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                        <button style="border: none; background-color: white;"
+                                            class="fw-light publicaciones" @click="openDivComment(post.publications_id)"><i
+                                                class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
                                             Comentar</button>
-                                        <button style="border: none; background-color: white;" class="fw-light publicaciones"
-                                            @click="compartir(post.uuid)"><i class="fas fa fa-share" style="color:rgb(183, 193, 183);"></i> Compartir</button>
+                                        <button style="border: none; background-color: white;"
+                                            class="fw-light publicaciones" @click="compartir(post.uuid)"><i
+                                                class="fas fa fa-share" style="color:rgb(183, 193, 183);"></i>
+                                            Compartir</button>
                                     </div>
                                 </div>
                             </div>
@@ -90,10 +116,11 @@
 @endsection
 @push('child-scripts')
     <script>
-        var api            = 'Api_publications';
+        var api = 'Api_publications';
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
-        var api_likes      = 'api_sucursales';
+        var api_likes = 'likes_api?id_post=';
+        var api_likes_post = 'likes_api';
 
         {
             new Vue({
@@ -127,7 +154,10 @@
                     arrayNotify: [],
                     countNotify: 0,
                     settingsNotify: [],
-
+                    likes: {},
+                    ids_post: '',
+                    ocultar: true,
+                    love: false
                 },
                 created: function() {
                     this.getSHOW();
@@ -141,10 +171,31 @@
                     // }, 1000);
                 },
                 methods: {
-
+                    likesApi: function(uuid) {
+                        this.$http.get(api_likes + this.ids_post).then(function(response) {
+                            this.likes = response.body;
+                        });
+                    },
+                    likespost: function (id_post , id_user, validacion){
+                        var data = {
+                                'id_user': id_user,
+                                'id_post': id_post,
+                        };
+                        if(validacion){
+                            this.love = false;
+                        }
+                        this.$http.post(api_likes_post, data).then(function(json) {
+                            this.getSHOW();
+                        });
+                    },
                     getSHOW: function() {
                         this.$http.get(api).then(function(response) {
-                            this.apiResponse = response.body.data
+                            this.apiResponse = response.body.data;
+                            const ids = this.apiResponse.map(function(objeto) {
+                                return objeto.uuid;
+                            });
+                            this.ids_post = ids.join(',');
+                            this.likesApi();
                         });
                     },
                     api_servicios: function() {

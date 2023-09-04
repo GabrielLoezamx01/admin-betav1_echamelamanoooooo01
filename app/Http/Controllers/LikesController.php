@@ -5,23 +5,54 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LikesPost;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class LikesController extends Controller
 {
+    private $query = [];
+    public function __construct()
+    {
+        $this->query = [];
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    var $query     = [];
+
     public function index(Request $request)
     {
-        $data = $request->validate([
+        $data   = $request->validate([
             'id_post' => 'required',
         ]);
-        return LikesPost::where(['id_post'  =>  $data['id_post'], 'deslike' => 0])->count();
+        $ids       = explode(',', $request->id_post);
+        $uniqueIds = array_unique($ids);
+        $data      = [];
+        $likesData = DB::table('likes')
+            ->whereIn('id_post', $uniqueIds)
+            ->select('id_post', 'id_seller', 'id_user')->get();
+        $array     = json_decode($likesData,true);
+        $likesData = collect($array);
+        foreach ($likesData as $like){
+            $id_post         = $like['id_post'];
+            $total           = $likesData->where('id_post',$id_post)->count();
+            if(array_key_exists($id_post, $data)){
+                $data[$id_post]['id_seller'] [] = $like['id_seller'];
+                $data[$id_post]['id_user'] []   = $like['id_user'];
+                array_unique($data[$id_post]['id_seller']);
+                array_unique($data[$id_post]['id_user']);
+            }else{
+                $push['sessionUuid']      = session('uuid');
+                $push['total']     = $total;
+                $push['id_seller'] = [$like['id_seller']];
+                $push['id_user']   = [$like['id_user']];
+                $push['total']     = $total;
+                $data [$id_post]   = $push;
+            }
+        }
+        return $data;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,24 +66,17 @@ class LikesController extends Controller
             'id_post' => 'required',
         ]);
         $uuid_user     = Session('uuid');
-        if ($data['id_user'] == $uuid_user) {
-            $this->query        = [
-                'id_post'       => $data['id_post'],
-                'id_seller'     => Session('type_user') == 'V' ? $uuid_user : 0,
-                'id_user'       => Session('type_user') == 'C' ? $uuid_user : 0,
-                'deslike'       => 0
-            ];
-            try {
-                $updateLike        = LikesPost::where($this->query)->get()->isEmpty() ? $this->update(true) : $this->update(false);
-                if ($updateLike) {
-                    $query['time'] = now();
-                    return LikesPost::create($query);
-                }
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error interno del servidor'], 500);
-            }
-        } else {
-            return response()->json(['error' => 'Error con la id de usuario modificado'], 500);
+        $this->query   = [
+            'id_post'       => $data['id_post'],
+            'id_seller'     => Session('type_user') == 'V' ? $uuid_user : '0',
+            'id_user'       => Session('type_user') == 'C' ? $uuid_user : '0',
+        ];
+        $comparacion   = LikesPost::where($this->query)->exists();
+        if($comparacion){
+            return  LikesPost::where($this->query)->delete();
+        }else{
+                $this->query['time']    = now();
+                return LikesPost::create($this->query);
         }
     }
 
@@ -73,9 +97,12 @@ class LikesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($validate = false)
+    public function update(bool $validate = false)
     {
-        return LikesPost::where($this->query)->update(['deslike' => $validate == true ? 1 : 0]) ?? false;
+        $update = LikesPost::where($this->query)->update(
+            ['deslike' => $validate == true ? 1 : 0]
+        );
+        return $update;
     }
 
     /**
