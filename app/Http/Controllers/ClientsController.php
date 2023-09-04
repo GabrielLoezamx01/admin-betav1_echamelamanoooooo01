@@ -57,7 +57,6 @@ class ClientsController extends Controller
                 'type_one' => 'vendedor_002',
             ];
             $type_client    = $type[$request->type_client] ?? 000;
-            return $type_client;
             if($type_client == 000){
                 $errors[] = 'Ocurrio un problema interno';
                 return redirect('crear_client')->withErrors($errors)->withInput($request->except('password'));
@@ -77,6 +76,7 @@ class ClientsController extends Controller
                     return redirect('/')->withErrors($errors)->withInput($request->except('password'));
                 }
             }
+            dd('llego aqui');
             $database   = $this->database_user($request->email, $type_client);
             $this->session_clients($database);
             return redirect('Bienvenido');
