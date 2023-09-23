@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\sellerNotify;
 use App\Http\Controllers\ViewSucursalController;
+use App\Http\Controllers\ComentariosController;
 
 
 /*

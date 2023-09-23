@@ -96,10 +96,7 @@
                                             class="fw-light publicaciones" @click="openDivComment(post.publications_id)"><i
                                                 class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
                                             Comentar</button>
-                                        <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones" @click="compartir(post.uuid)"><i
-                                                class="fas fa fa-share" style="color:rgb(183, 193, 183);"></i>
-                                            Compartir</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -185,6 +182,7 @@
                             this.love = false;
                         }
                         this.$http.post(api_likes_post, data).then(function(json) {
+                            console.log(json);
                             this.getSHOW();
                         });
                     },
