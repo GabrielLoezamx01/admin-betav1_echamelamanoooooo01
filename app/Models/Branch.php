@@ -39,4 +39,8 @@ class Branch extends Model
         'rang'       => 'integer',
         'id_like'    => 'integer',
     ];
+    public function postBranches()
+    {
+        return $this->hasMany(PostBranch::class, 'id_branch', 'id_branch');
+    }
 }

@@ -1,0 +1,49 @@
+{
+  "branch": {
+    "id_branch": 2,
+    "id_seller": 81,
+    "name_branch": "EL CHINO",
+    "street": "",
+    "address": "23 432A",
+    "city": "Merida",
+    "state": "A",
+    "postal_code": "9000",
+    "delete": 0,
+    "id_service": 2,
+    "description": "Un restaurante mamalon.",
+    "span": "0",
+    "rang": 5,
+    "image": "1693036216_64e9aeb84236e.jpg",
+    "id_like": 0,
+    "maps": "",
+    "rfc": "GHAHJGDA",
+    "run_on": null,
+    "off": null
+  },
+  "post": [
+    {
+      "id_post": 1,
+      "contenido": "Promocion",
+      "id_user": null,
+      "likes": 2,
+      "img_1": null,
+      "img_2": null,
+      "img_3": null,
+      "fecha": "2023-09-22",
+      "id_branch": 2,
+      "Tittle": "POST TEST"
+    }
+  ],
+  "opinions": [
+    {
+      "id_opinions": 1,
+      "id_branch": 2,
+      "id_client": "c2e6c0ac-91f4-4016-a96f-451eb3518800",
+      "content": "Excelente Servicio",
+      "name": "Jesus Gabriel",
+      "last_name": "Loeza Conrrado",
+      "userName": "JesusLoeza",
+      "photo": "defauld.jpg"
+    }
+  ]
+}

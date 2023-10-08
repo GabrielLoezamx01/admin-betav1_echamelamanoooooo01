@@ -95,7 +95,7 @@
                                         <button style="border: none; background-color: white;"
                                             class="fw-light publicaciones" @click="openDivComment(post.publications_id)"><i
                                                 class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
-                                            Comentar</button>
+                                            Comentar</button>   
 
                                     </div>
                                 </div>

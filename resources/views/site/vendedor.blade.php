@@ -72,37 +72,30 @@
                         <h3 class="mt-5 fw-bold">Sucursales Registradas</h3>
                         @foreach ($branch as $key => $data)
                             <div class="col-md-5 text-center mt-5">
-                                   <div class="bg-white shadow">
-                                        {!! Html::image('storage/sucursales/' . $data->image, $data->name_branch, [
-                                            'title' => $data->name_branch,
-                                            'class' => 'img-fluid shadow circular-image mt-5',
-                                            'style' => 'border-color: white',
-                                        ]) !!}
-                                        <p class="fw-bold text-center mt-4 fs-4">
-                                            {{ $data->name_branch }}
-                                        </p>
+                                <div class="bg-white shadow">
+                                    {!! Html::image('storage/sucursales/' . $data->image, $data->name_branch, [
+                                        'title' => $data->name_branch,
+                                        'class' => 'img-fluid shadow circular-image mt-5',
+                                        'style' => 'border-color: white',
+                                    ]) !!}
+                                    <p class="fw-bold text-center mt-4 fs-4">
+                                        {{ $data->name_branch }}
+                                    </p>
+                                    <div>
+                                        <div class="text-center">
+                                            <a href="ajustes_sucursal?id_branch={{ $data->id_branch }}">
+                                                <button class="ov-btn-slide-top m-"><i class="fa fa-cog"></i></button>
+                                            </a>
+                                            <a href="sucursal?id_branch={{ $data->id_branch }}">
+                                                <button class="ov-btn-slide-top m-"><i class="fa fa-eye"></i></button>
+                                            </a>
+                                        </div>
+                                    </div>
+                        <div class="p-5"></div>
 
-                                        {!! Form::open(['route' => 'sucursal', 'method' => 'GET']) !!}
-                                            @csrf
-                                            {!! Form::hidden('id_branch', $data->id_branch) !!}
-                                            <div class="text-centerr">
-                                                {!! Form::button('<i class="fa fa-cog"></i>', [
-                                                    'type'  => 'submit',
-                                                    'class' => 'ov-btn-slide-top m-2',
-                                                    'title' => 'Ajustes'
-                                                ]) !!}
-                                                {!! Form::button('<i class="fa fa-eye"></i>', [
-                                                    'type'  => 'submit',
-                                                    'class' => 'ov-btn-slide-top m-2',
-                                                    'title' => 'Ver Pefil'
-                                                ]) !!}
-                                            </div>
-                                            <div class="p-5"></div>
-                                    {!! Form::close() !!}
-                                   </div>
+                                </div>
                             </div>
                         @endforeach
-                        <div class="p-5"></div>
                     </section>
                 @endisset
             @endif

@@ -1,5 +1,111 @@
 @extends('site.layouts.master')
 @section('content')
+@push('styles')
+    <style>
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Ajusta el valor alpha para la opacidad */
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+            /* Para que el contenido esté encima de la capa de opacidad */
+        }
+
+        .fs-max {
+            font-size: 5rem;
+        }
+
+        .btn-site {
+            width: 20%;
+        }
+
+        .custom-button {
+            display: inline-block;
+            font-size: 1rem;
+            width: 400px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .custom-button::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #000;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .custom-button:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Estilos de la publicación */
+        .post {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .post-image {
+            width: 30%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .post-image:hover {
+            transform: scale(1.1);
+        }
+
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+@endpush
     <div id="vue">
         <section class="row">
             <div class="col-md-2"></div>
@@ -39,43 +145,65 @@
                         Últimas publicaciones de la comunidad Echamelamano.
                     </h2>
                 </div>
+                <div class="modal mt-5 text-center animate__animated animate__fadeInDown" id="imageModal">
+                    <div class="mt-5"></div>
+                    <span class="close" onclick="closeImageModal()">&times;</span>
+                    <img class="img-fluid mt-5" id="modalImage">
+                </div>
                 @foreach ($post as $key => $data)
-                    <div class="row mt-5 shadow ">
-                        <div class="col-md-3 mt-5 text-center">
-                            <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
-                                class="circular-image img-fluid">
-                                <h5 class="fw-bold mt-3">
-                                    {{ $data->name_branch }}</h5>
-                                    <label for="" class="fw-light" style="font-size: 12px">
-                                        {{$data->description}}
-                                    </label>
-                                    <div class="mt-5">
-                                        <label for="" class="fw-light" style="font-size: 12px">
-                                            {{$data->city}},  {{$data->address}}, {{$data->postal_code}}
-                                        </label>
-                                    </div>
-                        </div>
-                        <div class="col-md-7 mt-5">
-                            <div>
-                                <h1>
-                                    {{$data->Tittle}}
-                                </h1>
-                            </div>
-                            <div class="mt-3">
-                                <p class="fw-light text-justify">{{ $data->contenido }}</p>
-                            </div>
-                            <div class="mt-5 text-center">
-                                <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
-                                    class="img-fluid" style="height: 500px">
-                            </div>
-                            <div class="p-5"></div>
+                <div class="row d-flex justify-content-center mt-5 shadow">
+                    <div class="col-md-3 mt-5 text-center">
+                        <img src="{{ asset('storage/sucursales/' . $data->image) }}" alt="Imagen"
+                            class="circular-image img-fluid">
+                        <h5 class="fw-bold mt-3">{{ $data->name_branch }}</h5>
+                        <label for="" class="fw-light" style="font-size: 12px">
+                            {{$data->description}}
+                        </label>
+                        <div class="mt-5">
+                            <label for="" class="fw-light" style="font-size: 12px">
+                                {{$data->city}},  {{$data->address}}, {{$data->postal_code}}
+                            </label>
                         </div>
                     </div>
-                    <div>
-                        {{ $data->img_1 }}
-                        {{ $data->likes }}
+                    <div class="col-md-7 mt-5 overflow-hidden"> <!-- Agregamos la clase overflow-hidden aquí -->
+                        <div class="mt-4 p-5">
+                            <div class="text-center">
+                                <h2 class="fw-bold">  {{$data->Tittle}}</h2>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <p class="fw-light">{{ $data->contenido }}</p>
+                        </div>
+                        <div class="mt-5 p-2 d-flex justify-content-center">
+                            @php
+                            $images = [$data->img_1, $data->img_2, $data->img_3];
+                            @endphp
+                            @foreach ($images as $img)
+                                @if ($img)
+                                    <img src="{{ asset('storage/postSucursales/' . $img) }}"
+                                        class="post-image m-2 shadow img-fluid img-thumbnail"
+                                        style="max-width: 200px;"
+                                        onclick="showImage('{{ asset('storage/postSucursales/' . $img) }}')">
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="mt-5">
+                            <div class="d-flex justify-content-between gap-2">
+                                <button style="border: none; background-color: white;"
+                                    class="fw-light publicaciones"><i class="fas fa-comments"
+                                        style="color:rgb(183, 193, 183);"></i>
+                                    Comentarios</button>
+                                <button style="border: none; background-color: white;"
+                                    class="fw-light publicaciones"><i class="fas fa-share"
+                                        style="color:rgb(183, 193, 183);"></i>
+                                    Compartir</button>
+                            </div>
+                        </div>
+                        <div class="p-5"></div>
                     </div>
-                @endforeach
+                </div>
+            @endforeach
+
             </div>
             <div class="col-md-3">
                 @include('site.usertop')
@@ -84,6 +212,20 @@
     </div>
 @endsection
 @push('child-scripts')
+<script>
+    function showImage(imageSrc) {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+
+        modal.style.display = "block";
+        modalImage.src = imageSrc;
+    }
+
+    function closeImageModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+</script>
     <script>
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';

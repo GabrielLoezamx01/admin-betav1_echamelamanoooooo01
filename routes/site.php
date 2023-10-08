@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\sellerNotify;
 use App\Http\Controllers\ViewSucursalController;
 use App\Http\Controllers\ComentariosController;
+use App\Http\Controllers\SettingsSucursalesController;
+
 
 
 /*
@@ -66,6 +68,8 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');
     Route::get('sucursal',    [ViewSucursalController::class, 'index'])->name('sucursal');
     Route::get('Sucursales',  [SucursalesController::class, 'index']);
+    Route::resource('ajustes_sucursal', SettingsSucursalesController::class);
+
 });
 
 

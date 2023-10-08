@@ -121,7 +121,7 @@
                 <div class="overlay"></div>
                 <div class="content row">
                     <div class="col-md-12 text-center">
-                        <h1 class="fs-max text-white fw-bold">{{ $json['branch']->name_branch }}</h1>
+                        <h1 class="fs-max text-white fw-bold fs-1">{{ $json['branch']->name_branch }}</h1>
                         <p class="text-white fw-light">
                             {{ $json['branch']->description }}
                         </p>
@@ -137,14 +137,18 @@
                                     'class' => 'bg-white mb-5 btn custom-button',
                                     'style' => 'margin-left: 10px',
                                 ]) !!}
-                                {!! Form::button('Opiniones', ['class' => 'bg-white mb-5 btn custom-button', 'style' => 'margin-left: 10px']) !!}
+                                {!! Form::button('Opiniones', [
+                                    'class' => 'bg-white mb-5 btn custom-button',
+                                    'style' => 'margin-left: 10px',
+                                    '@click' => 'showOpiniones',
+                                ]) !!}
                                 {!! Form::button('Productos', ['class' => 'bg-white mb-5 btn custom-button', 'style' => 'margin-left: 10px']) !!}
                                 {!! Form::button('Información', ['class' => 'bg-white mb-5 btn custom-button', 'style' => 'margin-left: 10px']) !!}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center ">
+                <div class="row d-flex justify-content-center" v-if="publicaciones == true">
                     <div class="col-md-6">
                         <div class="modal mt-5 text-center animate__animated animate__fadeInDown" id="imageModal">
                             <div class="mt-5"></div>
@@ -166,25 +170,34 @@
                                     @endphp
                                     @foreach ($images as $img)
                                         @if ($img)
-                                            <img src="{{ asset('storage/postSucursales/' . $img) }}" class="post-image m-2 shadow"
+                                            <img src="{{ asset('storage/postSucursales/' . $img) }}"
+                                                class="post-image m-2 shadow"
                                                 onclick="showImage('{{ asset('storage/postSucursales/' . $img) }}')">
                                         @endif
                                     @endforeach
                                 </div>
                                 <div class="mt-5">
-                                         <div class="d-flex justify-content-between gap-2">
-                                            <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones"><i
-                                                class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
+                                    <div class="d-flex justify-content-between gap-2">
+                                        <button style="border: none; background-color: white;"
+                                            class="fw-light publicaciones"><i class="fas fa-comments"
+                                                style="color:rgb(183, 193, 183);"></i>
                                             Comentarios</button>
-                                            <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones"><i
-                                                class="fas fa-share" style="color:rgb(183, 193, 183);"></i>
+                                        <button style="border: none; background-color: white;"
+                                            class="fw-light publicaciones"><i class="fas fa-share"
+                                                style="color:rgb(183, 193, 183);"></i>
                                             Compartir</button>
-                                        </div>
+                                    </div>
                                 </div>
+                            </div>
                         @endforeach
 
+                    </div>
+                </div>
+            </section>
+            <section class="shadow" v-if="opiniones == true">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <h2>Opiniones</h2>
                     </div>
                 </div>
             </section>
@@ -216,11 +229,32 @@
                 }
             },
             data: {
+                opiniones: false,
+                publicaciones: true,
+                productos: true,
+                informacion: true,
 
             },
             created: function() {},
             methods: {
-
+                showOpiniones: function() {
+                    this.setTabsVisibility(true, false, false, false);
+                },
+                showProductos: function() {
+                    this.setTabsVisibility(false, true, false, false);
+                },
+                showInformacion: function() {
+                    this.setTabsVisibility(false, false, true, false);
+                },
+                showPublicaciones: function() {
+                    this.setTabsVisibility(false, false, false, true);
+                },
+                setTabsVisibility(opiniones, productos, informacion, publicaciones) {
+                    this.opiniones = opiniones;
+                    this.productos = productos;
+                    this.informacion = informacion;
+                    this.publicaciones = publicaciones;
+                },
             }
         });
     </script>
