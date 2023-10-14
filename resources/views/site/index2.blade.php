@@ -1,4 +1,5 @@
 @extends('site.layouts.master')
+@section('title', 'Bienvenido')
 @section('content')
 @push('styles')
     <style>
@@ -189,14 +190,18 @@
                         </div>
                         <div class="mt-5">
                             <div class="d-flex justify-content-between gap-2">
-                                <button style="border: none; background-color: white;"
+                                {{-- <button style="border: none; background-color: white;"
                                     class="fw-light publicaciones"><i class="fas fa-comments"
                                         style="color:rgb(183, 193, 183);"></i>
-                                    Comentarios</button>
+                                    Comentarios</button> --}}
                                 <button style="border: none; background-color: white;"
-                                    class="fw-light publicaciones"><i class="fas fa-share"
+                                    class="fw-light publicaciones" ><i class="fas fa-share"
                                         style="color:rgb(183, 193, 183);"></i>
                                     Compartir</button>
+                                    <button style="border: none; background-color: white;"
+                                    class="fw-light publicaciones">
+                                    <i class="fas fa fa-heart"></i>
+                                    Me gusta</button>
                             </div>
                         </div>
                         <div class="p-5"></div>
@@ -275,6 +280,9 @@
                     // }, 1000);
                 },
                 methods: {
+                    sharedPost: function (){
+                        alert('conectado');
+                    },
                     api_servicios: function() {
                         this.$http.get(serivicios_api).then(function(data) {
                             this.apiServicios = data.body;

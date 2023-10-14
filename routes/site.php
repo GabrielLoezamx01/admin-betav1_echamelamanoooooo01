@@ -10,6 +10,8 @@ use App\Http\Controllers\sellerNotify;
 use App\Http\Controllers\ViewSucursalController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\SettingsSucursalesController;
+use App\Http\Controllers\ColorsController;
+
 
 
 
@@ -68,7 +70,9 @@ Route::middleware(['clientsMiddleware'])->group(function () {
     Route::post('newComment', [ComentariosController::class, 'store'])->name('newComment');
     Route::get('sucursal',    [ViewSucursalController::class, 'index'])->name('sucursal');
     Route::get('Sucursales',  [SucursalesController::class, 'index']);
+
     Route::resource('ajustes_sucursal', SettingsSucursalesController::class);
+    Route::post('colors_post',[ColorsController::class, 'insert'])->name('insert_colors_branch');
 
 });
 

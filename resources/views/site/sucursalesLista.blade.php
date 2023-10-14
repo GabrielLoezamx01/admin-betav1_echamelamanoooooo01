@@ -1,4 +1,6 @@
 @extends('site.layouts.master')
+@section('title', 'Sucursales')
+
 @section('content')
 
 {{-- https://host.utravelhost.com:2083/cpsess3896083997/frontend/jupiter/terminal/index.htmls --}}

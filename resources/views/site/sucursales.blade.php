@@ -1,4 +1,6 @@
 @extends('site.layouts.master')
+@section('title', 'Sucursales')
+
 @section('content')
     <div id="vue" class="row">
         <div class="col-md-3 animate__animated animate__fadeInLeft">

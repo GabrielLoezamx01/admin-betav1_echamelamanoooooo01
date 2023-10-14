@@ -1,115 +1,91 @@
 @extends('site.layouts.master')
+@section('title', 'Bienvenido')
 @section('content')
-    <div id="vue">
-        <div class="row">
-            <div class="offset-1 col-md-8">
-                <h4 class="text-center">Publicaciones recientes <button class="btn text-end" title="Refrescar contenido"
-                        @click="getSHOW()">
-                        <i class="fas fa-sync text-dark"></i>
-                    </button></h4>
-                <div class="col-md-6 mt-3">
-                    <label for="">Buscar por servicio</label>
-                    <div class="input-container">
-                        <div class="input-group mb-3">
-                            <select v-model="serviciessearch" class="form-control custom-select custom-textarea "
-                                id="servicies">
-                                <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                    @{{ select.name }}</option>
-                            </select>
-                            <button class="publish-button" type="button" id="btn-buscar" title="Buscar"
-                                @click="searchpublicaciones()"><i class="fas fa-search search-icon"></i></button>
-                        </div>
-                    </div>
-
-                </div>
+<div id="vue">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-10 offset-md-1">
+          <h4 class="text-center">Publicaciones recientes
+            <button class="btn float-end" title="Refrescar contenido" @click="getSHOW()">
+              <i class="fas fa-sync text-dark"></i>
+            </button>
+          </h4>
+          <div class="col-12 col-md-6 mt-3">
+            <label for="servicies">Buscar por servicio</label>
+            <div class="input-container">
+              <div class="input-group">
+                <select v-model="serviciessearch" class="form-control custom-select custom-textarea" id="servicies">
+                  <option class="select-option" v-for="select in apiServicios" :value="select.id">@{{ select.name }}</option>
+                </select>
+                <button class="publish-button" type="button" id="btn-buscar" title="Buscar" @click="searchpublicaciones()">
+                  <i class="fas fa-search search-icon"></i>
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-        <section class="row ">
-            <div class="col-md-4"></div>
-            <div class=" col-md-5">
-                <div class="row">
-                    <div v-for="post in apiResponse" class="col-md-10">
-                        <div class="card mt-5 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil"
-                                        class="img-fluid shadow circular-image">
-                                    <div class="col p-3">
-                                        <label for="user" class="fw-bold mt-3 tex" style="font-size: 2vh">
-                                            @{{ post.userName }}
-                                        </label>
-                                        <div class="mt-2 text-justify">
-                                            <p class="fw-light text-dark-50">
-                                                @{{ post.content }}
-                                            </p>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="card-footer bg-white">
-                                <div class="row">
-                                    <div class="d-flex justify-content-between">
-                                        <p style="font-size: 12px;" class="fw-light">
-                                            Servicio: @{{ post.nombre_servicio }} </p>
-                                        <p style="font-size: 14px;" class="fw-light" v-if="likes[post.uuid]">
-                                            @{{ likes[post.uuid].total }} Me gusta</p>
-                                        <p style="font-size: 14px;" class="fw-light" v-else> 0 Me gusta</p>
-
-                                    </div>
-                                </div>
-
-                                <div class="justify-content-end mt-5">
-
-                                    {{-- <div v-if="likes[post.uuid].id_seller.includes(skmksm)">
-                                        El valor existe en id_seller.
-                                      </div>
-                                      <div v-else>
-                                        El valor no existe en id_seller.
-                                      </div> --}}
-                                    {{-- @{{ likes }} --}}
-                                    <div class="d-flex justify-content-between gap-2">
-                                        {{-- <div v-if="post.uuidCliente == '{{ session('uuid') }}'">
-                                            <button class="btn  btn-sm " style="background-color: #342E37; color: white;"
-                                                @click="show_item(post.uuid)"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm" style="background-color: #C42021; color: white;"
-                                                @click="deletePost(post.uuid)"><i class="fas fa-trash"></i></button>
-                                        </div> --}}
-                                        <div
-                                            v-if="likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}')">
-                                            <button style="border: none; background-color: white;"
-                                                class="fw-light publicaciones" @click="likespost(post.uuid , '{{ session('uuid') }}'), true">
-                                                <i class="fas fa fa-heart text-danger"></i>
-                                                Me gusta</button>
-                                        </div>
-                                        <div v-else>
-                                            <div :class="{ 'd-none': likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}') }">
-                                                <button style="border: none; background-color: white;" class="fw-light publicaciones" @click="likespost(post.uuid , '{{ session('uuid') }}')">
-                                                    Me gusta
-                                                </button>
-                                            </div>
-
-                                        </div>
-
-                                        <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones" @click="openDivComment(post.publications_id)"><i
-                                                class="fas fa-comments" style="color:rgb(183, 193, 183);"></i>
-                                            Comentar</button>   
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+      </div>
+      <section class="row">
+        <div class="col-12 col-md-8">
+          <div class="row">
+            <div v-for="post in apiResponse" class="col-12 col-md-10">
+              <div class="card mt-5 border-0 shadow" data-aos="fade-up" data-aos-duration="1000">
+                <div class="card-body">
+                  <div class="d-flex">
+                    <img :src="'storage/fotos/' + post.photo" alt="Foto de perfil" class="img-fluid shadow circular-image">
+                    <div class="col p-3">
+                      <label for="user" class="fw-bold mt-3 text" style="font-size: 2vh">@{{ post.userName }}</label>
+                      <div class="mt-2 text-justify">
+                        <p class="fw-light text-dark-50">@{{ post.content }}</p>
+                      </div>
                     </div>
+                  </div>
                 </div>
+                <div class="card-footer bg-white">
+                  <div class="row">
+                    <div class="d-flex justify-content-between">
+                      <p style="font-size: 12px;" class="fw-light">Servicio: @{{ post.nombre_servicio }}</p>
+                      <p style="font-size: 14px;" class="fw-light" v-if="likes[post.uuid]">@{{ likes[post.uuid].total }}
+                        Me gusta</p>
+                      <p style="font-size: 14px;" class="fw-light" v-else>0 Me gusta</p>
+                    </div>
+                  </div>
+                  <div class="justify-content-end mt-5">
+                    <div class="d-flex justify-content-between gap-2">
+                      <div v-if="likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}')">
+                        <button style="border: none; background-color: white;"
+                          class="fw-light publicaciones" @click="likespost(post.uuid, '{{ session('uuid') }}', true)">
+                          <i class="fas fa fa-heart text-danger"></i>
+                          Me gusta
+                        </button>
+                      </div>
+                      <div v-else>
+                        <div :class="{ 'd-none': likes[post.uuid] && likes[post.uuid].id_seller && likes[post.uuid].id_seller.includes('{{ session('uuid') }}') }">
+                          <button style="border: none; background-color: white;" class="fw-light publicaciones"
+                            @click="likespost(post.uuid, '{{ session('uuid') }}')">
+                            Me gusta
+                          </button>
+                        </div>
+                      </div>
+                      <button style="border: none; background-color: white;" class="fw-light publicaciones"
+                        @click="openDivComment(post.publications_id)">
+                        <i class="fas fa-comments" style="color: rgb(183, 193, 183);"></i>
+                        Comentar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-3">
-                @include('site.usertop')
-            </div>
-
-        </section>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          @include('site.usertop')
+        </div>
+      </section>
     </div>
+  </div>
+
 @endsection
 @push('child-scripts')
     <script>

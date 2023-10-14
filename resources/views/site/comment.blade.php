@@ -1,4 +1,5 @@
 @extends('site.layouts.master')
+@section('title', 'Comentarios')
 @push('styles')
 
 @endpush

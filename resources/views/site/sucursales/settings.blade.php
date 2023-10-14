@@ -1,4 +1,5 @@
 @extends('site.layouts.master')
+@section('title', 'Ajustes de la sucursal')
 @push('styles')
     <style>
         .fs-max {
@@ -50,50 +51,70 @@
     </style>
 @endpush
 @section('content')
-    <div id="vue">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <button class="custom-button btn">Publicaciones</button>
-                <button class="custom-button btn">Mi informacion</button>
-            </div>
-            <div class="col-md-8 mx-auto text-center mt-5">
-                @php
-                $id_branch = request('id_branch');
-                @endphp
-                <form action="ajustes_sucursal" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id_branch" value="{{ $id_branch }}">
-                    <h2 class="fs-4">Nuevo Publicacion</h2>
-                    <input type="text" placeholder="Titulo de la publicacion" class="custom-textarea" name="Tittle">
-                    <textarea class="custom-textarea fw-light text-sys mt-3" rows="5" name="contenido" maxlength="400"
-                        placeholder="Escribe tu post aquí"></textarea>
-                    <div>
-                        <label for="image1" class="custom-file-label btn    ">
-                            Subir Imagen 1
-                        </label>
-                        <input type="file" name="image1" id="image1" accept="image/*" onchange="previewImage(this, 'preview1')" class="custom-file-input">
-                        <img id="preview1" src="#" alt="" style="max-width: 100px; max-height: 100px;" class="img-fluid">
-                        <label for="image2" class="custom-file-label btn">
-                            Subir Imagen 2
-                        </label>
-                        <input type="file" name="image2" id="image2" accept="image/*" onchange="previewImage(this, 'preview2')" class="custom-file-input">
-                        <img id="preview2" src="#" alt="" style="max-width: 100px; max-height: 100px;">
-                        <label for="image3" class="custom-file-label btn">
-                            Subir Imagen 3
-                        </label>
-                        <input type="file" name="image3" id="image3" accept="image/*" onchange="previewImage(this, 'preview3')" class="custom-file-input">
-                        <img id="preview3" src="#" alt="" style="max-width: 100px; max-height: 100px;">
-                    </div>
-                    <button class="publish-button">
-                        <i class="icon fas fa-paper-plane"></i>
-                        Publicar
+<div id="vue" class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 mx-auto text-center p-5">
+            <form action="{{ route('insert_colors_branch') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id_branch" value="{{ $settings['id_branch'] }}">
+                <div class="form-group mt-5">
+                    <label for="colorPicker">Selecciona tu color principal:</label>
+                    <input type="color" class="form-control custom-textarea" id="colorPicker" name="color_1" value="{{ $settings['primary_color'] }}">
+                </div>
+                <div class="form-group mt-5">
+                    <label for="colorPicker">Selecciona tu color de texto:</label>
+                    <input type="color" class="form-control custom-textarea" id="colorPicker" name="color_2" value="{{ $settings['color_1'] }}">
+                </div>
+                <div class="form-group mt-5">
+                    <label for="colorPicker">Selecciona tu tercer color (opcional)</label>
+                    <input type="color" class="form-control custom-textarea" id="colorPicker" name="color_3" value="{{ $settings['color_2'] }}">
+                </div>
+                <div class="form-group mt-5">
+                    <label for="colorPicker">Selecciona tu foto de portada</label>
+                    <input type="file" class="form-control custom-textarea" id="colorPicker" name="portada">
+                </div>
+                <div class="form-group mt-5 text-center">
+                    <button class="btn btn-primary publish-button mt-3">
+                        ACEPTAR
                     </button>
-                </form>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 mx-auto text-center p-5">
 
-
-            </div>
+            <form action="ajustes_sucursal" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id_branch" value="{{ $settings['id_branch'] }}">
+                <h2 class="fs-4">Nueva Publicación</h2>
+                <input type="text" class="form-control custom-textarea" placeholder="Título de la publicación" name="Tittle">
+                <textarea class="form-control custom-textarea fw-light text-sys mt-3" rows="5" name="contenido" maxlength="400"
+                    placeholder="Escribe tu post aquí"></textarea>
+                <div class="mt-5">
+                    <label for="image1" class="btn custom-file-label">
+                        Subir Imagen 1
+                    </label>
+                    <input type="file" name="image1" id="image1" accept="image/*" onchange="previewImage(this, 'preview1')" class="custom-file-input">
+                    <img id="preview1" src="#" alt="" style="max-width: 100px; max-height: 100px;" class="img-fluid">
+                    <label for="image2" class="btn custom-file-label">
+                        Subir Imagen 2
+                    </label>
+                    <input type="file" name="image2" id="image2" accept="image/*" onchange="previewImage(this, 'preview2')" class="custom-file-input">
+                    <img id="preview2" src="#" alt="" style="max-width: 100px; max-height: 100px;">
+                    <label for="image3" class="btn custom-file-label">
+                        Subir Imagen 3
+                    </label>
+                    <input type="file" name="image3" id="image3" accept="image/*" onchange="previewImage(this, 'preview3')" class="custom-file-input">
+                    <img id="preview3" src="#" alt="" style="max-width: 100px; max-height: 100px;">
+                </div>
+                <button class="btn btn-primary publish-button mt-3">
+                    <i class="icon fas fa-paper-plane"></i>
+                    Publicar
+                </button>
+            </form>
         </div>
     </div>
+</div>
+
 @endsection
 @push('child-scripts')
 <script>

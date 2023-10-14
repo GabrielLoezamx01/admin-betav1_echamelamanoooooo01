@@ -18,12 +18,16 @@ class ViewSucursalController extends Controller
                 ->where('b.id_branch',$s->id_branch)
                 ->select('b.*','c.uuid as id_client','c.name','c.last_name','c.userName','c.photo')
                 ->get();
+                $r = DB::table('setting_lating_page')->where('id_branch', $request->id_branch)->first();
+
                 $json = [
                     'branch'   => $s,
                     'post'     => $publicaciones,
-                    'opinions' => $opinions
+                    'opinions' => $opinions,
+                    'ux'       => $r
                 ];
                 unset($publicaciones);
+                unset($r);
                 unset($opinions);
                 unset($s);
                 return view('site.sucursales.index')->with(compact('json'));

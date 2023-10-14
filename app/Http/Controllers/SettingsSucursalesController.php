@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\c;
 use Illuminate\Http\Request;
-use App\Models\PostBranch;
-
+use DB;
+use  App\Models\PostBranch;
 class SettingsSucursalesController extends Controller
 {
     /**
@@ -15,9 +15,15 @@ class SettingsSucursalesController extends Controller
      */
     public function index(Request $request)
     {
-        $post   = PostBranch::where('id_branch', $request->id_branch)->get();
-        $branch = $post->pluck('branch')->unique();
-        return view('site.sucursales.settings')->with(compact('post','branch'));
+        $r = DB::table('setting_lating_page')->where('id_branch', $request->id_branch)->first();
+        $settings = [
+            "id_branch"      => $request->id_branch,
+            "primary_color"  => $r->primary_color ?? '',
+            "color_1"        => $r->color_1 ?? '',
+            "color_2"        => $r->color_2 ?? '',
+            "wallpaper_1"    => $r->wallpaper_1  ?? '',
+        ];
+        return view('site.sucursales.settings')->with(compact('settings'));
     }
 
     /**

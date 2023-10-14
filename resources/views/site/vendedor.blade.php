@@ -1,4 +1,6 @@
 @extends('site.layouts.master')
+@section('title', 'Sucursales')
+
 @section('content')
     @push('styles')
         <style>

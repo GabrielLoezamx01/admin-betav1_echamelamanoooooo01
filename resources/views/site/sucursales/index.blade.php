@@ -1,6 +1,13 @@
 @extends('site.layouts.master')
+@section('title', $json['branch']->name_branch)
 @push('styles')
     <style>
+        p, h1, h2, h3, h4, h5, h6, label {
+            color: {{ $json['ux']->color_1 ?? '' }};
+        }
+        body{
+            background-color: {{ $json['ux']->primary_color ?? ''}};
+        }
         .header-img {
             background-image: url('{{ asset('storage/sucursales/' . $json['branch']->image) }}');
             background-size: cover;
@@ -179,11 +186,10 @@
                                 <div class="mt-5">
                                     <div class="d-flex justify-content-between gap-2">
                                         <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones"><i class="fas fa-comments"
-                                                style="color:rgb(183, 193, 183);"></i>
+                                            class="fw-light publicaciones btn"><i class="fas fa-comments"></i>
                                             Comentarios</button>
                                         <button style="border: none; background-color: white;"
-                                            class="fw-light publicaciones"><i class="fas fa-share"
+                                            class="fw-light publicaciones btn"><i class="fas fa-share"
                                                 style="color:rgb(183, 193, 183);"></i>
                                             Compartir</button>
                                     </div>
