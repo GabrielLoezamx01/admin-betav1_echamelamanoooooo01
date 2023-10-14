@@ -123,10 +123,8 @@ class ClientsController extends Controller
                 return view('site.index')->with(compact('branch'));
             }
             if(session('type_user') == 'C'){
-                $post = DB::table('post_branch')
-                ->join('branch','branch.id_branch','=','post_branch.id_branch')
-                ->orderBy('fecha', 'desc')->get();
-                return view('site.index2')->with(compact('post'));
+
+                return view('site.index2');
              }
         }
     }

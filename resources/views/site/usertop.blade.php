@@ -15,9 +15,12 @@
                                 @{{ sucursal.name }}
                             </label>
                             <div class="text-center mt-2">
-                                <button class="btn btn-warning">
-                                    Ver
-                                </button>
+                                <a href="sucursal?id_branch=">
+                                    <button class="btn btn-warning">
+                                        Ver
+                                    </button>
+                                </a>
+
                             </div>
                         </div>
                     </div>

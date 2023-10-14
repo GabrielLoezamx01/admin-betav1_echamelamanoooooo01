@@ -11,6 +11,8 @@ use App\Http\Controllers\ViewSucursalController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\SettingsSucursalesController;
 use App\Http\Controllers\ColorsController;
+use App\Http\Controllers\SharePostController;
+
 
 
 
