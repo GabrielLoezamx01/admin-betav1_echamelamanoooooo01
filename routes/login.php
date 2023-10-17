@@ -6,3 +6,4 @@ Route::get('/', function () {
     return view('login');
 });
 Route::post('login', [LoginController::class,'login'])->name('login');
+Route::view('/', 'Login.login');

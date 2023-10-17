@@ -123,8 +123,7 @@ class ClientsController extends Controller
                 return view('site.index')->with(compact('branch'));
             }
             if(session('type_user') == 'C'){
-
-                return view('site.index2');
+                return view('clients.bienvenido');
              }
         }
     }

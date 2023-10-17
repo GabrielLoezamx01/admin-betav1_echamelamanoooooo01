@@ -1,4 +1,4 @@
-@extends('site.layouts.master')
+@extends('layouts.master')
 @section('title', 'Bienvenido')
 @section('content')
     @push('styles')
@@ -105,55 +105,106 @@
                 color: white;
                 cursor: pointer;
             }
+
+            .custom-img {
+                width: 150px;
+                /* El tamaño deseado */
+                height: 150px;
+                /* El tamaño deseado */
+                object-fit: cover;
+                /* Esto mantendrá la imagen completamente visible */
+            }
+
+            .custom-img-c {
+                width: 150px;
+                height: 400px;
+                object-fit: cover;
+            }
+            .gradiant-post{
+                border-radius: 29px;
+                background: linear-gradient(180deg, rgba(36, 159, 17, 0.15) 0%, rgba(0, 0, 0, 0.00) 100%);
+
+                box-shadow: 0px 12px 11px 0px rgba(0, 0, 0, 0.11);
+            }
         </style>
     @endpush
-    <div id="vue">
-        <section class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-7">
-                <div class="border-0 card card-body p-3 shadow bg-white rounded-3">
-                    <div class="p-2 mt-5 m-4">
-                        <p class="card-title fs-5 text-title fw-light">
-                            <i class="fas fa-edit"></i> Nueva Publicación
-                        </p>
-                        <div class="mb-3 mt-3 textarea-container">
-                            <textarea class="custom-textarea fw-light text-sys" rows="5" v-model="newPost" maxlength="400"
-                                placeholder="Escribe tu post aquí"></textarea>
-                        </div>
-                        <p class="card-title fs-5 text-title fw-light mt-5">
-                            <i class="fas fa-cogs"></i> Servicio
-                        </p>
-                        <div class="input-container">
-                            <select v-model="servicies" class="custom-select custom-textarea" id="servicies">
-                                <option class="select-option" v-for="select in apiServicios" :value="select.id">
-                                    @{{ select.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="button-container">
-                            <button class="publish-button" @click="postnew()">
-                                <i class="icon fas fa-paper-plane"></i> Publicar
-                            </button>
-                        </div>
+
+    <section class="row">
+        <div class="col p-5 text-center">
+            <h1 class="fs-1">Publicaciones de la comunidad <span class="fw-bold">Echamelamano</span>.</h1>
+        </div>
+    </section>
+
+    <div class="row" id="vue">
+        <div class="offset-md-1 col-md-6">
+            <div v-for="post in posts" class="mt-5 gradiant-post">
+                <div class="row align-items-center m-5">
+                    <div class="col-md-3 col-sm-6 text-center mt-5">
+                        <img :src="'storage/sucursales/' + post.image" alt="Imagen de la sucursal"
+                            class="rounded-circle img-fluid custom-img shadow">
+                    </div>
+                    <div class="col-md-6 col-sm-6 mt-5">
+                        <a :href="'sucursal?id_branch=' + post.id_branch">
+                            <h2 class="fs-2 fw-bold text-center text-sm-start ">@{{ post.name_branch }}</h2>
+                        </a>
+                        {{-- <address class="fw-light">@{{ post.address }} , @{{ post.city }} @{{ post.postal_code }}
+                        </address> --}}
+                    </div>
+                    <div class="col-md-3 col-12 mt-3 text-end">
+                        <button class="btn elegant-button">Seguir</button>
                     </div>
                 </div>
-                <div class="text-center">
-                    <h2>Últimas publicaciones de la comunidad Echamelamano.</h2>
-                    @{{ posts }}
-                </div>
-                <div class="modal mt-5 text-center animate__animated animate__fadeInDown" id="imageModal">
-                    <div class="mt-5"></div>
-                    <span class="close" onclick="closeImageModal()">&times;</span>
-                    <img class="img-fluid mt-5" id="modalImage">
+                <div class="row">
+                    <div class="offset-md-3 col-md-8">
+                        <article>
+                            <h3 class="fw-bold">@{{ post.Tittle }}</h3>
+                            <p class="mt-3">@{{ post.contenido }}</p>
+                        </article>
+                        <div id="carouselExample" class="carousel slide carousel-fade carousel-control-bottom shadow" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div v-for="(image, index) in [post.img_1, post.img_2, post.img_3]" :key="index">
+                                    <!-- Filtra imágenes vacías -->
+                                    <div v-if="image" :class="['carousel-item', index === 0 ? 'active' : '']">
+                                        <!-- Aplica un estilo para que todas las imágenes tengan el mismo tamaño -->
+                                        <img :src="'storage/postSucursales/' + image"
+                                            class="d-block w-100 img-fluid custom-img-c" :alt="'Imagen ' + (index + 1)">
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                              </a>
+                              <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Siguiente</span>
+                              </a>
+                        </div>
+                        <div class="row p-5">
+                            <div class="col">
+                                <button style="border: none; background-color: white;" class="fw-light publicaciones"
+                                    @click="likespost(post.uuid, '{{ session('uuid') }}', true)">
+                                    <i class="fas fa fa-heart"></i>
+                                    Me gusta
+                                </button>
+                            </div>
+                            <div class="col text-end">
+                                <button style="border: none; background-color: white;" class="fw-light publicaciones"
+                                    @click="sharedPost(post.id_post)">
+                                    <i class="fas fa fa-share"></i>
+                                    Compartir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-md-3">
-                @include('site.usertop')
-            </div>
-        </section>
+        </div>
+        <div class="col-md-3">
+            @include('site.usertop')
+        </div>
     </div>
-
-
 @endsection
 @push('child-scripts')
     <script>
@@ -173,8 +224,8 @@
     <script>
         var serivicios_api = 'api_servicios';
         var api_sucursales = 'api_sucursales';
-        var api            = 'Api_publications'
-        const api_post     = 'api_branch_post';
+        var api = 'Api_publications'
+        const api_post = 'api_branch_post';
         {
             new Vue({
                 el: '#vue',

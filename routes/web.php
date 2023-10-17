@@ -18,12 +18,23 @@ use App\Http\Controllers\postalcodes;
 |
 */
 
+/*
+*   Login routes
+*/
+include('login.php');
+
+
+
 Route::resource('echamelamanoApi_Postal', postalcodes::class);
 
-include('login.php');
 include('site.php');
 
-Route::view('/', 'site.login');
+
+
+
+
+
+
 Route::view('page', 'admin.page');
 /*
 * Categoria views

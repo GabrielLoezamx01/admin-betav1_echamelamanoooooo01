@@ -1,12 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); */
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+
 body {
-    /* background-image: url('{{ asset('img/body.png') }}'); */
     background-size: cover;
-    font-family: 'Poppins', sans-serif;
     background-position: center center;
     background-repeat: no-repeat;
     color: #333333;
+    font-family: 'DM Sans', sans-serif;
 }
+
 .elegant-button {
     display: inline-block;
     padding: 12px 24px;
@@ -136,7 +139,7 @@ b,
 textarea,
 select,
 checkbox {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 p {
@@ -148,8 +151,8 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "Poppins", sans-serif;
-    color: #16450c;
+    font-family: 'DM Sans', sans-serif;
+
 }
 
 .bg-primaryechame {
@@ -586,7 +589,7 @@ a:active {
 }
 
 .publish-button {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 500;
     font-size: 16px;
     letter-spacing: 0.5px;
@@ -633,7 +636,7 @@ a:active {
 }
 
 .custom-textarea {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     font-size: 14px;
     padding: 10px;
@@ -668,7 +671,7 @@ a:active {
 }
 
 .custom-select {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     font-size: 14px;
     border: 1px solid #ccc;
